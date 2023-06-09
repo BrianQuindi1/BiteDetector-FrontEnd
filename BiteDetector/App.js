@@ -4,6 +4,9 @@ import { StyleSheet, Text, View,Image } from 'react-native';
 import {Camera, CameraType} from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import Button from './src/components/Button';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {} from '@fortawesome/free-solid-svg-icons';
+
 
 export default function App() {
   const [hasCameraPermission, setHasCameraPermission]= useState(null);
@@ -82,19 +85,21 @@ export default function App() {
         {image ? 
         <View style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: 'space-between', 
           paddingHorizontal: 50
         }}>
           <Button title={"Re-take"} icon="retweet" onPress={() => setImage(null)}/>
-          <Button title={"Save"} icon="check"  onPress={saveImage}/>
+          <Button title={"Save"} icon="check" onPress={saveImage}/>
         </View>
         :
-        <Button title={' Take a Picture'} icon="camera" onPress={takePicture}/>
+        <Button title={'Escanear picadura'} icon={'camera'} onPress={takePicture}/>
         }
       </View>
     </View>
   );
 }
+
+//<FontAwesomeIcon icon="fa-light fa-magnifying-glass" style={{color: "#AEDD2B",}} />
 
 const styles = StyleSheet.create({
   container: {

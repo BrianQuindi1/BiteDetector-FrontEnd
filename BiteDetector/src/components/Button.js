@@ -1,6 +1,8 @@
 import * as react from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Entypo} from '@expo/vector-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {} from '@fortawesome/free-solid-svg-icons';
 
 export default function Button ({title,onPress,icon,color}){
     return(
