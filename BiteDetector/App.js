@@ -1,12 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import {Camera, CameraType} from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import Button from './src/components/Button';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {} from '@fortawesome/free-solid-svg-icons';
-
+import Lupa from './assets/Lupa.png'
 
 export default function App() {
   const [hasCameraPermission, setHasCameraPermission]= useState(null);
@@ -80,6 +78,7 @@ export default function App() {
       </Camera>
       :
       <Image source={{uri:image}} style={styles.camera}/>
+      
       }
       <View>
         {image ? 
@@ -92,7 +91,11 @@ export default function App() {
           <Button title={"Save"} icon="check" onPress={saveImage}/>
         </View>
         :
-        <Button title={'Escanear picadura'} icon={'camera'} onPress={takePicture}/>
+        <View style={styles.container}>
+          <Button title={'Escanear picadura'}  onPress={takePicture}/>
+            <Image source={Lupa} style={styles.lupa}></Image>
+        </View>
+        
         }
       </View>
     </View>
@@ -112,6 +115,13 @@ const styles = StyleSheet.create({
   camera:{
     flex:1,
     borderRadius:15,
+  },
+  lupa:{
+    width: 60, 
+    height:60, 
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign:'center',
   }
 
 });
