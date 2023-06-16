@@ -9,9 +9,9 @@ import {Camera, CameraType, WhiteBalance} from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import Boton from './src/components/Boton';
 import Lupa from './assets/Lupa.png'
-import contactosDeEmergencia from './screen'
-import historialPicaduras from './screen'
-import iniciarSesion from './screen'
+import contactosDeEmergencia from './screens/contactosDeEmergencia'
+import historialPicaduras from './screens/historialPicaduras'
+import iniciarSesion from './screens/iniciarSesion'
 /*import contactosDeEmergencia from './assets/contactosDeEmergencia.png'
 import historialPicaduras from './assets/historialPicaduras.png'
 import iniciarSesion from './assets/iniciarSesion.png'
