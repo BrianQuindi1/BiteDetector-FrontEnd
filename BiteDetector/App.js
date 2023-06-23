@@ -1,36 +1,52 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 //import { SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
-import { DrawerItemList, createDrawerNavigator } from "@react-navigation/drawer";
-import "react-native-gesture-handler";
+// import { DrawerItemList, createDrawerNavigator } from "@react-navigation/drawer";
+//import "react-native-gesture-handler";
 import {Camera, CameraType, WhiteBalance} from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import Boton from './src/components/Boton';
 import Lupa from './assets/Lupa.png'
-import contactosDeEmergencia from './screens/contactosDeEmergencia'
-import historialPicaduras from './screens/historialPicaduras'
-import iniciarSesion from './screens/iniciarSesion'
+import contactosDeEmergencia from './src/screens/contactosDeEmergencia'
+import historialPicaduras from './src/screens/historialPicaduras'
+import iniciarSesion from './src/screens/iniciarSesion'
+import Tabs from "./src/Tabs";
+
+export default function App() {
+  return <Tabs />;
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
 /*import contactosDeEmergencia from './assets/contactosDeEmergencia.png'
 import historialPicaduras from './assets/historialPicaduras.png'
 import iniciarSesion from './assets/iniciarSesion.png'
 import menu from './assets/menu.png'*/
-import {
-  SimpleLineIcons,
+/*import {
+  //SimpleLineIcons,
   MaterialIcons,
-  MaterialCommunityIcons,
-  FontAwesome
-} from "@expo/vector-icons";
+  //MaterialCommunityIcons,
+  //FontAwesome
+} from "@expo/vector-icons";*/
 
-
-export default function App() {
+//aca arranca la camara
+/*export default function App() {
+  
   const [hasCameraPermission, setHasCameraPermission]= useState(null);
   const [image, setImage]= useState(null);
   const [type, setType]= useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const cameraRef = useRef(null);
-  const Drawer = createDrawerNavigator();
+  //const Drawer = createDrawerNavigator();
 
   useEffect(() =>{
     (async () =>{
@@ -69,7 +85,7 @@ export default function App() {
  }
 
   return (
-    <View style={styles.container}>
+   <View style={styles.container}>
       {!image ?
       <Camera
         style={styles.camera}
@@ -118,8 +134,8 @@ export default function App() {
         }
 
         
-        <NavigationContainer>
-          <Drawer.Navigator
+      {/* <NavigationContainer>
+       <Drawer.Navigator
             drawerContent={
               (props) => {
                 return (
@@ -201,13 +217,14 @@ export default function App() {
                 drawerLabel: "Iniciar Sesion",
                 title: "Iniciar Sesion",
                 drawerIcon: () => (
-                  <MaterialIcons name="Login" size={20} color="#808080" />
+                  <MaterialIcons name="login" size={20} color="#808080" />
                 )
               }}
               component={iniciarSesion}
             />
-          </Drawer.Navigator>
-        </NavigationContainer>
+          </Drawer.Navigator> 
+            </NavigationContainer>*//*}
+        
       </View>
     </View>
   );
@@ -237,3 +254,4 @@ const styles = StyleSheet.create({
   }
 
 });
+*/
