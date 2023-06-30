@@ -1,7 +1,14 @@
 import React from 'react'
+import { Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function contactosDeEmergencia() {
+const contactosDeEmergencia = () => {
+  const navigation = useNavigation();
   return (
-    <div>contactosDeEmergencia</div>
+    <View>
+      <Text>Este es el contactosDeEmergencia</Text>
+    </View>
   )
 }
+
+export default contactosDeEmergencia

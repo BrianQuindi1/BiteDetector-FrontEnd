@@ -1,15 +1,19 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen1 from '../screens/HomeScreen1';
-import HomeScreen2 from '../screens/HomeScreen2';
+import contactosDeEmergencia from '../screens/contactosDeEmergencia';
+import historialPicaduras from '../screens/historialPicaduras';
+import iniciarSesion from '../screens/iniciarSesion';
+import scanner from '../screens/scanner';
 
 const HomeStackScreen = () => {
   const HomeStack = createNativeStackNavigator();
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="Home1" component={HomeScreen1}/>
-      <HomeStack.Screen name="Home2" component={HomeScreen2}/>
+      <HomeStack.Screen name="scanner" component={scanner}/>
+      <HomeStack.Screen name="contactosDeEmergencia" component={contactosDeEmergencia}/>
+      <HomeStack.Screen name="historialPicaduras" component={historialPicaduras}/>
+      <HomeStack.Screen name="iniciarSesion" component={iniciarSesion}/>
     </HomeStack.Navigator>
   );
 };

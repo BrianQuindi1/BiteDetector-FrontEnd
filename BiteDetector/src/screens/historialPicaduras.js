@@ -1,7 +1,14 @@
 import React from 'react'
+import { Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function historialPicaduras() {
+const historialPicaduras = () => {
+  const navigation = useNavigation();
   return (
-    <div>historialPicaduras</div>
+    <View>
+      <Text>Este es el historialPicaduras</Text>
+    </View>
   )
 }
+
+export default historialPicaduras
