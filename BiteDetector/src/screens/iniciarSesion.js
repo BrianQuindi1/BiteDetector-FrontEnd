@@ -16,7 +16,7 @@ const iniciarSesion = () => {
       <SafeAreaView>
         <Text>iniciarSesion</Text>
         <TextInput 
-          
+          style={styles.inputText}
           onchangeText={email}
           placeholder="Ingrese su mail..."
           value={email}
@@ -24,7 +24,7 @@ const iniciarSesion = () => {
         />
 
         <TextInput 
-          
+          style={styles.inputText}
           onchangeText={contraseña}
           placeholder="Ingrese su contraseña..."
           value={contraseña}
@@ -54,4 +54,10 @@ const styles = StyleSheet.create({
       width: 179,
       height: 179,
   },
+  inputText:{
+    height: 40,
+      margin: 12,
+      borderWidth: 1,
+      padding: 10
+  }
 });
