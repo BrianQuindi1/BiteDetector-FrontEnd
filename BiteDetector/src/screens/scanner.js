@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
         textAlign:'center',
         position: 'absolute',
         marginLeft: 159,
-        
     }
     
 });
