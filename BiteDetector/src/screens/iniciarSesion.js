@@ -1,12 +1,13 @@
 import React, {text} from 'react'
 import { StyleSheet, SafeAreaView, TextInput, Button, email, contraseña, Pressable, Text, View, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 import { Formik, formik } from 'formik';
 import Logo from '../../assets/Logo.png'
 
 const iniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
   const [number, onchangeNumber] = React.useState('');
+  const navigation = useNavigation();
   return (
     <Formik initialValues={{
       email:'',
@@ -19,6 +20,7 @@ const iniciarSesion = () => {
             source={Logo} style={styles.logo}
           />
         </View>
+
         <TextInput 
           style={styles.inputText1}
           onchangeText={email}
@@ -32,6 +34,7 @@ const iniciarSesion = () => {
           onchangeText={contraseña}
           placeholder="Ingrese su contraseña..."
           value={contraseña}
+          secureTextEntry={true}          
           name="contraseña"
         />
 
@@ -39,13 +42,23 @@ const iniciarSesion = () => {
           style={styles.boton} 
           title='Iniciar Sesion' 
           color= '#AEDD2B'
+        />
+
+
+        <Text>¿Todavia no tienes cuenta?</Text>
+          <Button 
+            style={styles.boton} 
+            title='Registrarse' 
+            color='#066699' 
+            onPress={() => navigation.navigate("Registrarse")}
           />
+
       </SafeAreaView>
     </Formik>
   )
 }
 
-export default iniciarSesion
+export default iniciarSesion;
 
 const styles = StyleSheet.create({
   container: {
@@ -83,8 +96,17 @@ const styles = StyleSheet.create({
       padding: 10,
   },
   boton: {
+    alignItems: 'center',
+    borderRadius: 15,
+    //backgroundColor: ''
+    paddingHorizontal: 30, //cambia el tamaño del boton en forma horizontal
+    paddingVertical: 10,
+    margin: 80,
+    shadowRadius: 15,
+    shadowColor: '#2C4521',
+    shadowOpacity: 0.6,
+    elevation: 5,
     textAlign:'center',
     marginTop: 200,
-    borderRadius: 10
   }
 });

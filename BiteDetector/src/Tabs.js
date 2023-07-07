@@ -8,19 +8,18 @@ import contactosDeEmergencia from './screens/contactosDeEmergencia';
 import historialPicaduras from './screens/historialPicaduras';
 import iniciarSesion from './screens/iniciarSesion';
 import scanner from './screens/scanner';
-
-//import { ControlCameraIcon } from '@material-ui/icons';
+import Registrarse from './screens/Registrarse.js';
 
 
 const Tabs = () => {
   const Tab = createBottomTabNavigator();
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }} style={styles.nav}>
-        <Tab.Screen name="Scanner" /*style={styles.logos} icon={ControlCameraIcon}*/ component={scanner}/>
+      <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Screen name="Scanner" component={scanner}/>
         <Tab.Screen name="Contactos" component={contactosDeEmergencia}/>
         <Tab.Screen name="Historial" component={historialPicaduras}/>
-        <Tab.Screen name="Perfil" component={iniciarSesion}/>
+        <Tab.Screen name="Perfil" component={HomeStackScreen}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
