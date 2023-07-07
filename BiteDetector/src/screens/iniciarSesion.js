@@ -1,12 +1,14 @@
-import React, {text} from 'react'
-import { StyleSheet, SafeAreaView, TextInput, Button, email, contraseña, Pressable, Text, View, Image } from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, SafeAreaView, TextInput, Button, Pressable, Text, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Formik, formik } from 'formik';
+import { Formik } from 'formik';
 import Logo from '../../assets/Logo.png'
 
 const iniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
   const [number, onchangeNumber] = React.useState('');
+  const [email, setEmail] = useState("");
+  const [contraseña, setContraseña] = useState("");
   const navigation = useNavigation();
   return (
     <Formik initialValues={{
@@ -23,7 +25,7 @@ const iniciarSesion = () => {
 
         <TextInput 
           style={styles.inputText1}
-          onchangeText={email}
+          onChangeText={setEmail}
           placeholder="Ingrese su mail..."
           value={email}
           name="email"
@@ -31,7 +33,7 @@ const iniciarSesion = () => {
 
         <TextInput 
           style={styles.inputText2}
-          onchangeText={contraseña}
+          onChangeText={setContraseña}
           placeholder="Ingrese su contraseña..."
           value={contraseña}
           secureTextEntry={true}          
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
   logo:{
       alignItems: 'center',
       justifyContent: 'center',
-      textAlign:'center',
+      //textAlign:'center',
       position: 'absolute',
       //marginLeft: 100,
       width: 179,
