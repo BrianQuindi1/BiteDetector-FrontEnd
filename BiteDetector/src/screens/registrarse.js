@@ -97,7 +97,7 @@ const Registrarse = () => {
         />
         <TouchableOpacity>
 
-
+          {/*<BotonLog>*/}
           <Button onPress={handleSubmit}></Button>
 
         </TouchableOpacity>
