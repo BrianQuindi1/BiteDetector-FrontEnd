@@ -31,11 +31,19 @@ const Registrarse = () => {
 
   const handleSubmit = async () => {
     try {
-      let objeto = {
+      if(contraseña === confirmarContraseña){
+        let objeto = {
           Nombre: nombre,
           Mail: email,
           Contraseña: contraseña
       }
+      }
+      else
+      {
+        alert("Las contraseñas no son iguales, por favor confirme de nuevo la contraseña.")
+      }
+     
+      
       console.log(objeto);
 
 
@@ -46,6 +54,8 @@ const Registrarse = () => {
     }
   }
 
+  //Hacer validaciones
+
 
   return (
     <Formik initialValues={{
@@ -53,6 +63,7 @@ const Registrarse = () => {
       contraseña:'',
       nombreUsuario:'',
       confirmarContraseña:''
+      
     }}
     >
       <SafeAreaView>
