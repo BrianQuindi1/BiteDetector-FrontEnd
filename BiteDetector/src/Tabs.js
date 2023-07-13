@@ -6,9 +6,9 @@ import SettingsStackScreen from "./stacks/SettingsStackScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import contactosDeEmergencia from './screens/contactosDeEmergencia';
 import historialPicaduras from './screens/historialPicaduras';
-import iniciarSesion from './screens/iniciarSesion';
-import scanner from './screens/scanner';
-import Registrarse from './screens/Registrarse.js';
+import iniciarSesion from './screens/iniciarSesion.js';
+import scanner from './screens/scanner.js';
+import Registrarse from "./screens/registrarse.js";
 
 
 const Tabs = () => {

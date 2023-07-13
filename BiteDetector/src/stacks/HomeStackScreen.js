@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import historialPicaduras from '../screens/historialPicaduras';
 import scanner from '../screens/scanner';*/
 import iniciarSesion from '../screens/iniciarSesion';
-import Registrarse from '../screens/Registrarse.js';
+import Registrarse from '../screens/registrarse.js';
 import { useNavigation } from '@react-navigation/native';
 
 const HomeStackScreen = () => {
