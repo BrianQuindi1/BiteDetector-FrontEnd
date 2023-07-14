@@ -30,13 +30,15 @@ const Registrarse = () => {
 */
 
   const handleSubmit = async () => {
+    let objeto;
     try {
       if(contraseña === confirmarContraseña){
-        let objeto = {
+         objeto = {
           Nombre: nombre,
           Mail: email,
           Contraseña: contraseña
       }
+      const response = await axios.post(API.ApiUsuario + "CrearUsuario", objeto);
       }
       else
       {
@@ -47,7 +49,7 @@ const Registrarse = () => {
       console.log(objeto);
 
 
-      const response = await axios.post(API.ApiUsuario + "CrearUsuario", objeto);
+      
       console.log(response.data);
     } catch (error) {
       console.error(error);

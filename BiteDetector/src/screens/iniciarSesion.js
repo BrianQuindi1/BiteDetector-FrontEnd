@@ -10,6 +10,25 @@ const iniciarSesion = () => {
   const [email, setEmail] = useState("");
   const [contraseña, setContraseña] = useState("");
   const navigation = useNavigation();
+
+
+  
+    let validarSesion = async () => {
+      
+      const response = await axios.post(API.ApiUsuario + "IniciarSesion", objeto);
+    console.log(response.data);
+    
+
+    if (response.data.token)
+    {
+      //sesion valida --> mandarlo al perfil
+    } 
+    else
+    {
+      alert("El email o contraseña son invalidos")
+    }
+    }
+
   return (
     <Formik initialValues={{
       email:'',
@@ -44,6 +63,7 @@ const iniciarSesion = () => {
           style={styles.boton} 
           title='Iniciar Sesion' 
           color= '#AEDD2B'
+          onPress={validarSesion()}
         />
 
 
