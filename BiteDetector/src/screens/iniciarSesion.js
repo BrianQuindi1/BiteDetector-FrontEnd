@@ -3,6 +3,8 @@ import { StyleSheet, SafeAreaView, TextInput, Button, Pressable, Text, View, Ima
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import Logo from '../../assets/Logo.png'
+import axios from 'axios';
+import API from '../API';
 
 const iniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
@@ -14,19 +16,24 @@ const iniciarSesion = () => {
 
   
     let validarSesion = async () => {
-      
-      const response = await axios.post(API.ApiUsuario + "IniciarSesion", objeto);
+      let objeto = {
+        Mail: email,
+        Contraseña: contraseña};
+      const response = await axios.post(API.ApiUsuario + "IniciarSesion", objeto)
+      .then(alert("Hola"));
     console.log(response.data);
     
 
     if (response.data.token)
     {
+      //alert("Hola");
       //sesion valida --> mandarlo al perfil
     } 
     else
     {
       alert("El email o contraseña son invalidos")
     }
+    
     }
 
   return (
@@ -59,19 +66,21 @@ const iniciarSesion = () => {
           name="contraseña"
         />
 
-        <Button
+
+       <Button
           style={styles.boton} 
-          title='Iniciar Sesion' 
+          title="Iniciar Sesion" 
           color= '#AEDD2B'
           onPress={validarSesion()}
-        />
+          />
 
+       
 
         <Text>¿Todavia no tienes cuenta?</Text>
           <Button 
             style={styles.boton} 
-            title='Registrarse' 
-            color='#066699' 
+            title="Registrarse" 
+            color="#066699"
             onPress={() => navigation.navigate("Registrarse")}
           />
 

@@ -8,12 +8,12 @@ import API from '../API';
 
 const Registrarse = () => {
   const [text, onchangeText] = React.useState('Useless text');
-  const [number, onchangeNumber] = React.useState('');
+  //const [number, onchangeNumber] = React.useState('');
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [confirmarContraseña, setConfirmarContraseña] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const [items, setItems] = useState([]);
+  //const [items, setItems] = useState([]);
   
 
   /*useEffect(() => {
@@ -30,16 +30,20 @@ const Registrarse = () => {
 */
 
   const handleSubmit = async () => {
-    let objeto;
-    try {
+      let objeto;
       if(contraseña === confirmarContraseña){
          objeto = {
           Nombre: nombre,
           Mail: email,
           Contraseña: contraseña
       }
-      const response = await axios.post(API.ApiUsuario + "CrearUsuario", objeto);
+      let url = API.ApiUsuario + "CrearUsuario";
+      console.log(url);
+      console.log(objeto);
+      const response = await axios.post( url, objeto)
+      .then(alert("hola"))
       }
+      
       else
       {
         alert("Las contraseñas no son iguales, por favor confirme de nuevo la contraseña.")
@@ -51,12 +55,9 @@ const Registrarse = () => {
 
       
       console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+   
   }
 
-  //Hacer validaciones
 
 
   return (
@@ -111,7 +112,7 @@ const Registrarse = () => {
         <TouchableOpacity>
 
           {/*<BotonLog>*/}
-          <Button onPress={handleSubmit}></Button>
+          <Button onPress={handleSubmit} title="Confirmar" >  </Button>
 
         </TouchableOpacity>
         {/*<View style={styles.container}>
@@ -161,6 +162,18 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  boton: {
+    alignItems: 'center',
+    borderRadius: 15,
+    paddingHorizontal: 10, //cambia el tamaño del boton en forma horizontal
+    paddingVertical: 5,
+    margin: 80,
+    shadowRadius: 15,
+    shadowColor: '#2C4521',
+    shadowOpacity: 0.6,
+    elevation: 5,
+    marginTop: 20,
   },
  /* boton: {
     alignItems: 'center',
