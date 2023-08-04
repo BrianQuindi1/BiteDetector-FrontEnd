@@ -16,19 +16,30 @@ const IniciarSesion = () => {
 
   
     let validarSesion = async () => {
-      let objeto = {
-        Mail: email,
-        Contraseña: contraseña};
-      const response = await axios.post(API.ApiUsuario + "IniciarSesion", objeto);
-      //.then(alert("Hola"));
-    console.log(response.data);
+      let objeto =
+        {
+          Mail: email,
+          Password: contraseña
+        };
+      let url = API.ApiUsuario + "login";
+      console.log(objeto);
+      console.log(url);
+      const response = await axios.post(url, objeto)
+      .then(
+        (response) => {
+          console.log(response.status, response.data);
+        }
+      )
+      .catch(
+        (error) => console.log(error)
+      );
     
 
     if (response.data.token)
     {
       //alert("Hola");
       //sesion valida --> mandarlo al perfil
-      //aymc storage
+      //async storage  
     } 
     else
     {

@@ -35,7 +35,7 @@ const Registrarse = () => {
          objeto = {
           Nombre: nombre,
           Mail: email,
-          Contraseña: contraseña
+          Password: contraseña
       }
       let url = API.ApiUsuario + "CrearUsuario";
       console.log(url);
@@ -112,7 +112,7 @@ const Registrarse = () => {
         <TouchableOpacity>
 
           {/*<BotonLog>*/}
-          <Button onPress={handleSubmit} title="Confirmar" >  </Button>
+          <Button onPress={handleSubmit} title="Confirmar"></Button>
 
         </TouchableOpacity>
         {/*<View style={styles.container}>
