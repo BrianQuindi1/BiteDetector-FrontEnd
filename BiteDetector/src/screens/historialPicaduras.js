@@ -1,15 +1,16 @@
 import React from 'react'
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Card from '../components/Card';
 
-const historialPicaduras = () => {
+const HistorialPicaduras = () => {
   
   const navigation = useNavigation();
   return (
     <View>
-      <Text>Este es el historialPicaduras</Text>
+      <Card/>
     </View>
   )
 }
 
-export default historialPicaduras
+export default HistorialPicaduras

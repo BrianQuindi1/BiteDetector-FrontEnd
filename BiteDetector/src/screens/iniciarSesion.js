@@ -6,7 +6,7 @@ import Logo from '../../assets/Logo.png'
 import axios from 'axios';
 import API from '../API';
 
-const iniciarSesion = () => {
+const IniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
   const [number, onchangeNumber] = React.useState('');
   const [email, setEmail] = useState("");
@@ -19,8 +19,8 @@ const iniciarSesion = () => {
       let objeto = {
         Mail: email,
         Contraseña: contraseña};
-      const response = await axios.post(API.ApiUsuario + "IniciarSesion", objeto)
-      .then(alert("Hola"));
+      const response = await axios.post(API.ApiUsuario + "IniciarSesion", objeto);
+      //.then(alert("Hola"));
     console.log(response.data);
     
 
@@ -28,6 +28,7 @@ const iniciarSesion = () => {
     {
       //alert("Hola");
       //sesion valida --> mandarlo al perfil
+      //aymc storage
     } 
     else
     {
@@ -71,7 +72,7 @@ const iniciarSesion = () => {
           style={styles.boton} 
           title="Iniciar Sesion" 
           color= '#AEDD2B'
-          onPress={validarSesion()}
+          onPress={validarSesion}
           />
 
        
@@ -89,7 +90,7 @@ const iniciarSesion = () => {
   )
 }
 
-export default iniciarSesion;
+export default IniciarSesion;
 
 const styles = StyleSheet.create({
   container: {

@@ -144,7 +144,6 @@ const styles = StyleSheet.create({
   logo:{
     alignItems: 'center',
     justifyContent: 'center',
-    textAlign:'center',
     position: 'absolute',
     //marginLeft: 100,
     width: 179,

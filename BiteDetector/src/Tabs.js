@@ -4,11 +4,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStackScreen from "./stacks/HomeStackScreen";
 import SettingsStackScreen from "./stacks/SettingsStackScreen";
 import { NavigationContainer } from "@react-navigation/native";
-import contactosDeEmergencia from './screens/contactosDeEmergencia';
-import historialPicaduras from './screens/historialPicaduras';
-import iniciarSesion from './screens/iniciarSesion.js';
-import scanner from './screens/scanner.js';
-import Registrarse from "./screens/registrarse.js";
+import ContactosDeEmergencia from './screens/ContactosDeEmergencia';
+import HistorialPicaduras from './screens/HistorialPicaduras';
+import Scanner from './screens/Scanner.js';
 
 
 const Tabs = () => {
@@ -16,9 +14,9 @@ const Tabs = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Scanner" component={scanner}/>
-        <Tab.Screen name="Contactos" component={contactosDeEmergencia}/>
-        <Tab.Screen name="Historial" component={historialPicaduras}/>
+        <Tab.Screen name="Scanner" component={Scanner}/>
+        <Tab.Screen name="Contactos" component={ContactosDeEmergencia}/>
+        <Tab.Screen name="Historial" component={HistorialPicaduras}/>
         <Tab.Screen name="Perfil" component={HomeStackScreen}/>
       </Tab.Navigator>
     </NavigationContainer>

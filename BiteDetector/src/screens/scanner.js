@@ -6,7 +6,7 @@ import * as MediaLibrary from 'expo-media-library';
 import Boton from '../components/Boton';
 import Lupa from '../../assets/Lupa.png';
 
-export default function scanner() {
+export default function Scanner() {
 const [hasCameraPermission, setHasCameraPermission]= useState(null);
 const [image, setImage]= useState(null);
 const [type, setType]= useState(Camera.Constants.Type.back);
