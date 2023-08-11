@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
 
 
-const Card = () => {
+const CardHistorialPicaduras = () => {
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
@@ -48,4 +48,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Card;
+export default CardHistorialPicaduras;
+
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, SafeAreaView, TextInput, Button, Pressable, Text, View, Image } from 'react-native';
+import { StyleSheet, SafeAreaView, TextInput, Button, Pressable, Text, View, Image, TouchableOpacity, StatusBar, TouchableOpacityBase} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import Logo from '../../assets/Logo.png'
@@ -21,18 +21,24 @@ const IniciarSesion = () => {
           Mail: email,
           Password: contraseña
         };
-      let url = API.ApiUsuario + "login";
-      console.log(objeto);
-      console.log(url);
-      const response = await axios.post(url, objeto)
-      .then(
-        (response) => {
-          console.log(response.status, response.data);
+        if(email!= "" || contraseña != "" || email!= "" && contraseña != "")
+        {
+          let url = API.ApiUsuario + "login";
+          console.log(objeto);
+          console.log(url);
+          const response = await axios.post(url, objeto)
+          .then(
+            (response) => {
+              console.log(response.status, response.data);
+            }
+          )
+          .catch(
+            (error) => console.log(error)
+          );
         }
-      )
-      .catch(
-        (error) => console.log(error)
-      );
+        else {
+      alert("Escriba algo idiota")
+      }
     
 
     if (response.data.token)
@@ -46,15 +52,18 @@ const IniciarSesion = () => {
       alert("El email o contraseña son invalidos")
     }
     
+    
     }
 
   return (
+    
     <Formik initialValues={{
       email:'',
       contraseña:''
     }}
     >
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
+      
         <View style={styles.centrar}> 
           <Image 
             source={Logo} style={styles.logo}
@@ -67,6 +76,7 @@ const IniciarSesion = () => {
           placeholder="Ingrese su mail..."
           value={email}
           name="email"
+          keyboardType= "email-address"
         />
 
         <TextInput 
@@ -79,23 +89,32 @@ const IniciarSesion = () => {
         />
 
 
-       <Button
+       {/*<Button
           style={styles.boton} 
           title="Iniciar Sesion" 
           color= '#AEDD2B'
           onPress={validarSesion}
-          />
+    />*/}
+
+          <TouchableOpacity style={styles.boton} onPress={validarSesion}>
+            <Text style={styles.letraRegistrarse}>Iniciar Sesion </Text>
+          </TouchableOpacity>
 
        
 
         <Text>¿Todavia no tienes cuenta?</Text>
-          <Button 
+          {/*<Button 
             style={styles.boton} 
             title="Registrarse" 
             color="#066699"
             onPress={() => navigation.navigate("Registrarse")}
-          />
+  />*/}
 
+          <TouchableOpacity style={styles.boton2} onPress={() => navigation.navigate("Registrarse")}>
+            <Text style={styles.letraRegistrarse}>Registrarse</Text>
+          </TouchableOpacity>
+
+          <StatusBar style={{color: '#F8F8EC'}} />
       </SafeAreaView>
     </Formik>
   )
@@ -106,7 +125,7 @@ export default IniciarSesion;
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      backgroundColor: '#000',
+      backgroundColor: '#F8F8EC',
       justifyContent: 'center',
       paddingBottom:20,
       paddingTop:20,
@@ -141,15 +160,33 @@ const styles = StyleSheet.create({
   boton: {
     alignItems: 'center',
     borderRadius: 15,
-    //backgroundColor: ''
-    paddingHorizontal: 30, //cambia el tamaño del boton en forma horizontal
-    paddingVertical: 10,
-    margin: 80,
-    shadowRadius: 15,
+    backgroundColor: '#AEDD2B',
+    paddingHorizontal: 1, //cambia el tamaño del boton en forma horizontal
+    paddingVertical: 20,
+    //shadowRadius: 15,
     shadowColor: '#2C4521',
     shadowOpacity: 0.6,
     elevation: 5,
     textAlign:'center',
-    marginTop: 200,
+    //marginTop: 15,
+  },
+  boton2: {
+    alignItems: 'center',
+    borderRadius: 15,
+    backgroundColor: '#066699',
+    paddingHorizontal: 1, //cambia el tamaño del boton en forma horizontal
+    paddingVertical: 20,
+    //shadowRadius: 15,
+    shadowColor: '#2C4521',
+    shadowOpacity: 0.6,
+    elevation: 5,
+    textAlign:'center',
+    //marginTop: 15,
+  },
+  letraRegistrarse:{
+    color: '#ffffff'
+  },
+  statusBar:{
+    backgroundColor: '#F8F8EC'
   }
 });

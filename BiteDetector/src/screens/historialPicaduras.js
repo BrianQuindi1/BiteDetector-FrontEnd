@@ -1,15 +1,15 @@
 import React from 'react'
-import { Text, View } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Card from '../components/Card';
+import CardHistorialPicaduras from '../components/CardHistorialPicaduras';
 
 const HistorialPicaduras = () => {
   
   const navigation = useNavigation();
   return (
-    <View>
-      <Card/>
-    </View>
+    <SafeAreaView>
+      <CardHistorialPicaduras/>
+    </SafeAreaView>
   )
 }
 

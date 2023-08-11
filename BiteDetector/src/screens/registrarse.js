@@ -69,7 +69,7 @@ const Registrarse = () => {
       
     }}
     >
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <View style={styles.centrar}> 
           <Image 
             source={Logo} style={styles.logo}
@@ -109,17 +109,10 @@ const Registrarse = () => {
           secureTextEntry={true}          
           name="confirmarContraseña"
         />
-        <TouchableOpacity>
 
-          {/*<BotonLog>*/}
-          <Button onPress={handleSubmit} title="Confirmar"></Button>
-
-        </TouchableOpacity>
-        {/*<View style={styles.container}>
-          <TouchableOpacity style={styles.boton}>
-            <Text style={styles.textoBoton}>Registrarse</Text>
+          <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+            <Text style={styles.letraBoton}>Confirmar </Text>
           </TouchableOpacity>
-</View>*/}
       </SafeAreaView>
     </Formik>
   )
@@ -129,10 +122,10 @@ export default Registrarse;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    //backgroundColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center',
+    //flex: 1,
+    backgroundColor: '#F8F8EC',
+   // justifyContent: 'center',
+    //alignItems: 'center',
     /*paddingBottom:20,
     paddingTop:20,*/
   },
@@ -165,32 +158,17 @@ const styles = StyleSheet.create({
   boton: {
     alignItems: 'center',
     borderRadius: 15,
-    paddingHorizontal: 10, //cambia el tamaño del boton en forma horizontal
-    paddingVertical: 5,
-    margin: 80,
-    shadowRadius: 15,
+    backgroundColor: '#066699',
+    paddingHorizontal: 1, //cambia el tamaño del boton en forma horizontal
+    paddingVertical: 20,
+    //shadowRadius: 15,
     shadowColor: '#2C4521',
     shadowOpacity: 0.6,
     elevation: 5,
-    marginTop: 20,
-  },
- /* boton: {
-    alignItems: 'center',
-    borderRadius: 15,
-    backgroundColor: '#AEDD2B',
-    paddingHorizontal: 60, //cambia el tamaño del boton en forma horizontal
-    paddingVertical: 25,
-    margin: 80,
-    /*shadowRadius: 15,
-    shadowColor: '#2C4521',
-    shadowOpacity: 0.6,
-    elevation: 10,
     textAlign:'center',
-    marginTop: 200,
+    //marginTop: 15,
   },
-  textoBoton: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  }*/
+  letraBoton:{
+    color: '#ffffff'
+  },
 });

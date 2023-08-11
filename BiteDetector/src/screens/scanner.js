@@ -5,13 +5,20 @@ import {Camera, CameraType, WhiteBalance} from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import Boton from '../components/Boton';
 import Lupa from '../../assets/Lupa.png';
+import API from '../API';
 
-export default function Scanner() {
+const Scanner =() => {
 const [hasCameraPermission, setHasCameraPermission]= useState(null);
 const [image, setImage]= useState(null);
 const [type, setType]= useState(Camera.Constants.Type.back);
 const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
 const cameraRef = useRef(null);
+const [estado, setEstado] = useState(null);
+const [IdInsecto, setIdInsecto] = useState(null);
+const [probabilidades, setProbabilidades] = useState(null);
+const [IdPicadura, setIdPicadura] = useState(null);
+const [foto, setFoto] = useState("");
+
 
 useEffect(() =>{
     (async () =>{
@@ -21,12 +28,19 @@ useEffect(() =>{
     }) ();
 },[])
 
+
+if(hasCameraPermission === false)
+{
+    return <Text> No acces to camera</Text>
+}
+
 const takePicture = async () =>{
     if (cameraRef){
         try{
             const data = await cameraRef.current.takePictureAsync();
             console.log(data);
             setImage(data.uri);
+
         }catch(e){
             console.log(e);
         }
@@ -37,7 +51,8 @@ const saveImage= async () =>{
     if(image){
         try{
             await MediaLibrary.createAssetAsync(image);
-            alert('Picture save!')
+            alert('Picture save!');
+            console.log(image);
             setImage(null);
         }catch(e){
             console.log(e)
@@ -45,10 +60,22 @@ const saveImage= async () =>{
     }
 }
 
-if(hasCameraPermission === false){
-    return <Text> No acces to camera</Text>
+const imageSubmit = async () => {
+    let objeto = {
+        IdPicadura : IdPicadura,
+        Foto: foto.uri,
+        Estado: estado,
+        IdInsecto: IdInsecto,
+        Probabilidades : probabilidades
+    };
+    
+    let url = API.ApiIa;
+    console.log(url);
+    console.log(objeto);
+    const response = await axios.post( url, objeto)
+    .then(alert("hola"))
+    console.log("objeto de api" + objeto)
 }
-
 return (
     <View style={styles.container}>
         {!image ?
@@ -103,6 +130,7 @@ return (
     )
 }
 
+export default Scanner;
 
 const styles = StyleSheet.create({
     container: {
@@ -129,4 +157,3 @@ const styles = StyleSheet.create({
     }
     
 });
-
