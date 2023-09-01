@@ -1,4 +1,5 @@
-const PORT = 'A-PHZ2-CIDI-004';
+//const PORT = 'A-PHZ2-CIDI-004';
+const PORT = 'localhost'
 
 const API = /*(id) =*/ {
     ApiHistorial: 'http://' + PORT + ':3000/api/historial/',
@@ -13,3 +14,5 @@ const API = /*(id) =*/ {
 }
 
 export default API;
+
+// http://A-PHZ2-CIDI-004:3000/api/IA/

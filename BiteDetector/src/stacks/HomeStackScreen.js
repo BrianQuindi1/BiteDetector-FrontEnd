@@ -4,9 +4,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 /*import contactosDeEmergencia from '../screens/contactosDeEmergencia';
 import historialPicaduras from '../screens/historialPicaduras';
 import scanner from '../screens/scanner';*/
-import IniciarSesion from '../screens/IniciarSesion.js';
-import Registrarse from '../screens/Registrarse.js';
-import { useNavigation } from '@react-navigation/native';
+import IniciarSesion from '../screens/iniciarSesion.js';
+import Registrarse from '../screens/registrarse.js';
 
 
 const HomeStackScreen = () => {

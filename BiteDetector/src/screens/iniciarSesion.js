@@ -37,7 +37,7 @@ const IniciarSesion = () => {
           );
         }
         else {
-      alert("Escriba algo idiota")
+      alert("Escriba algo por favor!")
       }
     
 

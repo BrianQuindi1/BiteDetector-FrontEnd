@@ -6,6 +6,9 @@ import * as MediaLibrary from 'expo-media-library';
 import Boton from '../components/Boton';
 import Lupa from '../../assets/Lupa.png';
 import API from '../API';
+import axios from 'axios';
+import * as FileSystem from 'expo-file-system';
+
 
 const Scanner =() => {
 const [hasCameraPermission, setHasCameraPermission]= useState(null);
@@ -18,7 +21,7 @@ const [IdInsecto, setIdInsecto] = useState(null);
 const [probabilidades, setProbabilidades] = useState(null);
 const [IdPicadura, setIdPicadura] = useState(null);
 const [foto, setFoto] = useState("");
-
+const [capturedImage, setCapturedImage] = useState(null);
 
 useEffect(() =>{
     (async () =>{
@@ -28,21 +31,30 @@ useEffect(() =>{
     }) ();
 },[])
 
-
 if(hasCameraPermission === false)
 {
     return <Text> No acces to camera</Text>
 }
 
 const takePicture = async () =>{
+    axios
     if (cameraRef){
         try{
             const data = await cameraRef.current.takePictureAsync();
             console.log(data);
             setImage(data.uri);
+            let url = API.ApiIa;
+
+            const imageFile = await FileSystem.readAsStringAsync(data.uri, {
+                encoding: FileSystem.EncodingType.Base64,
+            });
+
+            const response = await axios.post(url, { image: imageFile });
+
+            console.log('Respuesta del backend:', response.data);
 
         }catch(e){
-            console.log(e);
+            console.error('Error back', e);
         }
     }
 }
@@ -60,6 +72,24 @@ const saveImage= async () =>{
     }
 }
 
+/*
+const handleTakePicture = async () => {
+    try {
+      const photo = await cameraRef.current.takePictureAsync();
+      setCapturedImage(photo);
+
+      // Enviar todo el objeto de la imagen al backend
+      const response = await axios.post('URL_DEL_BACKEND', { photo });
+
+      // Manejar la respuesta del backend aquí
+      console.log('Respuesta del backend:', response.data);
+    } catch (error) {
+      // Manejar los errores aquí
+      console.error('Error al tomar y enviar la imagen al backend:', error);
+    }
+  };
+
+
 const imageSubmit = async () => {
     let objeto = {
         IdPicadura : IdPicadura,
@@ -75,7 +105,8 @@ const imageSubmit = async () => {
     const response = await axios.post( url, objeto)
     .then(alert("hola"))
     console.log("objeto de api" + objeto)
-}
+}*/
+
 return (
     <View style={styles.container}>
         {!image ?
