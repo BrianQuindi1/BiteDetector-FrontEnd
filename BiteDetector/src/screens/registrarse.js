@@ -5,6 +5,7 @@ import Logo from '../../assets/Logo.png'
 import BotonLog from '../components/BotonLog';
 import axios from 'axios';
 import API from '../API';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Registrarse = () => {
   const [text, onchangeText] = React.useState('Useless text');
@@ -42,6 +43,25 @@ const Registrarse = () => {
       console.log(objeto);
       const response = await axios.post( url, objeto)
       .then(alert("hola"))
+      .then(
+        useEffect(() => {
+          const verificarInicioSesion = async () => {
+            try {
+              // Comprobar si el usuario ha iniciado sesión en AsyncStorage
+              const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion');
+      
+              if (usuarioIniciadoSesion === 'true') {
+                // El usuario ha iniciado sesión, redirigir a la vista de perfil
+                navigation.navigate('Perfil'); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
+              }
+            } catch (error) {
+              console.error('Error al verificar el inicio de sesión:', error);
+            }
+          };
+      
+          verificarInicioSesion();
+        }, [navigation])
+      )
       }
       
       else
