@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, SafeAreaView, TextInput, Button, Pressable, Text, View, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { StyleSheet, SafeAreaView, TextInput, Pressable, Text, View, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { Formik } from 'formik';
 import Logo from '../../assets/Logo.png'
-import BotonLog from '../components/BotonLog';
 import axios from 'axios';
 import API from '../API';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Perfil from '../screens/Perfil.js'
+//impoortar perfil
 
 const Registrarse = () => {
   const [text, onchangeText] = React.useState('Useless text');
@@ -17,18 +18,7 @@ const Registrarse = () => {
   //const [items, setItems] = useState([]);
   
 
-  /*useEffect(() => {
-    (async() => {
-      axios.get(API.ApiUsuario)
-      .then(response => {
-        setItems(responde.data.map(usuario => ({label: usuario.nombreUsuario, label: usuario.email, label: usuario.contraseña,value:usuario.id})))
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    });
-  }, [])
-*/
+
 
   const handleSubmit = async () => {
       let objeto;
@@ -48,11 +38,11 @@ const Registrarse = () => {
           const verificarInicioSesion = async () => {
             try {
               // Comprobar si el usuario ha iniciado sesión en AsyncStorage
-              const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion');
+              const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion'); //ver bien que es y como hacer "usuarioiniciadosesion"
       
               if (usuarioIniciadoSesion === 'true') {
                 // El usuario ha iniciado sesión, redirigir a la vista de perfil
-                navigation.navigate('Perfil'); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
+                navigation.navigate("Perfil"); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
               }
             } catch (error) {
               console.error('Error al verificar el inicio de sesión:', error);

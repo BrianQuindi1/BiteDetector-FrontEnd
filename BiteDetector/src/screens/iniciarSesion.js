@@ -6,6 +6,7 @@ import Logo from '../../assets/Logo.png'
 import axios from 'axios';
 import API from '../API';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Perfil from "../screens/Perfil";
 
 const IniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
@@ -33,7 +34,7 @@ const IniciarSesion = () => {
               const verificarInicioSesion = async () => {
                 try {
                   // Comprobar si el usuario ha iniciado sesión en AsyncStorage
-                  const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion');
+                  const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion'); //ver bien que es y como hacer "usuarioiniciadosesion"
           
                   if (usuarioIniciadoSesion === 'true') {
                     // El usuario ha iniciado sesión, redirigir a la vista de perfil
