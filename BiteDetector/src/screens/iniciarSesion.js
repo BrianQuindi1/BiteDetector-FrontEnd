@@ -34,7 +34,7 @@ const IniciarSesion = () => {
               const verificarInicioSesion = async () => {
                 try {
                   // Comprobar si el usuario ha iniciado sesión en AsyncStorage
-                  const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion'); //ver bien que es y como hacer "usuarioiniciadosesion"
+                  const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion'); 
           
                   if (usuarioIniciadoSesion === 'true') {
                     // El usuario ha iniciado sesión, redirigir a la vista de perfil
