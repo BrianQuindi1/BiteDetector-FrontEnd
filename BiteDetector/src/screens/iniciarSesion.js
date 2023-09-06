@@ -25,6 +25,8 @@ const IniciarSesion = () => {
         };
         if(email!= "" || contraseña != "" || email!= "" && contraseña != "")
         {
+     /*
+          //codigo anterior con axios
           let url = API.ApiUsuario + "login";
           console.log(objeto);
           console.log(url);
@@ -52,16 +54,44 @@ const IniciarSesion = () => {
             (response) => {
               console.log(response.status, response.data);
             }
-          )*/
+          )
           .catch(
             (error) => console.log(error)
           );
+   */
+          //codigo nuevo con fetch (hecho con chat)
+          let url = API.ApiUsuario + "login";
+          console.log(objeto);
+          console.log(url);
+
+          try {
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(objeto),
+            });
+
+            if (response.ok) {
+              const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion');
+
+              if (usuarioIniciadoSesion === 'true') {
+                navigation.navigate('Perfil');
+              }
+            } else {
+              console.error('Error al verificar el inicio de sesión:', response.status);
+            }
+          } catch (error) {
+            console.error('Error al verificar el inicio de sesión:', error);
+          }
+
         }
         else {
       alert("Escriba algo por favor!")
       }
     
-
+/*
     if (response.data.token)
     {
       //alert("Hola");
@@ -72,7 +102,7 @@ const IniciarSesion = () => {
     {
       alert("El email o contraseña son invalidos")
     }
-    
+   */ 
     
     }
 
