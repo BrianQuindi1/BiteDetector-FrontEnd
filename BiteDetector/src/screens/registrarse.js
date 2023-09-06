@@ -20,7 +20,8 @@ const Registrarse = () => {
 
 
 
-  const handleSubmit = async () => {
+ /* CODIGO ANTERIOR CON AXIOS
+ const handleSubmit = async () => {
       let objeto;
       if(contraseña === confirmarContraseña){
          objeto = {
@@ -67,6 +68,68 @@ const Registrarse = () => {
       console.log(response.data);
    
   }
+*/
+
+// CODIGO NUEVO CON FETCH
+
+  const handleSubmit = async () => {
+    let objeto;
+    
+    if (contraseña === confirmarContraseña) {
+      objeto = {
+        Nombre: nombre,
+        Mail: email,
+        Password: contraseña
+      };
+
+      let url = API.ApiUsuario + "CrearUsuario";
+      console.log(url);
+      console.log(objeto);
+
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(objeto),
+        });
+
+        if (response.ok) {
+          // La solicitud fue exitosa, puedes hacer lo que necesites aquí
+          alert("Usuario creado con éxito");
+          
+          // Comprobar el inicio de sesión
+          const verificarInicioSesion = async () => {
+            try {
+              // Comprobar si el usuario ha iniciado sesión en AsyncStorage
+              const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion'); 
+              
+              if (usuarioIniciadoSesion === 'true') {
+                // El usuario ha iniciado sesión, redirigir a la vista de perfil
+                navigation.navigate("Perfil"); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
+              }
+            } catch (error) {
+              console.error('Error al verificar el inicio de sesión:', error);
+            }
+          };
+
+          verificarInicioSesion();
+        } else {
+          // La solicitud falló, muestra un mensaje de error
+          console.error('Error al crear el usuario:', response.status);
+          alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
+        }
+      } catch (error) {
+        console.error('Error al crear el usuario:', error);
+        alert('Error al crear el usuario. Por favor, inténtalo de nuevo.');
+      }
+    } else {
+      alert("Las contraseñas no son iguales, por favor confirma la contraseña nuevamente.");
+    }
+
+    console.log(objeto);
+  };
 
 
 
