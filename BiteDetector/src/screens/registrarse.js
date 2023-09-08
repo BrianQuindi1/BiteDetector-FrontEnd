@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, TextInput, Pressable, Text, View, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { Formik } from 'formik';
 import Logo from '../../assets/Logo.png'
-import axios from 'axios';
 import API from '../API';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Perfil from '../screens/Perfil.js'
+import axios from 'axios'
+
 //impoortar perfil
 
 const Registrarse = () => {
@@ -20,7 +21,7 @@ const Registrarse = () => {
 
 
 
- /* CODIGO ANTERIOR CON AXIOS
+ 
  const handleSubmit = async () => {
       let objeto;
       if(contraseña === confirmarContraseña){
@@ -68,11 +69,11 @@ const Registrarse = () => {
       console.log(response.data);
    
   }
-*/
+
 
 // CODIGO NUEVO CON FETCH
 
-  const handleSubmit = async () => {
+  /*const handleSubmit = async () => {
     let objeto;
     
     if (contraseña === confirmarContraseña) {
@@ -82,7 +83,7 @@ const Registrarse = () => {
         Password: contraseña
       };
 
-      let url = API.ApiUsuario + "CrearUsuario";
+      let url = API.ApiUsuario + "crearUsuario";
       console.log(url);
       console.log(objeto);
 
@@ -95,7 +96,7 @@ const Registrarse = () => {
           body: JSON.stringify(objeto),
         });
 
-        if (response.ok) {
+      /* if (response.ok) {
           // La solicitud fue exitosa, puedes hacer lo que necesites aquí
           alert("Usuario creado con éxito");
           
@@ -129,7 +130,7 @@ const Registrarse = () => {
     }
 
     console.log(objeto);
-  };
+  };*/
 
 
 

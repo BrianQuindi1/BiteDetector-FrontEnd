@@ -18,7 +18,7 @@ import contactosDeEmergencia from '../assets/contactosDeEmergencia.png';
 const Tabs = () => {
   const Tab = createBottomTabNavigator();
   return (
-    <NavigationContainer>
+    <NavigationContainer /*style={{color: 'green'}}*/>
       <Tab.Navigator 
         screenOptions={{ headerShown: false }}
         tabBarOptions={{

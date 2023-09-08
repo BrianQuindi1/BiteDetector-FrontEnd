@@ -3,16 +3,18 @@ import { StyleSheet, SafeAreaView, TextInput, Button, Pressable, Text, View, Ima
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import Logo from '../../assets/Logo.png'
-import axios from 'axios';
 import API from '../API';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Perfil from "../screens/Perfil";
+import { fetch } from 'react-native';
+import axios from 'axios'
 
 const IniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
   const [number, onchangeNumber] = React.useState('');
   const [email, setEmail] = useState("");
   const [contraseña, setContraseña] = useState("");
+  const [IdUsuario, setIdUsuario] = useState(0);
   const navigation = useNavigation();
 
 
@@ -21,36 +23,56 @@ const IniciarSesion = () => {
       let objeto =
         {
           Mail: email,
-          Password: contraseña
-        };
+          Password: contraseña,
+          IdUsuario: IdUsuario,
+        };/*
+        let objeto =
+        {
+          Mail: 'mail',
+          Password: 'contra',
+          IdUsuario: 1,
+        };*/
         if(email!= "" || contraseña != "" || email!= "" && contraseña != "")
         {
-     /*
+     
           //codigo anterior con axios
           let url = API.ApiUsuario + "login";
           console.log(objeto);
           console.log(url);
           const response = await axios.post(url, objeto)
-          .then(
-            useEffect(() => {
-              const verificarInicioSesion = async () => {
-                try {
-                  // Comprobar si el usuario ha iniciado sesión en AsyncStorage
-                  const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion'); 
-          
-                  if (usuarioIniciadoSesion === 'true') {
-                    // El usuario ha iniciado sesión, redirigir a la vista de perfil
-                    navigation.navigate('Perfil'); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
-                  }
-                } catch (error) {
-                  console.error('Error al verificar el inicio de sesión:', error);
+
+          useEffect(() => {
+            const verificarInicioSesion = async () => {
+              try {
+                // Comprobar si el usuario ha iniciado sesión en AsyncStorage
+                const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion', 'true'); 
+        
+                if (usuarioIniciadoSesion === 'true') {
+                  setIdUsuario = objeto.IdUsuario;
+                  // El usuario ha iniciado sesión, redirigir a la vista de perfil
+                  navigation.navigate('Perfil'); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
                 }
-              };
+              } catch (error) {
+                console.error('Error al verificar el inicio de sesión:', error);
+              }
+            };
+        
+            verificarInicioSesion();
+          }, [navigation])
+
+          .then(async (response) => {
+            if (response.data.token) {
+              // Almacenar el objeto y el token en AsyncStorage
+              await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
+              await AsyncStorage.setItem('token', response.data.token);
           
-              verificarInicioSesion();
-            }, [navigation])
-          )
-          /*.then(
+              // Redirigir al perfil u otra pantalla
+              navigation.navigate('Perfil');
+            } else {
+              alert("El email o contraseña son inválidos");
+            }
+          })
+          .then(
             (response) => {
               console.log(response.status, response.data);
             }
@@ -58,8 +80,10 @@ const IniciarSesion = () => {
           .catch(
             (error) => console.log(error)
           );
-   */
-          //codigo nuevo con fetch (hecho con chat)
+          
+        }
+      }
+    /*      //codigo nuevo con fetch (hecho con chat)
           let url = API.ApiUsuario + "login";
           console.log(objeto);
           console.log(url);
@@ -90,7 +114,7 @@ const IniciarSesion = () => {
         else {
       alert("Escriba algo por favor!")
       }
-    
+    */
 /*
     if (response.data.token)
     {
@@ -104,7 +128,7 @@ const IniciarSesion = () => {
     }
    */ 
     
-    }
+
 
   return (
     

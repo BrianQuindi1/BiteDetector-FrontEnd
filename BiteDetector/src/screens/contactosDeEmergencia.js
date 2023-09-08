@@ -8,7 +8,7 @@ const ContactosDeEmergencia = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.fuenteTitulo}>Contactos generales</Text>
-      <CardContacto107 />
+      {/*<CardContacto107 />*/}
     </SafeAreaView>
   )
 }

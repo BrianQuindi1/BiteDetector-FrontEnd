@@ -3,7 +3,6 @@ import { StyleSheet, SafeAreaView, TextInput, Button, Pressable, Text, View, Ima
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import Perfil from '../../assets/iniciarSesion.png'
-import axios from 'axios';
 import API from '../API';
 
 const IniciarSesion = () => {

@@ -6,8 +6,9 @@ import * as MediaLibrary from 'expo-media-library';
 import Boton from '../components/Boton';
 import Lupa from '../../assets/Lupa.png';
 import API from '../API';
-import axios from 'axios';
 import * as FileSystem from 'expo-file-system';
+import axios from 'axios'
+
 
 
 const Scanner =() => {
@@ -22,16 +23,24 @@ const [probabilidades, setProbabilidades] = useState(null);
 const [IdPicadura, setIdPicadura] = useState(null);
 const [foto, setFoto] = useState("");
 const [capturedImage, setCapturedImage] = useState(null);
+const [haveToRealod, setHaveToRealod] = useState(false);
+const [viewReady, setViewReady] = useState(false);
+ 
 
 useEffect(() =>{
     (async () =>{
+    setViewReady(false)
     MediaLibrary.requestPermissionsAsync();
     const cameraStatus = await Camera.requestCameraPermissionsAsync();
     setHasCameraPermission(cameraStatus.status === 'granted');
-    }) ();
-},[])
+    
+    console.log("test")
+    setViewReady(true)
 
-if(hasCameraPermission === false)
+    }) ();
+},[haveToRealod])
+
+if(!hasCameraPermission)
 {
     return <Text> No acces to camera</Text>
 }
@@ -58,6 +67,38 @@ const takePicture = async () =>{
         }
     }
 }
+
+/*const takePicture = async () => {
+    if (cameraRef) {
+      try {
+        const data = await cameraRef.current.takePictureAsync();
+        console.log(data);
+        setImage(data.uri);
+        let url = API.ApiIa;
+  
+        const imageFile = await FileSystem.readAsStringAsync(data.uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+  
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ image: imageFile }),
+        });
+  
+          const responseData = await response.json();
+          console.log('Respuesta del backend:', responseData);
+
+      } catch (e) {
+
+        setHaveToRealod(!haveToRealod)
+        console.error('Error en la solicitud al backend', e);
+      }
+    }
+  };*/
+  
 
 const saveImage= async () =>{
     if(image){
@@ -109,7 +150,7 @@ const imageSubmit = async () => {
 
 return (
     <View style={styles.container}>
-        {!image ?
+        {(!image && viewReady) ?
         <Camera
             style={styles.camera}
             type={type}
