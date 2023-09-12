@@ -34,10 +34,9 @@ const Registrarse = () => {
       console.log(url);
       console.log(objeto);
       const response = await axios.post( url, objeto)
-      .then(alert("hola"))
       .then(
         useEffect(() => {
-          const verificarInicioSesion = async () => {
+          const verificarInicioSesion = async () => { /* ver bien de modificar esta funcion y ver si no hay q ponerlo en setItem */
             try {
               // Comprobar si el usuario ha iniciado sesión en AsyncStorage
               const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion'); //ver bien que es y como hacer "usuarioiniciadosesion"
