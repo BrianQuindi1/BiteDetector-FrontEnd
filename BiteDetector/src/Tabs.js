@@ -12,7 +12,7 @@ import iniciarSesion from '../assets/iniciarSesion.png';
 import historialPicaduras from '../assets/historialPicaduras.png';
 import scanner from '../assets/scanner.png';
 import contactosDeEmergencia from '../assets/contactosDeEmergencia.png';
-
+import Perfil from './screens/Perfil';
 
 
 const Tabs = () => {
@@ -56,7 +56,7 @@ const Tabs = () => {
         />
         <Tab.Screen 
         name="Perfil" 
-        component={HomeStackScreen}
+        component={Perfil}
         options={{
           tabBarIcon: () => (
             <Image source={iniciarSesion} style={{ width: 30, height: 30 }} />

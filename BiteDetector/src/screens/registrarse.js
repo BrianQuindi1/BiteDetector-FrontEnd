@@ -6,6 +6,7 @@ import API from '../API';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Perfil from '../screens/Perfil.js'
 import axios from 'axios'
+import AsyncUtils from './../AsyncUtils'
 
 //impoortar perfil
 
@@ -25,11 +26,11 @@ const Registrarse = () => {
  const handleSubmit = async () => {
       let objeto;
       if(contraseña === confirmarContraseña){
-         objeto = {
-          Nombre: nombre,
-          Mail: email,
-          Password: contraseña
-      }
+        objeto = {
+            Nombre: nombre,
+            Mail: email,
+            Password: contraseña
+        }
       let url = API.ApiUsuario + "CrearUsuario";
       console.log(url);
       console.log(objeto);
@@ -39,9 +40,17 @@ const Registrarse = () => {
           const verificarInicioSesion = async () => { /* ver bien de modificar esta funcion y ver si no hay q ponerlo en setItem */
             try {
               // Comprobar si el usuario ha iniciado sesión en AsyncStorage
-              const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion'); //ver bien que es y como hacer "usuarioiniciadosesion"
+              //const jsonValue = JSON.stringify(objeto);
+              //const usuarioIniciadoSesion = await AsyncStorage.setItem('objetoUsuario', jsonValue); //ver bien que es y como hacer "usuarioiniciadosesion"
+              const verificacion = false;
+              AsyncUtils.setObject('objetoUsuario', objeto);
+              if(AsyncUtils.setObject('objetoUsuario', objeto))
+              {
+                verificacion = true;
+              }
+              
       
-              if (usuarioIniciadoSesion === 'true') {
+              if (verificacion == true) {
                 // El usuario ha iniciado sesión, redirigir a la vista de perfil
                 navigation.navigate("Perfil"); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
               }
