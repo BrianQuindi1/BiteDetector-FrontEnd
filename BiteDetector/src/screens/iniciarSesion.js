@@ -9,7 +9,7 @@ import Perfil from "../screens/Perfil";
 import AsyncUtils from './../AsyncUtils'
 import axios from 'axios'
 
-const IniciarSesion = () => {
+export const IniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
   const [number, onchangeNumber] = React.useState('');
   const [email, setEmail] = useState("");
@@ -40,15 +40,18 @@ const IniciarSesion = () => {
           console.log(objeto);
           console.log(url);
           const response = await axios.post(url, objeto)
+          console.log(response.data)
+          console.log(response.data.token)
 
           useEffect(() => {
             const verificarInicioSesion = async () => {
               try {
                 // Comprobar si el usuario ha iniciado sesión en AsyncStorage
                 //const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion', 'true'); 
-                const token1 = axios.get(url)
-                if (response.token === token1) {
-                  setIdUsuario = objeto.IdUsuario;
+                const token1 = await axios.get(url);
+                
+                if (response.data.token === token1) {
+                  setIdUsuario(objeto.IdUsuario);
                   // El usuario ha iniciado sesión, redirigir a la vista de perfil
                   navigation.navigate('Perfil'); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
                 }
@@ -83,6 +86,44 @@ const IniciarSesion = () => {
           
         }
       }
+      
+     
+     /* 
+     let validarSesion = async () => {
+        if (email !== "" && contraseña !== "") {
+          let objeto = {
+            Mail: email,
+            Password: contraseña,
+          };
+          try {
+            let url = API.ApiUsuario + "login";
+            const response = await axios.post(url, objeto);
+            console.log(response.status, response.data);
+      
+            if (response.data.token) {
+              await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
+              navigation.navigate('Perfil');
+            } else {
+              alert("El email o contraseña son inválidos");
+            }
+          } catch (error) {
+            console.error('Error al verificar el inicio de sesión:', error);
+          }
+        } else {
+          alert("Escriba algo por favor!");
+        }
+      };*/
+
+          /*.then(
+            (response) => {
+              console.log(response.status, response.data);
+            }
+          )
+          )
+          .catch(
+            (error) => console.log(error)
+          );
+  
     /*      //codigo nuevo con fetch (hecho con chat)
           let url = API.ApiUsuario + "login";
           console.log(objeto);
@@ -163,27 +204,11 @@ const IniciarSesion = () => {
           name="contraseña"
         />
 
-
-       {/*<Button
-          style={styles.boton} 
-          title="Iniciar Sesion" 
-          color= '#AEDD2B'
-          onPress={validarSesion}
-    />*/}
-
           <TouchableOpacity style={styles.boton} onPress={validarSesion}>
             <Text style={styles.letraRegistrarse}>Iniciar Sesion </Text>
           </TouchableOpacity>
 
-       
-
         <Text>¿Todavia no tienes cuenta?</Text>
-          {/*<Button 
-            style={styles.boton} 
-            title="Registrarse" 
-            color="#066699"
-            onPress={() => navigation.navigate("Registrarse")}
-  />*/}
 
           <TouchableOpacity style={styles.boton2} onPress={() => navigation.navigate("Registrarse")}>
             <Text style={styles.letraRegistrarse}>Registrarse</Text>
@@ -194,8 +219,6 @@ const IniciarSesion = () => {
     </Formik>
   )
 }
-
-export default IniciarSesion;
 
 const styles = StyleSheet.create({
   container: {
