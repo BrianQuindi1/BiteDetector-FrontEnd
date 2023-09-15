@@ -17,12 +17,8 @@ const [image, setImage]= useState(null);
 const [type, setType]= useState(Camera.Constants.Type.back);
 const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
 const cameraRef = useRef(null);
-const [estado, setEstado] = useState(null);
-const [IdInsecto, setIdInsecto] = useState(null);
-const [probabilidades, setProbabilidades] = useState(null);
-const [IdPicadura, setIdPicadura] = useState(null);
 const [foto, setFoto] = useState("");
-const [capturedImage, setCapturedImage] = useState(null);
+//const [capturedImage, setCapturedImage] = useState(null);
 const [haveToRealod, setHaveToRealod] = useState(false);
 const [viewReady, setViewReady] = useState(false);
  
@@ -67,38 +63,6 @@ const takePicture = async () =>{
         }
     }
 }
-
-/*const takePicture = async () => {
-    if (cameraRef) {
-      try {
-        const data = await cameraRef.current.takePictureAsync();
-        console.log(data);
-        setImage(data.uri);
-        let url = API.ApiIa;
-  
-        const imageFile = await FileSystem.readAsStringAsync(data.uri, {
-          encoding: FileSystem.EncodingType.Base64,
-        });
-  
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ image: imageFile }),
-        });
-  
-          const responseData = await response.json();
-          console.log('Respuesta del backend:', responseData);
-
-      } catch (e) {
-
-        setHaveToRealod(!haveToRealod)
-        console.error('Error en la solicitud al backend', e);
-      }
-    }
-  };*/
-  
 
 const saveImage= async () =>{
     if(image){

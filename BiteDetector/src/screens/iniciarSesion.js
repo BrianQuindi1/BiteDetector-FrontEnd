@@ -6,7 +6,7 @@ import Logo from '../../assets/Logo.png'
 import API from '../API';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Perfil from "../screens/Perfil";
-import { fetch } from 'react-native';
+import AsyncUtils from './../AsyncUtils'
 import axios from 'axios'
 
 const IniciarSesion = () => {
@@ -45,9 +45,9 @@ const IniciarSesion = () => {
             const verificarInicioSesion = async () => {
               try {
                 // Comprobar si el usuario ha iniciado sesión en AsyncStorage
-                const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion', 'true'); 
-        
-                if (usuarioIniciadoSesion === 'true') {
+                //const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion', 'true'); 
+                const token1 = axios.get(url)
+                if (response.token === token1) {
                   setIdUsuario = objeto.IdUsuario;
                   // El usuario ha iniciado sesión, redirigir a la vista de perfil
                   navigation.navigate('Perfil'); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
