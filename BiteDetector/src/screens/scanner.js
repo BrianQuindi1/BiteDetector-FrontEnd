@@ -60,7 +60,7 @@ const Scanner = () => {
     axios;
     if (cameraRef) {
       try {
-        const data = await cameraRef.current.takePicture();
+        const data = await cameraRef.current.takePictureAsync();
         if (!data.uri) {
             throw new Error('Failed to capture an image.');
           }
