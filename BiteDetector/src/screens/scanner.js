@@ -60,7 +60,7 @@ const Scanner = () => {
     axios;
     if (cameraRef) {
       try {
-        const data = await cameraRef.current.takePictureAsync();
+        const data = await cameraRef.current.takePicture();
         if (!data.uri) {
             throw new Error('Failed to capture an image.');
           }
@@ -71,7 +71,7 @@ const Scanner = () => {
         const cropRegion = { x: 5, y: 30, height: 400, width: 250 };
         const targetSize = { height: 200, width: 150 };
 
-        RNPhotoManipulator.crop(image, cropRegion, targetSize).then((path) => {
+        RNPhotoManipulator.ActionCrop(image, cropRegion, targetSize).then((path) => {
           console.log(`Result image path: ${path}`);
         });
         setImage(data.uri);
@@ -82,9 +82,11 @@ const Scanner = () => {
         });
 
         const response = await axios.post(url, { image: imageFile });
+        saveImage();
 
         console.log("Respuesta del backend:", response.data);
       } catch (e) {
+        console.log(e);
         console.error("Error back", e);
       }
     }
@@ -97,12 +99,12 @@ const Scanner = () => {
         alert("Picture save!");
         console.log(image);
         setImage(null);
-
+/*
         <ModalScanner
           probabilidad={Probabilidad}
           estado={Estado}
           picadura={Picadura}
-        />;
+        />;*/
       } catch (e) {
         console.log(e);
       }
