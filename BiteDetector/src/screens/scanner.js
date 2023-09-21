@@ -57,10 +57,11 @@ const Scanner = () => {
     }
   };
   const takePicture = async () => {
-    axios;
+    axios
     if (cameraRef) {
       try {
-        const data = await cameraRef.current.takePictureAsync();
+        const options = { quality: 1, base64: true };
+        const data = await cameraRef.current.takePictureAsync(options);
         if (!data.uri) {
             throw new Error('Failed to capture an image.');
           }
@@ -68,20 +69,22 @@ const Scanner = () => {
         console.log(data);
         const image = data.uri;
         console.log(image);
-        const cropRegion = { x: 5, y: 30, height: 400, width: 250 };
+        /*const cropRegion = { x: 5, y: 30, height: 400, width: 250 };
         const targetSize = { height: 200, width: 150 };
 
         RNPhotoManipulator.ActionCrop(image, cropRegion, targetSize).then((path) => {
           console.log(`Result image path: ${path}`);
-        });
-        setImage(data.uri);
+          setImage(data.uri);
+        });*/
+        setImage(image);
+        
         let url = API.ApiIa;
 
-        const imageFile = await FileSystem.readAsStringAsync(data.uri, {
+        /*const imageFile = await FileSystem.readAsStringAsync(data.uri, {
           encoding: FileSystem.EncodingType.Base64,
-        });
+        });*/
 
-        const response = await axios.post(url, { image: imageFile });
+        const response = await axios.post(url, image);
         saveImage();
 
         console.log("Respuesta del backend:", response.data);
