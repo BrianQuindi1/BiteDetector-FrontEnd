@@ -72,9 +72,8 @@ const Scanner = () => {
           throw new Error('Failed to capture an image.');
         }
 
-        const image = data.uri;
-
-        /*const cropRegion = { x: 5, y: 30, height: 400, width: 250 };
+        /*const image = data.uri;
+        const cropRegion = { x: 5, y: 30, height: 400, width: 250 };
         const targetSize = { height: 200, width: 150 };
 
         RNPhotoManipulator.ActionCrop(image, cropRegion, targetSize).then((path) => {
