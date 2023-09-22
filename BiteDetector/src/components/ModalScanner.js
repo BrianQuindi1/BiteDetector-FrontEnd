@@ -19,13 +19,13 @@ const ModalScanner = (/*{ probabilidad, estado, picadura }*/) => {
             <Text style={styles.modalText2}>Mosquito: 97%</Text>
             <Text style={styles.modalText2}>Abeja: 2,7%</Text>
 
-            <Text style={styles.modalText2}>____________</Text>
+            <Text style={styles.modalText2}>_________</Text>
 
             <Text style={styles.modalText}>Posibles Riesgos:</Text>
             <Text style={{color: 'green', fontSize: 10}}>Leves</Text>
             <Text style={styles.modalText2}>Picazón</Text>
 
-            <Text style={styles.modalText2}>____________</Text>
+            <Text style={styles.modalText2}>_________</Text>
 
             <Text style={styles.modalText}>Recomendaciones:</Text>
             <Text style={styles.modalText2}>Aplicar caladril</Text>
