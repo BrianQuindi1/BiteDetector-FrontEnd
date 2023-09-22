@@ -5,6 +5,8 @@ import ModalHistorial from "./ModalHistorial.js"
 
 const CardHistorialPicaduras = () => {
   const [showModal, setShowModal] = useState(false);
+  const [modalVisible, setModalVisible] = useState(true);
+
 
   const mostrarModal = () =>{
     setShowModal(true);
@@ -17,7 +19,7 @@ const CardHistorialPicaduras = () => {
         <Text style={styles.title}>Insecto</Text>
         <Text style={styles.description}>Probablilidades segun tensorflow</Text>
         <Text style={styles.description}>Fecha</Text>
-        <Button title='Ver Foto' color='#F8F8EC' onPress={() => mostrarModal} ></Button>
+        {/* <Button title='Ver Foto' color='#F8F8EC' onPress={() => mostrarModal} ></Button> */}
         <TouchableOpacity style={styles.boton2} onPress={() => mostrarModal}>
           <Text>Ver Foto</Text>
         </TouchableOpacity>
