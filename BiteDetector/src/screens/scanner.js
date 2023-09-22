@@ -28,6 +28,7 @@ const Scanner = () => {
   //const [capturedImage, setCapturedImage] = useState(null);
   const [haveToRealod, setHaveToRealod] = useState(false);
   const [viewReady, setViewReady] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -56,6 +57,18 @@ const Scanner = () => {
       console.error("Error al obtener los datos:", error);
     }
   };
+  const takePicture2 = async () =>{
+    if (cameraRef){
+      try{
+        const data = await cameraRef.current.takePictureAsync();
+        console.log(data);
+        setImage(data.uri);
+      }catch(e){
+        console.log(e);
+      }
+    }
+  }
+
   const takePicture = async () => {
     axios
     if (cameraRef) {
@@ -94,10 +107,27 @@ const Scanner = () => {
       }
     }
   };
+  
+  const saveImage2 = async () => {
+    if (image) {
+      try {
+        setShowModal(true); // Mostrar el componente ModalScanner
+  
+        await MediaLibrary.createAssetAsync(image);
+        alert("¡Imagen guardada!")
+        /*.then(<ModalScanner />)*/
+        console.log(image);
+        setImage(null);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
 
   const saveImage = async () => {
     if (image) {
       try {
+        <ModalScanner />
         await MediaLibrary.createAssetAsync(image);
         alert("Picture save!");
         console.log(image);
@@ -205,11 +235,13 @@ const imageSubmit = async () => {
               icon="retweet"
               onPress={() => setImage(null)}
             />
-            <Boton title={"Save"} icon="check" onPress={saveImage} />
+             <ModalScanner value={showModal}/>
+            <Boton title={"Save"} icon="check" onPress={saveImage2} />
+           
           </View>
         ) : (
           <View style={styles.container}>
-            <TouchableOpacity onPress={takePicture} style={styles.botonScanner}>
+            <TouchableOpacity onPress={takePicture2} style={styles.botonScanner}>
               <Image source={Lupa} style={styles.lupa}></Image>
             </TouchableOpacity>
           </View>
