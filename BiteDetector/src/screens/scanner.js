@@ -63,6 +63,7 @@ const Scanner = () => {
   }*/
  
   const takePicture = async () => {
+    //ver q onda el rezise
     axios
     if (cameraRef) {
       try {
