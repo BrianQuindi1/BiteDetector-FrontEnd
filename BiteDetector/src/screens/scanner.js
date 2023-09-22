@@ -1,13 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import {StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView,} from "react-native";
 import { Camera, CameraType, WhiteBalance } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import Boton from "../components/Boton";
@@ -25,7 +18,7 @@ const Scanner = () => {
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const cameraRef = useRef(null);
   const [foto, setFoto] = useState("");
-  //const [capturedImage, setCapturedImage] = useState(null);
+  const [capturedImage, setCapturedImage] = useState(null);
   const [haveToRealod, setHaveToRealod] = useState(false);
   const [viewReady, setViewReady] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -57,7 +50,7 @@ const Scanner = () => {
       console.error("Error al obtener los datos:", error);
     }
   };
-  const takePicture2 = async () =>{
+  /*const takePicture2 = async () =>{
     if (cameraRef){
       try{
         const data = await cameraRef.current.takePictureAsync();
@@ -67,8 +60,8 @@ const Scanner = () => {
         console.log(e);
       }
     }
-  }
-
+  }*/
+ 
   const takePicture = async () => {
     axios
     if (cameraRef) {
@@ -76,8 +69,8 @@ const Scanner = () => {
         const options = { quality: 1, base64: true };
         const data = await cameraRef.current.takePictureAsync(options);
         if (!data.uri) {
-            throw new Error('Failed to capture an image.');
-          }
+          throw new Error('Failed to capture an image.');
+        }
     
         console.log(data);
         const image = data.uri;
@@ -93,9 +86,9 @@ const Scanner = () => {
         
         let url = API.ApiIa;
 
-        /*const imageFile = await FileSystem.readAsStringAsync(data.uri, {
+        const imageFile = await FileSystem.readAsStringAsync(data.uri, {
           encoding: FileSystem.EncodingType.Base64,
-        });*/
+        });
 
         const response = await axios.post(url, image);
         saveImage();
@@ -108,25 +101,26 @@ const Scanner = () => {
     }
   };
   
-  const saveImage2 = async () => {
+  /*const saveImage2 = async () => {
     if (image) {
       try {
         setShowModal(true); // Mostrar el componente ModalScanner
   
         await MediaLibrary.createAssetAsync(image);
         alert("¡Imagen guardada!")
-        /*.then(<ModalScanner />)*/
+        /*.then(<ModalScanner />)
         console.log(image);
         setImage(null);
       } catch (e) {
         console.log(e);
       }
     }
-  };
+  };*/
 
   const saveImage = async () => {
     if (image) {
       try {
+        showModal(true);
         <ModalScanner />
         await MediaLibrary.createAssetAsync(image);
         alert("Picture save!");
@@ -236,12 +230,12 @@ const imageSubmit = async () => {
               onPress={() => setImage(null)}
             />
              <ModalScanner value={showModal}/>
-            <Boton title={"Save"} icon="check" onPress={saveImage2} />
+            <Boton title={"Save"} icon="check" onPress={saveImage} />
            
           </View>
         ) : (
           <View style={styles.container}>
-            <TouchableOpacity onPress={takePicture2} style={styles.botonScanner}>
+            <TouchableOpacity onPress={takePicture} style={styles.botonScanner}>
               <Image source={Lupa} style={styles.lupa}></Image>
             </TouchableOpacity>
           </View>

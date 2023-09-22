@@ -135,6 +135,7 @@ export const IniciarSesion = () => {
     </Formik>
   )
 }
+export default IniciarSesion;
 
 const styles = StyleSheet.create({
   container: {

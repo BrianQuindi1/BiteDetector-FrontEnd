@@ -56,7 +56,7 @@ const Tabs = () => {
         />
         <Tab.Screen 
         name="Perfil" 
-        component={Perfil}
+        component={HomeStackScreen}
         options={{
           tabBarIcon: () => (
             <Image source={iniciarSesion} style={{ width: 30, height: 30 }} />

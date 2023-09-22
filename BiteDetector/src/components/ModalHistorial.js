@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import {Alert, Modal, StyleSheet, Text, Pressable, View, Image} from 'react-native';
+import FotoPicadura from "../../assets/picadura.jpg"
 
-const ModalScanner = (/*{ probabilidad, estado, picadura }*/) => {
+const ModalHistorial = () => {
   const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.centeredView}>
@@ -15,20 +16,7 @@ const ModalScanner = (/*{ probabilidad, estado, picadura }*/) => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Insecto:</Text>
-            <Text style={styles.modalText2}>Mosquito: 97%</Text>
-            <Text style={styles.modalText2}>Abeja: 2,7%</Text>
-
-            <Text style={styles.modalText2}>_________</Text>
-
-            <Text style={styles.modalText}>Posibles Riesgos:</Text>
-            <Text style={{color: 'green', fontSize: 10}}>Leves</Text>
-            <Text style={styles.modalText2}>Picazón</Text>
-
-            <Text style={styles.modalText2}>_________</Text>
-
-            <Text style={styles.modalText}>Recomendaciones:</Text>
-            <Text style={styles.modalText2}>Aplicar caladril</Text>
+            <Image src={FotoPicadura}/>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>
@@ -93,4 +81,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModalScanner;
+export default ModalHistorial;

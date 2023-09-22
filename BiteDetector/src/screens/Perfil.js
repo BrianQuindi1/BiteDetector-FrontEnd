@@ -6,7 +6,7 @@ import PerfilLogo from '../../assets/iniciarSesion.png'
 import API from '../API';
 import AsyncUtils from './../AsyncUtils'
 
-const Perfil = async () => {
+const Perfil = () => {
   const navigation = useNavigation();
 
   /*

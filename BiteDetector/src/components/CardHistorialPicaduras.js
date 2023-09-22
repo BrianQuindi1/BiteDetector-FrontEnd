@@ -1,15 +1,27 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import ModalHistorial from "./ModalHistorial.js"
 
 
 const CardHistorialPicaduras = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const mostrarModal = () =>{
+    setShowModal(true);
+    <ModalHistorial value={showModal}
+    />
+  }
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
         <Text style={styles.title}>Insecto</Text>
         <Text style={styles.description}>Probablilidades segun tensorflow</Text>
         <Text style={styles.description}>Fecha</Text>
-        <Button title='Ver Foto' color='#F8F8EC'></Button>
+        <Button title='Ver Foto' color='#F8F8EC' onPress={() => mostrarModal} ></Button>
+        <TouchableOpacity style={styles.boton2} onPress={() => mostrarModal}>
+          <Text>Ver Foto</Text>
+        </TouchableOpacity>
+
       </View>
     </View>
   );
@@ -46,6 +58,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
   },
+  boton2: {
+    alignItems: 'center',
+    borderRadius: 15,
+    backgroundColor: '#066699',
+    paddingHorizontal: 1, //cambia el tamaño del boton en forma horizontal
+    paddingVertical: 20,
+    //shadowRadius: 15,
+    shadowColor: '#2C4521',
+    shadowOpacity: 0.6,
+    elevation: 5,
+    textAlign:'center',
+    //marginTop: 15,
+  }
 });
 
 export default CardHistorialPicaduras;
