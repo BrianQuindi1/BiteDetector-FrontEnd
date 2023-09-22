@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, SafeAreaView, TextInput, Button, Pressable, Text, View, Image, TouchableOpacity, StatusBar, TouchableOpacityBase} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -42,6 +42,7 @@ export const IniciarSesion = () => {
           const response = await axios.post(url, objeto)
           console.log(response.data)
           console.log(response.data.token)
+          verificarInicioSesion();
 
           useEffect(() => {
             const verificarInicioSesion = async () => {
@@ -49,18 +50,17 @@ export const IniciarSesion = () => {
                 // Comprobar si el usuario ha iniciado sesión en AsyncStorage
                 //const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion', 'true'); 
                 const token1 = await axios.get(url);
-                
+              
                 if (response.data.token === token1) {
-                  setIdUsuario(objeto.IdUsuario);
-                  // El usuario ha iniciado sesión, redirigir a la vista de perfil
-                  navigation.navigate('Perfil'); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
+                   setIdUsuario(objeto.IdUsuario + 1)
+                  .then(navigation.navigate("Perfil"));
                 }
               } catch (error) {
                 console.error('Error al verificar el inicio de sesión:', error);
               }
             };
         
-            verificarInicioSesion();
+           // verificarInicioSesion();
           }, [navigation])
 
           .then(async (response) => {

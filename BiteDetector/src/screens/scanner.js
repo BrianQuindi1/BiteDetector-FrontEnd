@@ -66,32 +66,37 @@ const Scanner = () => {
     axios
     if (cameraRef) {
       try {
-        const options = { quality: 1, base64: true };
+        const options = { quality: 0, base64: true};
         const data = await cameraRef.current.takePictureAsync(options);
         if (!data.uri) {
           throw new Error('Failed to capture an image.');
         }
-    
-        console.log(data);
+
         const image = data.uri;
-        console.log(image);
+
         /*const cropRegion = { x: 5, y: 30, height: 400, width: 250 };
         const targetSize = { height: 200, width: 150 };
 
         RNPhotoManipulator.ActionCrop(image, cropRegion, targetSize).then((path) => {
           console.log(`Result image path: ${path}`);
           setImage(data.uri);
-        });*/
+        });
+       
+    */
+        console.log(data);
+        
+        //console.log("iamgen",image);
+        
         setImage(image);
         
         let url = API.ApiIa;
 
-        const imageFile = await FileSystem.readAsStringAsync(data.uri, {
+        /*const imageFile = await FileSystem.readAsStringAsync(data.uri, {
           encoding: FileSystem.EncodingType.Base64,
         });
-
-        const response = await axios.post(url, image);
-        saveImage();
+*/
+        const response = await axios.post(url, data);
+        saveImage(image);
 
         console.log("Respuesta del backend:", response.data);
       } catch (e) {
@@ -156,21 +161,7 @@ const handleTakePicture = async () => {
   };
 
 
-const imageSubmit = async () => {
-    let objeto = {
-        IdPicadura : IdPicadura,
-        Foto: foto.uri,
-        Estado: estado,
-        IdInsecto: IdInsecto,
-        Probabilidades : probabilidades
-    };
-    
-    let url = API.ApiIa;
-    console.log(url);
-    console.log(objeto);
-    const response = await axios.post( url, objeto)
-    .then(alert("hola"))
-    console.log("objeto de api" + objeto)
+
 }*/
 
   return (

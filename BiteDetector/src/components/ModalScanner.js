@@ -22,7 +22,7 @@ const ModalScanner = (/*{ probabilidad, estado, picadura }*/) => {
             <Text style={styles.modalText2}>_________</Text>
 
             <Text style={styles.modalText}>Posibles Riesgos:</Text>
-            <Text style={{color: 'green', fontSize: 10}}>Leves</Text>
+            <Text style={{color: 'green', fontSize: 20}}>Leves</Text>
             <Text style={styles.modalText2}>Picazón</Text>
 
             <Text style={styles.modalText2}>_________</Text>
@@ -49,11 +49,11 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    margin: 20,
+    margin: 15,
     backgroundColor: 'white',
     borderRadius: 20,
-    width: 250,
-    height: 450,
+    width: 300,
+    height: 550,
     padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    fontSize: 15,
+    fontSize: 22,
     marginBottom: 15,
     textAlign: 'center',
   },
   modalText2: {
-    fontSize: 10,
+    fontSize: 20,
     marginBottom: 15,
     textAlign: 'center',
   },

@@ -16,9 +16,9 @@ const CardHistorialPicaduras = () => {
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
-        <Text style={styles.title}>Insecto</Text>
-        <Text style={styles.description}>Probablilidades segun tensorflow</Text>
-        <Text style={styles.description}>Fecha</Text>
+        <Text style={styles.title}>Mosquito</Text>
+        <Text style={styles.description}>Probablilidades: 97%</Text>
+        <Text style={styles.description}>Fecha de scaneo: 22/9/2023</Text>
         {/* <Button title='Ver Foto' color='#F8F8EC' onPress={() => mostrarModal} ></Button> */}
         <TouchableOpacity style={styles.boton2} onPress={() => mostrarModal}>
           <Text>Ver Foto</Text>
