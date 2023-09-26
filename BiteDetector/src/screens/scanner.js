@@ -10,6 +10,8 @@ import * as FileSystem from "expo-file-system";
 import axios from "axios";
 import ModalScanner from "../components/ModalScanner";
 import RNPhotoManipulator from "react-native-photo-manipulator";
+import ImageResizer from 'react-native-image-resizer';
+
 
 const Scanner = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -63,7 +65,6 @@ const Scanner = () => {
   }*/
  
   const takePicture = async () => {
-    //ver q onda el rezise
     axios
     if (cameraRef) {
       try {
@@ -73,11 +74,14 @@ const Scanner = () => {
           throw new Error('Failed to capture an image.');
         }
 
-        /*const image = data.uri;
-        const cropRegion = { x: 5, y: 30, height: 400, width: 250 };
-        const targetSize = { height: 200, width: 150 };
+        /* const image = data.uri;
+        await ImageResizer.manipulateAsync(data.uri, [
+          {resize: {width: 700, height: 500}}
+        ]); */
+        //const cropRegion = { x: 5, y: 30, height: 400, width: 250 };
+        //const targetSize = { height: 200, width: 150 };
 
-        RNPhotoManipulator.ActionCrop(image, cropRegion, targetSize).then((path) => {
+        /*RNPhotoManipulator.ActionCrop(image, cropRegion, targetSize).then((path) => {
           console.log(`Result image path: ${path}`);
           setImage(data.uri);
         });
@@ -125,18 +129,16 @@ const Scanner = () => {
   const saveImage = async () => {
     if (image) {
       try {
+        const image = data.uri;
+        await ImageResizer.manipulateAsync(data.uri, [
+          {resize: {width: 700, height: 500}}
+        ]);
         showModal(true);
         <ModalScanner />
         await MediaLibrary.createAssetAsync(image);
         alert("Picture save!");
         console.log(image);
-        setImage(null);
-/*
-        <ModalScanner
-          probabilidad={Probabilidad}
-          estado={Estado}
-          picadura={Picadura}
-        />;*/
+        setImage(null); //////////////ver bien esto si hay q descomentarlo
       } catch (e) {
         console.log(e);
       }
