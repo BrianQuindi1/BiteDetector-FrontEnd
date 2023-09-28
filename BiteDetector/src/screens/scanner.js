@@ -41,7 +41,7 @@ const Scanner = () => {
     return <Text> No acces to camera</Text>;
   }
 
-  const variablesModal = async () => {
+/*   const variablesModal = async () => {
     try {
       let url = API.Ia;
       const response = await axios.get(url);
@@ -51,7 +51,7 @@ const Scanner = () => {
     } catch (error) {
       console.error("Error al obtener los datos:", error);
     }
-  };
+  }; */
 
   function resizeImage(base64Str, maxWidth = 400, maxHeight = 350) {
     return new Promise((resolve) => {
