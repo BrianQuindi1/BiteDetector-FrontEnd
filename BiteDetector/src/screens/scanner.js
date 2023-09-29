@@ -11,7 +11,8 @@ import axios from "axios";
 import ModalScanner from "../components/ModalScanner";
 import RNPhotoManipulator from "react-native-photo-manipulator";
 import ImageResizer from 'react-native-image-resizer';
-//import base64 from 'react-native-base64'
+import * as ImageManipulator from 'expo-image-manipulator';
+import base64 from 'react-native-base64'
 
 const Scanner = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -31,7 +32,7 @@ const Scanner = () => {
       MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
-
+      
       console.log("test");
       setViewReady(true);
     })();
@@ -53,80 +54,27 @@ const Scanner = () => {
     }
   }; */
 
-  function resizeImage(base64Str, maxWidth = 400, maxHeight = 350) {
-    return new Promise((resolve) => {
-      let img = new Image()
-      img.src = base64Str
-      img.onload = () => {
-        let canvas = document.createElement('canvas')
-        const MAX_WIDTH = maxWidth
-        const MAX_HEIGHT = maxHeight
-        let width = img.width
-        let height = img.height
-  
-        if (width > height) {
-          if (width > MAX_WIDTH) {
-            height *= MAX_WIDTH / width
-            width = MAX_WIDTH
-          }
-        } else {
-          if (height > MAX_HEIGHT) {
-            width *= MAX_HEIGHT / height
-            height = MAX_HEIGHT
-          }
-        }
-        canvas.width = width
-        canvas.height = height
-        let ctx = canvas.getContext('2d')
-        ctx.drawImage(img, 0, 0, width, height)
-        resolve(canvas.toDataURL())
-      }
-    })
-  }
-
-  function downscaleImage(dataUrl, newWidth, imageType, imageArguments) {
-    "use strict";
-    var image, oldWidth, oldHeight, newHeight, canvas, ctx, newDataUrl;
-
-    // Provide default values
-    imageType = imageType || "image/jpeg";
-    imageArguments = imageArguments || 0.7;
-
-    // Create a temporary image so that we can compute the height of the downscaled image.
-    image = new Image();
-    image.src = dataUrl;
-    oldWidth = image.width;
-    oldHeight = image.height;
-    newHeight = Math.floor(oldHeight / oldWidth * newWidth)
-
-    // Create a temporary canvas to draw the downscaled image on.
-    canvas = document.createElement("canvas");
-    canvas.width = newWidth;
-    canvas.height = newHeight;
-
-    // Draw the downscaled image on the canvas and return the new data URL.
-    ctx = canvas.getContext("2d");
-    ctx.drawImage(image, 0, 0, newWidth, newHeight);
-    newDataUrl = canvas.toDataURL(imageType, imageArguments);
-    return newDataUrl;
-}
- 
   const takePicture = async () => {
     axios
     if (cameraRef) {
       try {
-        const options = { quality: 0, base64: true
-        };
-        //const image = data.uri;
-        
-        const data = await cameraRef.current.takePictureAsync( options );
+        const options = { quality: 0.5, skipProcessing: true/* , base64: true */};
+        //const image = data.uri; 
+        const data = await cameraRef.current.takePictureAsync( options);
         if (!data.uri) {
           throw new Error('Failed to capture an image.');
         }
 
-        resizeImage(data.uri, 500, 400).then((result) => {
+        /*let messi = await ImageManipulator.manipulateAsync(data.uri, [
+        {resize: {width: 1080, height: 720}},],
+        {compress: 0.5, format: ImageManipulator.SaveFormat.PNG})
+        messi = {base64: true}
+        setImage(messi);*/
+       /* let fotoEditada = await ImageResizer(data.uri, 500, 400);
+       setImage(fotoEditada).then((result) => {
           console.log(result);
-      });
+      });*/
+         
         //let image = base64.encode(data.uri);
         /*await ImageResizer.manipulateAsync(data.uri, [
           {resize: {width: 700, height: 500, quality: 0, compress: 0.2}}
@@ -149,7 +97,7 @@ const Scanner = () => {
         
         //console.log("iamgen",image);
         
-        setImage(image);
+        //setImage(image);
         
         let url = API.ApiIa;
 
@@ -201,27 +149,6 @@ const Scanner = () => {
     }
   };
 
-  /*
-const handleTakePicture = async () => {
-    try {
-      const photo = await cameraRef.current.takePictureAsync();
-      setCapturedImage(photo);
-
-      // Enviar todo el objeto de la imagen al backend
-      const response = await axios.post('URL_DEL_BACKEND', { photo });
-
-      // Manejar la respuesta del backend aquí
-      console.log('Respuesta del backend:', response.data);
-    } catch (error) {
-      // Manejar los errores aquí
-      console.error('Error al tomar y enviar la imagen al backend:', error);
-    }
-  };
-
-
-
-}*/
-
   return (
     <SafeAreaView style={styles.container}>
       {!image && viewReady ? (
@@ -230,6 +157,7 @@ const handleTakePicture = async () => {
           type={type}
           flashMode={flash}
           ref={cameraRef}
+
         >
           <View
             style={{
