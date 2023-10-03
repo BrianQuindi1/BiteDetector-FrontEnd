@@ -1,17 +1,17 @@
 import React, {useEffect, useRef, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView,} from "react-native";
-import { Camera, CameraType, WhiteBalance } from "expo-camera";
+import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import Boton from "../components/Boton";
 import Lupa from "../../assets/Lupa.png";
 import API from "../API";
-import * as FileSystem from "expo-file-system";
+//import * as FileSystem from "expo-file-system";
 import axios from "axios";
 import ModalScanner from "../components/ModalScanner";
-import RNPhotoManipulator from "react-native-photo-manipulator";
+/*import RNPhotoManipulator from "react-native-photo-manipulator";
 import ImageResizer from 'react-native-image-resizer';
-import * as ImageManipulator from 'expo-image-manipulator';
+import * as ImageManipulator from 'expo-image-manipulator';*/
 import base64 from 'react-native-base64'
 
 const Scanner = () => {
@@ -58,9 +58,9 @@ const Scanner = () => {
     axios
     if (cameraRef) {
       try {
-        const options = { quality: 0.5, skipProcessing: true/* , base64: true */};
+        const options = { quality: 0.2, skipProcessing: true, base64: true };
         //const image = data.uri; 
-        const data = await cameraRef.current.takePictureAsync( options);
+        const data = await cameraRef.current.takePictureAsync(options);
         if (!data.uri) {
           throw new Error('Failed to capture an image.');
         }
@@ -218,6 +218,7 @@ const Scanner = () => {
           </View>
         )}
       </View>
+      <StatusBar style="auto"/>
     </SafeAreaView>
   );
 };

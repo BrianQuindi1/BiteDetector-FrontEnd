@@ -3,7 +3,7 @@ import { StyleSheet, SafeAreaView, TextInput, Pressable, Text, View, Image, Touc
 import { Formik } from 'formik';
 import Logo from '../../assets/Logo.png'
 import API from '../API';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
 import Perfil from '../screens/Perfil.js'
 import axios from 'axios'
 import AsyncUtils from './../AsyncUtils'

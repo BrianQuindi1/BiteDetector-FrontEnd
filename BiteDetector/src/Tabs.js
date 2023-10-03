@@ -1,8 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import {StyleSheet, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStackScreen from "./stacks/HomeStackScreen";
-import SettingsStackScreen from "./stacks/SettingsStackScreen";
+//import SettingsStackScreen from "./stacks/SettingsStackScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import ContactosDeEmergencia from './screens/contactosDeEmergencia';
 import HistorialPicaduras from './screens/historialPicaduras';
