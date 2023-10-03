@@ -107,6 +107,7 @@ const Scanner = () => {
 */
         const response = await axios.post(url, data);
         saveImage(image);
+       
 
         console.log("Respuesta del backend:", response.data);
       } catch (e) {
@@ -132,7 +133,7 @@ const Scanner = () => {
     }
   };*/
 
-  const saveImage = async () => {
+  const saveImage = async (image) => {
     if (image) {
       try {
         //const image = data.uri;
