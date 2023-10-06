@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import axios from 'axios';
 
-const ModalScanner = (/*{ probabilidad, estado, picadura }*/) => {
+const ModalScanner = (id, foto, estado, idInsecto, probabilidades) => {
   const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.centeredView}>
@@ -13,6 +14,7 @@ const ModalScanner = (/*{ probabilidad, estado, picadura }*/) => {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
+          {/* USAR LAS VARIABLES DEL BACK Q LE PASAMOS ARRIBA (SI NECECESITAMOS AYUDA VER EL TP NAVIGATION)*/}
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Insecto:</Text>

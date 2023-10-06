@@ -21,7 +21,7 @@ const Scanner = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const cameraRef = useRef(null);
-  const [foto, setFoto] = useState("");
+ // const [foto, setFoto] = useState("");
   const [capturedImage, setCapturedImage] = useState(null);
   const [haveToRealod, setHaveToRealod] = useState(false);
   const [viewReady, setViewReady] = useState(false);
@@ -90,6 +90,21 @@ const Scanner = () => {
       }
     }
   };
+
+  const respuestaPicadura = async () => {
+    const picaduraRecibida = {id, foto, estado, idInsecto, probabilidades};
+    const url = API.ApiIa;
+    axios.get(url, picaduraRecibida)
+    .then(
+      picaduraRecibida = {
+        id: id,
+        foto: foto,
+        estado: estado,
+        idInsecto: idInsecto,
+        probabilidades: probabilidades
+      }
+    )
+  }
 
   return (
     <SafeAreaView style={styles.container}>
