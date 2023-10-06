@@ -42,7 +42,7 @@ export const IniciarSesion = () => {
           const response = await axios.post(url, objeto)
           console.log(response.data)
           console.log(response.data.token)
-          verificarInicioSesion();
+          //verificarInicioSesion();
 
           useEffect(() => {
             const verificarInicioSesion = async () => {
@@ -52,15 +52,15 @@ export const IniciarSesion = () => {
                 const token1 = await axios.get(url);
               
                 if (response.data.token === token1) {
-                   setIdUsuario(objeto.IdUsuario + 1)
-                  .then(navigation.navigate("Perfil"));
+                   //setIdUsuario(objeto.IdUsuario + 1)
+                  navigation.navigate("Perfil")
                 }
               } catch (error) {
                 console.error('Error al verificar el inicio de sesión:', error);
               }
             };
         
-           // verificarInicioSesion();
+           verificarInicioSesion();
           }, [navigation])
 
           .then(async (response) => {

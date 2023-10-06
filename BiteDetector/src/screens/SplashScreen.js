@@ -1,24 +1,24 @@
 import { ActivityIndicator, useNavigator, StyleSheet, View, Image } from "react-native";
 import React, { useEffect } from 'react'
 //import UsuarioService from '../services/UsuarioService'
-//import Logo from "../../assets/Logo_FutureSystems.jpg" 
+import Logo from "../../assets/Logo.png" 
 
 const SplashScreen = ({navigation}) => {
-  let usuarioService = new UsuarioService();
+  //let usuarioService = new UsuarioService();
 
-  const verificarInicioSesion = async() => {
+ /* const verificarInicioSesion = async() => {
     if(await usuarioService.automaticlogin()){
       navigation.navigate("Perfil");
     }else{
       navigation.navigate("Login");
     }
-  }
+  }*/
 
 
   useEffect(()=> { 
     const onLoad = async () => { 
-    //await new Promise(resolve => setTimeout(resolve,5000));
-    verificarInicioSesion();
+    await new Promise(resolve => setTimeout(resolve,10000));
+    //verificarInicioSesion();
   };
    onLoad();
 
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#3f48cc",
+    backgroundColor: "#F8F8EC",
     padding: 20,
   },
 });

@@ -7,6 +7,7 @@ import Boton from "../components/Boton";
 import Lupa from "../../assets/Lupa.png";
 import API from "../API";
 //import * as FileSystem from "expo-file-system";
+import SplashScreen from "./SplashScreen";
 import axios from "axios";
 import ModalScanner from "../components/ModalScanner";
 /*import RNPhotoManipulator from "react-native-photo-manipulator";
@@ -32,7 +33,6 @@ const Scanner = () => {
       MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
-      
       console.log("test");
       setViewReady(true);
     })();
@@ -42,73 +42,31 @@ const Scanner = () => {
     return <Text> No acces to camera</Text>;
   }
 
-/*   const variablesModal = async () => {
-    try {
-      let url = API.Ia;
-      const response = await axios.get(url);
-      const { Probabilidad, Estado, Picadura } = response.data; // Accede a los datos de la respuesta
-
-      console.log(Probabilidad, Estado, Picadura);
-    } catch (error) {
-      console.error("Error al obtener los datos:", error);
-    }
-  }; */
 
   const takePicture = async () => {
     axios
     if (cameraRef) {
       try {
-        const options = { quality: 0.2, skipProcessing: true, base64: true };
-        //const image = data.uri; 
-        const data = await cameraRef.current.takePictureAsync(options);
+        const options = { /* quality: 0.9,  */skipProcessing: true, base64: true };
+        const data = await cameraRef.current.takePictureAsync(  options  );
         if (!data.uri) {
           throw new Error('Failed to capture an image.');
         }
-
-        /*let messi = await ImageManipulator.manipulateAsync(data.uri, [
-        {resize: {width: 1080, height: 720}},],
-        {compress: 0.5, format: ImageManipulator.SaveFormat.PNG})
-        messi = {base64: true}
-        setImage(messi);*/
-       /* let fotoEditada = await ImageResizer(data.uri, 500, 400);
-       setImage(fotoEditada).then((result) => {
-          console.log(result);
-      });*/
-         
-        //let image = base64.encode(data.uri);
-        /*await ImageResizer.manipulateAsync(data.uri, [
-          {resize: {width: 700, height: 500, quality: 0, compress: 0.2}}
-        ]);*/
-        
-        /* const image = data.uri;
-        await ImageResizer.manipulateAsync(data.uri, [
-          {resize: {width: 700, height: 500}}
-        ]); */
-        //const cropRegion = { x: 5, y: 30, height: 400, width: 250 };
-        //const targetSize = { height: 200, width: 150 };
-
-        /*RNPhotoManipulator.ActionCrop(image, cropRegion, targetSize).then((path) => {
-          console.log(`Result image path: ${path}`);
-          setImage(data.uri);
-        });
-       
-    */
-        console.log(data);
-        
-        //console.log("iamgen",image);
-        
-        //setImage(image);
-        
+        console.log("data"); 
+        console.log(data.uri); 
+        console.log(data.width);
+        console.log(data.height);
+        console.log("base64"); 
+        console.log(data.base64.length);
+        console.log(data.base64);
+        //console.log(data);
+        const objFoto = {
+          Foto: data.base64 
+        }
         let url = API.ApiIa;
-
-        /*const imageFile = await FileSystem.readAsStringAsync(data.uri, {
-          encoding: FileSystem.EncodingType.Base64,
-        });
-*/
-        const response = await axios.post(url, data);
+        setImage(data.uri)
+        const response = await axios.post(url, objFoto);
         saveImage(image);
-       
-
         console.log("Respuesta del backend:", response.data);
       } catch (e) {
         console.log(e);
@@ -117,30 +75,13 @@ const Scanner = () => {
     }
   };
   
-  /*const saveImage2 = async () => {
-    if (image) {
-      try {
-        setShowModal(true); // Mostrar el componente ModalScanner
-  
-        await MediaLibrary.createAssetAsync(image);
-        alert("¡Imagen guardada!")
-        /*.then(<ModalScanner />)
-        console.log(image);
-        setImage(null);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  };*/
 
   const saveImage = async (image) => {
     if (image) {
-      try {
-        //const image = data.uri;
-        
+      try {    
+        await MediaLibrary.createAssetAsync(image);
         showModal(true);
         <ModalScanner />
-        await MediaLibrary.createAssetAsync(image);
         alert("Picture save!");
         console.log(image);
         setImage(null); 
@@ -207,9 +148,8 @@ const Scanner = () => {
               icon="retweet"
               onPress={() => setImage(null)}
             />
-             <ModalScanner value={showModal}/>
             <Boton title={"Save"} icon="check" onPress={saveImage} />
-           
+            <ModalScanner value={showModal}/>
           </View>
         ) : (
           <View style={styles.container}>
