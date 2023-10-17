@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 import axios from 'axios';
 
-const ModalScanner = (id, foto, estado, idInsecto, probabilidades) => {
+const ModalScanner = (picadura) => {
+ /*A PICADURA LE LLEGA TODO EL OBJETO RECIBIDO*/ 
+  console.log(picadura)
   const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.centeredView}>

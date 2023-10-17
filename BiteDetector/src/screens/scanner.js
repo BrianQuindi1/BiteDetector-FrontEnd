@@ -80,8 +80,10 @@ const Scanner = () => {
     if (image) {
       try {    
         await MediaLibrary.createAssetAsync(image);
+
+        let respuesta = await respuestaPicadura();
         showModal(true);
-        <ModalScanner />
+        <ModalScanner value={respuesta} />
         alert("Picture save!");
         console.log(image);
         setImage(null); 
@@ -94,7 +96,7 @@ const Scanner = () => {
   const respuestaPicadura = async () => {
     const picaduraRecibida = {id, foto, estado, idInsecto, probabilidades};
     const url = API.ApiIa;
-    axios.get(url, picaduraRecibida)
+    await axios.get(url, picaduraRecibida)
     .then(
       picaduraRecibida = {
         id: id,
@@ -104,6 +106,7 @@ const Scanner = () => {
         probabilidades: probabilidades
       }
     )
+    return picaduraRecibida;
   }
 
   return (
