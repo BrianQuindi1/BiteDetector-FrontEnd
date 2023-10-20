@@ -35,14 +35,13 @@ export default class UsuarioService {
         }
     }; 
 
-    almacenarCredenciales = async(Mail,Password, Nombre) => { 
+    almacenarCredenciales = async(Mail,Password) => { 
         //Almacena las credenciales en el asyncStorage
         //(para leerlas al iniciar la próxima vez) 
         // AGREGAR LO QUE FALTA
         try {    
             await AsyncStorage.setItem(EMAIL_KEY, Mail);  
             await AsyncStorage.setItem(CLAVE_KEY, Password); 
-            await AsyncStorage.setItem(CLAVE_NOMBRE, Nombre);
         } catch(e) {    
             console.log(e);
         }

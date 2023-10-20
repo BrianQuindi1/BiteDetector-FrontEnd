@@ -51,7 +51,8 @@ export const IniciarSesion = () => {
               // Almacenar el objeto y el token en AsyncStorage
               await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
               await AsyncStorage.setItem('token', response.data.Token);
-              console.log("estoy en el async")
+             /* let usuarioService = new UsuarioService();
+              usuarioService.almacenarCredenciales(email, contraseña); PREGUNTAR BIEN SI ESTO SIRVE O NO*/
               // Redirigir al perfil u otra pantalla
               navigation.navigate('Perfil');
             } else {

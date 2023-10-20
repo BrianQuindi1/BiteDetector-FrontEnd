@@ -5,9 +5,10 @@ import { Formik } from 'formik';
 import PerfilLogo from '../../assets/iniciarSesion.png'
 import API from '../API';
 import AsyncUtils from './../AsyncUtils'
+import UsuarioService from '../services/UsuarioServices';
 
 const Perfil = () => {
-  const navigation = useNavigation();
+  
 
   /*
   const jsonValue = await AsyncStorage.getItem('objetoUsuario');
@@ -15,8 +16,12 @@ const Perfil = () => {
   const nombrecito = returnValue.Nombre
    */
   const miObjeto = AsyncUtils.getObject('objetoUsuario');
-  
 
+  const cerrarSesion = () => {
+    let usuarioService = new UsuarioService();
+    usuarioService.eliminarCredenciales();
+    navigation.navigate("Iniciar Sesion");
+  }
 
   return (
       <SafeAreaView>
@@ -25,12 +30,12 @@ const Perfil = () => {
         </View>
 
         <View style={styles.acomodarInformacion}>
-            <Text style={styles.acomodarInformacion}>Nombre Usuario: {miObjeto.Nombre}</Text>
+            <Text style={styles.acomodarInformacion}> Nombre Usuario: {miObjeto.Nombre}</Text>
             <Text>Email</Text>{/*DESPUES FIJARSE DE PONERLO CON LOS DATOS DEL USER*/}
             <Text>{miObjeto.Nombre}</Text>
         </View>
         
-        <Button title='Cerrar Sesion' color="red"/> 
+        <Button title='Cerrar Sesion' color="red" onPress={() => cerrarSesion}/> 
 
       </SafeAreaView>
     
