@@ -10,8 +10,7 @@ const CardHistorialPicaduras = () => {
 
   const mostrarModal = () =>{
     setShowModal(true);
-    <ModalHistorial value={showModal}
-    />
+    <ModalHistorial value={showModal}/>
   }
   return (
     <View style={styles.card}>

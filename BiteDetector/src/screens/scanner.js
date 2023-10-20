@@ -59,12 +59,11 @@ const Scanner = () => {
         console.log("base64"); 
         console.log(data.base64.length);
         console.log(data.base64);
-        //console.log(data);
         const objFoto = {
           Foto: data.base64 
         }
         let url = API.ApiIa;
-        setImage(data.uri)
+        setImage(data.uri);
         const response = await axios.post(url, objFoto);
         saveImage(image);
         console.log("Respuesta del backend:", response.data);
@@ -73,14 +72,13 @@ const Scanner = () => {
         console.error("Error back", e);
       }
     }
-  };
+  }
   
 
   const saveImage = async (image) => {
     if (image) {
       try {    
         await MediaLibrary.createAssetAsync(image);
-
         let respuesta = await respuestaPicadura();
         showModal(true);
         <ModalScanner value={respuesta} />
@@ -94,16 +92,18 @@ const Scanner = () => {
   };
 
   const respuestaPicadura = async () => {
-    const picaduraRecibida = {id, foto, estado, idInsecto, probabilidades};
+    const picaduraRecibida = {IdPicadura, Foto, Estado, IdInsecto, Probabilidades, Nombre, Recomendaciones};
     const url = API.ApiIa;
     await axios.get(url, picaduraRecibida)
     .then(
       picaduraRecibida = {
-        id: id,
-        foto: foto,
-        estado: estado,
-        idInsecto: idInsecto,
-        probabilidades: probabilidades
+        IdPicadura      : IdPicadura,
+        Foto            : Foto,
+        Estado          : Estado,
+        IdInsecto       : IdInsecto,
+        Probabilidades  : Probabilidades,
+        Nombre          : Nombre,
+        Recomendaciones : Recomendaciones
       }
     )
     return picaduraRecibida;
@@ -117,7 +117,6 @@ const Scanner = () => {
           type={type}
           flashMode={flash}
           ref={cameraRef}
-
         >
           <View
             style={{
