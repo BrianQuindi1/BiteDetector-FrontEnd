@@ -2,8 +2,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EMAIL_KEY='LOGIN_email';
 const CLAVE_KEY='LOGIN_clave';
+const CLAVE_NOMBRE = "LOGIN_nombre";
 
-export default class UsuarioService{ 
+export default class UsuarioService { 
 
     login = async(/* Mail, Password */) => { 
         let esValido = false;
@@ -34,13 +35,14 @@ export default class UsuarioService{
         }
     }; 
 
-    almacenarCredenciales = async(Mail,Password) => { 
+    almacenarCredenciales = async(Mail,Password, Nombre) => { 
         //Almacena las credenciales en el asyncStorage
         //(para leerlas al iniciar la próxima vez) 
         // AGREGAR LO QUE FALTA
         try {    
             await AsyncStorage.setItem(EMAIL_KEY, Mail);  
             await AsyncStorage.setItem(CLAVE_KEY, Password); 
+            await AsyncStorage.setItem(CLAVE_NOMBRE, Nombre);
         } catch(e) {    
             console.log(e);
         }

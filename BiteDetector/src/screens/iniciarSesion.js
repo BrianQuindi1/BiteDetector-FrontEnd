@@ -49,12 +49,14 @@ export const IniciarSesion = () => {
               try {
                 // Comprobar si el usuario ha iniciado sesión en AsyncStorage
                 //const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion', 'true'); 
-                const token1 = await axios.get(url);
-              
-                if (response.data.token === token1) {
+                //const token1 = await axios.get(url);
+                if (await usuarioService.login(Mail, Password)){
+                  navigation.navigate('Screen1');
+                }
+                /* if (response.data.token === token1) {
                    //setIdUsuario(objeto.IdUsuario + 1)
                   navigation.navigate("Perfil")
-                }
+                } */
               } catch (error) {
                 console.error('Error al verificar el inicio de sesión:', error);
               }

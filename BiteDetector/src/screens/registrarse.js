@@ -8,6 +8,7 @@ import Perfil from '../screens/Perfil.js'
 import axios from 'axios'
 import AsyncUtils from './../AsyncUtils'
 import { useNavigation } from '@react-navigation/native';
+import UsuarioService from '../services/UsuarioServices';
 
 //impoortar perfil
 
@@ -23,30 +24,37 @@ const Registrarse = () => {
   
 
 
-
+  let usuarioService = new UsuarioService(); 
  
  const handleSubmit = async () => {
-      let objeto;
+      let Usuario;
       if(contraseña === confirmarContraseña){
-        objeto = {
+        Usuario = {
             Nombre: nombre,
             Mail: email,
             Password: contraseña
         }
       let url = API.ApiUsuario + "CrearUsuario";
       console.log(url);
-      console.log(objeto);
-      const response = await axios.post( url, objeto)
+      console.log(Usuario);
+      const response = await axios.post( url, Usuario)
       .then(
         useEffect(() => {
-          const verificarInicioSesion = async () => { /* ver bien de modificar esta funcion y ver si no hay q ponerlo en setItem */
+          
+          usuarioService.setObject("ObjetoUsuario", Usuario)
+          .then(usuarioService.almacenarCredenciales(Usuario.Mail, Usuario.Password, Usuario.Nombre))
+          .then(navigation.navigate("Perfil"));
+
+
+
+         /*  const verificarInicioSesion = async () => { /* ver bien de modificar esta funcion y ver si no hay q ponerlo en setItem 
             try {
               // Comprobar si el usuario ha iniciado sesión en AsyncStorage
-              //const jsonValue = JSON.stringify(objeto);
+              //const jsonValue = JSON.stringify(Usuario);
               //const usuarioIniciadoSesion = await AsyncStorage.setItem('objetoUsuario', jsonValue); //ver bien que es y como hacer "usuarioiniciadosesion"
               const verificacion = false;
-              AsyncUtils.setObject('objetoUsuario', objeto);
-              if(AsyncUtils.setObject('objetoUsuario', objeto))
+              AsyncUtils.setObject('objetoUsuario', Usuario);
+              if(AsyncUtils.setObject('objetoUsuario', Usuario))
               {
                 verificacion = true;
               }
@@ -61,7 +69,7 @@ const Registrarse = () => {
             }
           };
       
-          verificarInicioSesion();
+          verificarInicioSesion(); */
         }, [navigation])
       )
       }
@@ -72,7 +80,7 @@ const Registrarse = () => {
       }
      
       
-      console.log(objeto);
+      console.log(Usuario);
 
 
       
@@ -86,7 +94,7 @@ const Registrarse = () => {
     <Formik initialValues={{
       email:'',
       contraseña:'',
-      nombreUsuario:'',
+      nombre:'',
       confirmarContraseña:''
       
     }}
@@ -112,6 +120,8 @@ const Registrarse = () => {
           placeholder="Ingrese su mail..."
           value={email}
           name="email"
+          keyboardType= "email-address"
+          
         />
 
         <TextInput 
