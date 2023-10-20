@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Perfil from "../screens/Perfil";
 import AsyncUtils from './../AsyncUtils'
 import axios from 'axios'
+import UsuarioService from '../services/UsuarioServices';
 
 export const IniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
@@ -17,14 +18,12 @@ export const IniciarSesion = () => {
   const [IdUsuario, setIdUsuario] = useState(0);
   const navigation = useNavigation();
 
-
   
     let validarSesion = async () => {
       let objeto =
         {
           Mail: email,
           Password: contraseña,
-          IdUsuario: IdUsuario,
         };/*
         let objeto =
         {
@@ -41,52 +40,33 @@ export const IniciarSesion = () => {
           console.log(url);
           const response = await axios.post(url, objeto)
           console.log(response.data)
-          console.log(response.data.token)
+          console.log(response.data.Token)
           //verificarInicioSesion();
 
-          useEffect(() => {
-            const verificarInicioSesion = async () => {
-              try {
-                // Comprobar si el usuario ha iniciado sesión en AsyncStorage
-                //const usuarioIniciadoSesion = await AsyncStorage.getItem('usuarioIniciadoSesion', 'true'); 
-                //const token1 = await axios.get(url);
-                if (await usuarioService.login(Mail, Password)){
-                  navigation.navigate('Screen1');
-                }
-                /* if (response.data.token === token1) {
-                   //setIdUsuario(objeto.IdUsuario + 1)
-                  navigation.navigate("Perfil")
-                } */
-              } catch (error) {
-                console.error('Error al verificar el inicio de sesión:', error);
-              }
-            };
-        
-           verificarInicioSesion();
-          }, [navigation])
+         
 
-          .then(async (response) => {
-            if (response.data.token) {
+          
+            try{
+            if (response.data.Token) {
               // Almacenar el objeto y el token en AsyncStorage
               await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
-              await AsyncStorage.setItem('token', response.data.token);
-          
+              await AsyncStorage.setItem('token', response.data.Token);
+              console.log("estoy en el async")
               // Redirigir al perfil u otra pantalla
               navigation.navigate('Perfil');
             } else {
               alert("El email o contraseña son inválidos");
             }
-          })
-          .then(
-            (response) => {
-              console.log(response.status, response.data);
-            }
-          )
-          .catch(
-            (error) => console.log(error)
-          );
+          }
+          catch (e) {
+            console.log(e);
+          }
+      
           
-        }
+        
+          
+        
+      }
       }
     
   return (

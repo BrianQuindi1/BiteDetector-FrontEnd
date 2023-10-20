@@ -25,7 +25,7 @@ const Perfil = () => {
         </View>
 
         <View style={styles.acomodarInformacion}>
-            <Text>Nombre Usuario</Text>{/*DESPUES FIJARSE DE PONERLO CON LOS DATOS DEL USER*/}
+            <Text style={styles.acomodarInformacion}>Nombre Usuario: {miObjeto.Nombre}</Text>
             <Text>Email</Text>{/*DESPUES FIJARSE DE PONERLO CON LOS DATOS DEL USER*/}
             <Text>{miObjeto.Nombre}</Text>
         </View>
@@ -64,4 +64,5 @@ const styles = StyleSheet.create({
       width: 129,
       height: 129,
   }
+
 });
