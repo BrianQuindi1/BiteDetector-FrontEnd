@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+    
 export default class AsyncUtils {
     static setString = async (key, value) => {
         try {

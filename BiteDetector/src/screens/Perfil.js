@@ -9,30 +9,23 @@ import UsuarioService from '../services/UsuarioServices';
 
 const Perfil = () => {
   
-
-  /*
-  const jsonValue = await AsyncStorage.getItem('objetoUsuario');
-  returnValue = ((jsonValue != null) ? JSON.parse(jsonValue) : null);
-  const nombrecito = returnValue.Nombre
-   */
   const miObjeto = AsyncUtils.getObject('objetoUsuario');
 
-  const cerrarSesion = () => {
+  const cerrarSesion = async () => {
     let usuarioService = new UsuarioService();
-    usuarioService.eliminarCredenciales();
+    await usuarioService.eliminarCredenciales();
     navigation.navigate("Iniciar Sesion");
   }
 
   return (
       <SafeAreaView>
-        <View style={styles.acomodarFoto}> 
+         <View style={styles.acomodarFoto}> 
           <Image source={PerfilLogo} style={styles.logo}/>
         </View>
 
         <View style={styles.acomodarInformacion}>
-            <Text style={styles.acomodarInformacion}> Nombre Usuario: {miObjeto.Nombre}</Text>
+            <Text /* style={styles.acomodarInformacion} */> Nombre Usuario: {miObjeto.Nombre}</Text>
             <Text>Email</Text>{/*DESPUES FIJARSE DE PONERLO CON LOS DATOS DEL USER*/}
-            <Text>{miObjeto.Nombre}</Text>
         </View>
         
         <Button title='Cerrar Sesion' color="red" onPress={() => cerrarSesion}/> 
@@ -57,8 +50,7 @@ const styles = StyleSheet.create({
     flex: 2
   },
   acomodarInformacion: {
-    marginTop: 260,
-    flex: 2
+    marginTop: 260
   },
   logo:{
       alignItems: 'center',

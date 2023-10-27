@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View, Image} from 'react-native';
 import FotoPicadura from "../../assets/picadura.jpg"
 
-const ModalHistorial = () => {
+const ModalHistorial = (foto) => {
   const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.centeredView}>
@@ -16,7 +16,7 @@ const ModalHistorial = () => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Image src={FotoPicadura}/>
+            <Image src={foto}/>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>

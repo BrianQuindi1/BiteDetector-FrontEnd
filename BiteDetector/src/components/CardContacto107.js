@@ -1,17 +1,24 @@
 import React from 'react'
-import { View, Text, Button, StyleSheet, Image} from 'react-native';
+import { View, Text, StyleSheet, Image, Linking, Pressable} from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import ambulancia from '../../assets/ambulancia.png'
 
 
 function CardContacto107() {
+  const llamarNumero = () => {
+    const phoneNumber = 107;
+    Linking.openURL(`tel:${phoneNumber}`)
+  }
     return (
-        <View style={styles.card}>
+        <SafeAreaView style={styles.card}>
           <View style={styles.cardContent}>
-            <Text style={styles.title}>Ambulancia</Text>
-            <Image source={ambulancia}></Image> {/* acomodar la imagen */}
-            <Button title='Llamar' color='#F8F8EC'></Button>
+          <Text style={styles.title}>Ambulancia</Text>
+          <Pressable onPress={() => llamarNumero()} style={styles.boton}>
+              <Text>Llamar al 107</Text>
+            </Pressable> 
           </View>
-        </View>
+        </SafeAreaView>
       );
     };
 
@@ -27,13 +34,26 @@ function CardContacto107() {
           marginHorizontal: 4,
           marginVertical: 6,
         },
+          boton: {
+            alignItems: 'center',
+            borderRadius: 15,
+            backgroundColor: '#F8F8EC',
+            paddingHorizontal: 1, //cambia el tamaño del boton en forma horizontal
+            paddingVertical: 10,
+            //shadowRadius: 15,
+            shadowColor: '#2C4521',
+            shadowOpacity: 0.6,
+            elevation: 5,
+            textAlign:'center',
+            //marginTop: 15,
+          },
         cardContent: {
           marginHorizontal: 18,
           marginVertical: 10,
         },
         image: {
-          width: '100%',
-          height: 200,
+          width: '30%',
+          height: 'auto',
           borderTopLeftRadius: 8,
           borderTopRightRadius: 8,
         },
@@ -49,4 +69,4 @@ function CardContacto107() {
       });
       
 
-export default CardContacto107
+export default CardContacto107;

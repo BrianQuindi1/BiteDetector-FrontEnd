@@ -2,14 +2,17 @@ import React from 'react'
 import { Text, SafeAreaView, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CardContacto107 from '../components/CardContacto107';
+import axios from 'axios'
+import { View } from 'react-native-web';
 
 const ContactosDeEmergencia = () => {
-  const navigation = useNavigation();
+  //const navigation = useNavigation();
+   
   return (
-    <SafeAreaView style={styles.container}>
+     <SafeAreaView style={styles.container}>
       <Text style={styles.fuenteTitulo}>Contactos generales</Text>
-      {/*<CardContacto107 />*/}
-    </SafeAreaView>
+       <CardContacto107 style={styles.contactosGenerales}/>
+    </SafeAreaView> 
   )
 }
 
@@ -23,8 +26,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8EC'
   },
   fuenteTitulo:{
-    fontSize: 18,
-    //fontFamily: "arial"
+    fontSize: 18
+  },
+  contactosGenerales:{
+    marginBottom: 360
   }
 });
 

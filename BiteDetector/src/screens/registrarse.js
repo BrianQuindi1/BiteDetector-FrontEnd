@@ -38,12 +38,11 @@ const Registrarse = () => {
       console.log(url);
       console.log(Usuario);
       const response = await axios.post( url, Usuario)
+      
       .then(
-        useEffect(() => {
-          
-          usuarioService.setObject("ObjetoUsuario", Usuario)
+          usuarioService.setObject("UsuarioIniciadoSesion", Usuario)
           .then(usuarioService.almacenarCredenciales(Usuario.Mail, Usuario.Password, Usuario.Nombre))
-          .then(navigation.navigate("Perfil"));
+          .then(navigation.navigate("Perfil"))
 
 
 
@@ -70,7 +69,7 @@ const Registrarse = () => {
           };
       
           verificarInicioSesion(); */
-        }, [navigation])
+       
       )
       }
       

@@ -44,7 +44,6 @@ const Scanner = () => {
 
 
   const takePicture = async () => {
-    axios
     if (cameraRef) {
       try {
         const options = { /* quality: 0.9,  */skipProcessing: true, base64: true };

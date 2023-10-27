@@ -3,20 +3,21 @@ import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-n
 import ModalHistorial from "./ModalHistorial.js"
 
 
-const CardHistorialPicaduras = () => {
+const CardHistorialPicaduras = (picadura) => {
   const [showModal, setShowModal] = useState(false);
   const [modalVisible, setModalVisible] = useState(true);
-
+  const {Nombre, Probabilidades, Foto} =picadura
 
   const mostrarModal = () =>{
     setShowModal(true);
-    <ModalHistorial value={showModal}/>
+
+    <ModalHistorial value={Foto}/>
   }
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
-        <Text style={styles.title}>Mosquito</Text>
-        <Text style={styles.description}>Probablilidades: 97%</Text>
+        <Text style={styles.title}>{Nombre}</Text>
+        <Text style={styles.description}>Probablilidades: {Probabilidades}%</Text>
         <Text style={styles.description}>Fecha de scaneo: 22/9/2023</Text>
         {/* <Button title='Ver Foto' color='#F8F8EC' onPress={() => mostrarModal} ></Button> */}
         <TouchableOpacity style={styles.boton2} onPress={() => mostrarModal}>

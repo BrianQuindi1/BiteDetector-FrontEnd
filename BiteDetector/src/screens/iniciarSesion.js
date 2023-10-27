@@ -13,8 +13,8 @@ import UsuarioService from '../services/UsuarioServices';
 export const IniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
   const [number, onchangeNumber] = React.useState('');
-  const [email, setEmail] = useState("");
-  const [contraseña, setContraseña] = useState("");
+  const [email, setEmail] = useState("manolisguido@gmail.com");
+  const [contraseña, setContraseña] = useState("YummY");
   const [IdUsuario, setIdUsuario] = useState(0);
   const navigation = useNavigation();
 
@@ -24,29 +24,20 @@ export const IniciarSesion = () => {
         {
           Mail: email,
           Password: contraseña,
-        };/*
-        let objeto =
-        {
-          Mail: 'mail',
-          Password: 'contra',
-          IdUsuario: 1,
-        };*/
+        };
+
         if(email!= "" || contraseña != "" || email!= "" && contraseña != "")
         {
      
-          //codigo anterior con axios
+          
           let url = API.ApiUsuario + "login";
           console.log(objeto);
           console.log(url);
           const response = await axios.post(url, objeto)
           console.log(response.data)
           console.log(response.data.Token)
-          //verificarInicioSesion();
 
-         
-
-          
-            try{
+          try{
             if (response.data.Token) {
               // Almacenar el objeto y el token en AsyncStorage
               await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
@@ -62,6 +53,24 @@ export const IniciarSesion = () => {
           catch (e) {
             console.log(e);
           }
+           /*  try{
+            if (response.data.Token) {
+              // Almacenar el objeto y el token en AsyncStorage
+              let usuarioService = new UsuarioService();
+              let inicio = await usuarioService.almacenarCredenciales(response.data.Mail, response.data.Password, response.data.Nombre)
+              inicio = await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
+              await AsyncStorage.setItem('token', response.data.Token);
+             {/* let usuarioService = new UsuarioService();
+            usuarioService.almacenarCredenciales(email, contraseña); PREGUNTAR BIEN SI ESTO SIRVE O NO 
+              // Redirigir al perfil u otra pantalla
+              navigation.navigate('Perfil');
+            } else {
+              alert("El email o contraseña son inválidos");
+            }
+          }
+          catch (e) {
+            console.log(e);
+          } */
       
           
         
