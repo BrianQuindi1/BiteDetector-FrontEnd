@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 import axios from 'axios';
 
-const ModalScanner = ({respuestaPicadura}) => {
+const ModalScanner = ({respuestaBack}) => {
  //A PICADURA LE LLEGA TODO EL OBJETO RECIBIDO
-   console.log("respuestaPicadura",respuestaPicadura)
+   console.log("respuestaPicadura", respuestaBack?.response.data)
   const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.centeredView}>
@@ -18,7 +18,7 @@ const ModalScanner = ({respuestaPicadura}) => {
         }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>IdInsecto: {respuestaPicadura?.picaduraRecibida?.IdInsecto} </Text>
+              <Text style={styles.modalText}>IdInsecto: {/* {respuestaPicadura?.picaduraRecibida?.IdInsecto} */} </Text>
               <Text style={styles.modalText}>Probabilidades:</Text>
              <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Probabilidades} */}</Text>
 

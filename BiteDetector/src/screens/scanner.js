@@ -23,6 +23,7 @@ const Scanner = () => {
   const [haveToRealod, setHaveToRealod] = useState(false);
   const [viewReady, setViewReady] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [respuestaBack, SetRespuestaBack] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -30,7 +31,6 @@ const Scanner = () => {
       MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
-      console.log("test");
       setViewReady(true);
     })();
   }, [haveToRealod]);
@@ -41,43 +41,51 @@ const Scanner = () => {
 
 
   const takePicture = async () => {
+    
     if (cameraRef) {
       try {
-        const options = { /* quality: 0.9,  */skipProcessing: true, base64: true };
+        const options = {skipProcessing: true, base64: true };
         const data = await cameraRef.current.takePictureAsync(  options  );
         if (!data.uri) {
           throw new Error('Failed to capture an image.');
         }
-        console.log("data"); 
-        console.log(data.uri); 
-        console.log(data.width);
-        console.log(data.height);
-        console.log("base64"); 
-        console.log(data.base64.length);
-        console.log(data.base64);
         const objFoto = {
           Foto: data.base64 
         }
         let url = API.ApiIa;
         setImage(data.uri);
-        const response = await axios.post(url, objFoto);
+        const response = await axios.post(url, objFoto)
+        .then(
+          response => (
+            picaduraRecibida = {
+              IdPicadura      : response.data.IdPicadura,
+              Estado          : response.data.Estado,
+              Probabilidad  : response.data.Probabilidad,
+              Nombre          : response.data.Nombre,
+              SintomasLeves : response.data.Recomendaciones.SintomasLeves,
+              SintomasGraves: response.data.Recomendaciones.SintomasGraves,
+              Recomendaciones: response.data.Recomendaciones.Recomendaciones,
+              MasInfo: response.data.Recomendaciones.MasInfo
+              })
+        )
+        console.log("B322b",response.data.picaduraRecibida)
+          SetRespuestaBack(response.data)
         saveImage(image);
-        console.log("Respuesta del backend:", response.data);
       } catch (e) {
         console.log(e);
         console.error("Error back", e);
       }
     }
+    return respuestaBack;
   }
   
 
   const saveImage = async (image) => {
     if (image) {
       try {    
+        console.log("HOLA")
         await MediaLibrary.createAssetAsync(image);
-        let respuesta = await respuestaPicadura();
-        showModal(true);
-        <ModalScanner respuestaPicadura={respuesta} />
+        //let respuesta = await respuestaPicadura();
         alert("Picture save!");
         /* console.log(image); */
         setImage(null); 
@@ -87,25 +95,27 @@ const Scanner = () => {
     }
   };
 
-  const respuestaPicadura = async () => {
-    let picaduraRecibida; /* = {IdPicadura, Foto, Estado, IdInsecto, Probabilidades, Nombre, Recomendaciones} */
+ /*  const respuestaPicadura = async () => {
+    let picaduraRecibida; /* = {IdPicadura, Foto, Estado, IdInsecto, Probabilidades, Nombre, Recomendaciones}
     const url = API.ApiIa;
+    console.log(url);
     await axios.get(url)
     .then(
       response => (
       picaduraRecibida = {
         IdPicadura      : response.data.IdPicadura,
-        Foto            : Foto,
-        Estado          : Estado,
-        IdInsecto       : IdInsecto,
-        Probabilidades  : Probabilidades,
-        Nombre          : Nombre,
-        Recomendaciones : Recomendaciones
+        Foto            : response.data.Foto,
+        Estado          : response.data.Estado,
+        IdInsecto       : response.data.IdInsecto,
+        Probabilidades  : response.data.Probabilidades,
+        Nombre          : response.data.Nombre,
+        Recomendaciones : response.data.Recomendaciones
         })
-    )
+    ).then("response.data:",console.log(response.data))
+    
     console.log(picaduraRecibida);
     return picaduraRecibida;
-  }
+  } */
 
   const subirPicadura = async () => {
     const url = API.ApiHistorial;
@@ -141,7 +151,7 @@ const Scanner = () => {
           >
             <Boton title={"Re-take"} icon="retweet" onPress={() => setImage(null)}/>
             <Boton title={"Save"} icon="check" onPress={saveImage} />
-            <ModalScanner value={showModal}/>
+            <ModalScanner value={showModal} respuestaPicadura={respuestaBack} /> 
           </View>
         ) : (
           <View style={styles.container}>
