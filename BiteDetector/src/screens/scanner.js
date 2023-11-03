@@ -23,7 +23,7 @@ const Scanner = () => {
   const [haveToRealod, setHaveToRealod] = useState(false);
   const [viewReady, setViewReady] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [respuestaBack, SetRespuestaBack] = useState(null)
+  const [respuestaBack, setRespuestaBack] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -55,28 +55,32 @@ const Scanner = () => {
         let url = API.ApiIa;
         setImage(data.uri);
         const response = await axios.post(url, objFoto)
-        .then(
-          response => (
+        .then((response) => {
             picaduraRecibida = {
-              IdPicadura      : response.data.IdPicadura,
-              Estado          : response.data.Estado,
-              Probabilidad  : response.data.Probabilidad,
-              Nombre          : response.data.Nombre,
-              SintomasLeves : response.data.Recomendaciones.SintomasLeves,
-              SintomasGraves: response.data.Recomendaciones.SintomasGraves,
-              Recomendaciones: response.data.Recomendaciones.Recomendaciones,
-              MasInfo: response.data.Recomendaciones.MasInfo
-              })
+                IdPicadura      : response.data.IdPicadura,
+                Estado          : response.data.Estado,
+                Probabilidad    : response.data.Probabilidad,
+                Nombre          : response.data.Nombre,
+                SintomasLeves   : response.data.Recomendaciones.SintomasLeves,
+                SintomasGraves  : response.data.Recomendaciones.SintomasGraves,
+                Recomendaciones : response.data.Recomendaciones.Recomendaciones,
+                MasInfo: response.data.Recomendaciones.MasInfo
+              
+              }
+              console.log('picaduraRecibida');
+              console.log(response.data);
+              //console.log("B322b",response.data.picaduraRecibida)
+              setRespuestaBack(picaduraRecibida)
+              /* console.log("respuestaBack: ",respuestaBack) */
+            }
         )
-        console.log("B322b",response.data.picaduraRecibida)
-          SetRespuestaBack(response.data)
+        
         saveImage(image);
       } catch (e) {
         console.log(e);
         console.error("Error back", e);
       }
     }
-    return respuestaBack;
   }
   
 
@@ -117,11 +121,7 @@ const Scanner = () => {
     return picaduraRecibida;
   } */
 
-  const subirPicadura = async () => {
-    const url = API.ApiHistorial;
-    await axios.post(url, picaduraRecibida)
-  }
-
+  
   return (
     <SafeAreaView style={styles.container}>
       {!image && viewReady ? (
@@ -151,7 +151,7 @@ const Scanner = () => {
           >
             <Boton title={"Re-take"} icon="retweet" onPress={() => setImage(null)}/>
             <Boton title={"Save"} icon="check" onPress={saveImage} />
-            <ModalScanner value={showModal} respuestaPicadura={respuestaBack} /> 
+            <ModalScanner value={showModal} respuestaBack={respuestaBack} /> 
           </View>
         ) : (
           <View style={styles.container}>

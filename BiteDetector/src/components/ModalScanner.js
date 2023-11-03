@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Modal, StyleSheet, Text, Pressable, View } from 'react-native';
 import axios from 'axios';
 
-const ModalScanner = ({respuestaBack}) => {
- //A PICADURA LE LLEGA TODO EL OBJETO RECIBIDO
-   console.log("respuestaPicadura", respuestaBack?.response.data)
+const ModalScanner = ( {respuestaBack} ) => {
+  //A PICADURA LE LLEGA TODO EL OBJETO RECIBIDO  
+  console.log("respuestaPicadura", respuestaBack)
   const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.centeredView}>
@@ -16,36 +16,36 @@ const ModalScanner = ({respuestaBack}) => {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>IdInsecto: {/* {respuestaPicadura?.picaduraRecibida?.IdInsecto} */} </Text>
-              <Text style={styles.modalText}>Probabilidades:</Text>
-             <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Probabilidades} */}</Text>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>IdInsecto: {respuestaBack?.IdPicadura} </Text>
+            <Text style={styles.modalText}>Probabilidades:</Text>
+            <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Probabilidades} */}</Text>
 
-             <Text style={styles.modalText2}>_________</Text>
+            <Text style={styles.modalText2}>_________</Text>
 
-              <Text style={styles.modalText}>Posibles Riesgos:</Text> 
-              <Text style={{color: 'green', fontSize: 20}}>Leves</Text> 
-              <Text style={styles.modalText2}>Picazón</Text>
+            <Text style={styles.modalText}>Posibles Riesgos:</Text>
+            <Text style={{ color: 'green', fontSize: 20 }}>Leves</Text>
+            <Text style={styles.modalText2}>{respuestaBack?.SintomasLeves}</Text>
 
-              <Text style={styles.modalText2}>_________</Text>
+            <Text style={styles.modalText2}>_________</Text>
 
-              <Text style={styles.modalText}>Recomendaciones:</Text>
+            <Text style={styles.modalText}>Recomendaciones: {respuestaBack?.Estado}</Text>
             <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Recomendaciones} */}</Text>
 
             <Text style={styles.modalText2}>_________</Text>
 
-            <Text style={styles.modalText}>Estado: </Text>
+            <Text style={styles.modalText}>Estado: {respuestaBack?.Estado}</Text>
             <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Estado} */}</Text>
 
-             <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
-               <Text style={styles.textStyle}>Cerrar</Text>
-             </Pressable>
-            </View>
-            
+            <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Cerrar</Text>
+            </Pressable>
           </View>
-          
-        
+
+        </View>
+
+
       </Modal>
     </View>
   );

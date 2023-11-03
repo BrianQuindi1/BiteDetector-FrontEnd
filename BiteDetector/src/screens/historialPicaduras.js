@@ -16,7 +16,7 @@ const HistorialPicaduras = () => {
   let url = API.ApiHistorial
 
   const obtenerHistorial = async ()=>{
-   const historialAux= await axios.get(url);
+   const historialAux= await axios.get(`${url}/1`);//en donde esta el 1 debería ir el id del usuario
    console.log("el historial es ");
    console.log(historialAux.data);   
    setHistorial(historialAux.data);
