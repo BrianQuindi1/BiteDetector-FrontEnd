@@ -6,7 +6,7 @@ import ModalHistorial from "./ModalHistorial.js"
 const CardHistorialPicaduras = (picadura) => {
   const [showModal, setShowModal] = useState(false);
   const [modalVisible, setModalVisible] = useState(true);
-  const {Nombre, Probabilidades, Foto} =picadura
+  const {Nombre, Probabilidades, Foto, Recomendaciones} =picadura
 
   const mostrarModal = () =>{
     setShowModal(true);

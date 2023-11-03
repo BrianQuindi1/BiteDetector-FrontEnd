@@ -10,10 +10,7 @@ import API from "../API";
 import SplashScreen from "./SplashScreen";
 import axios from "axios";
 import ModalScanner from "../components/ModalScanner";
-/*import RNPhotoManipulator from "react-native-photo-manipulator";
-import ImageResizer from 'react-native-image-resizer';
-import * as ImageManipulator from 'expo-image-manipulator';*/
-import base64 from 'react-native-base64'
+
 
 const Scanner = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -80,9 +77,9 @@ const Scanner = () => {
         await MediaLibrary.createAssetAsync(image);
         let respuesta = await respuestaPicadura();
         showModal(true);
-        <ModalScanner value={respuesta} />
+        <ModalScanner respuestaPicadura={respuesta} />
         alert("Picture save!");
-        console.log(image);
+        /* console.log(image); */
         setImage(null); 
       } catch (e) {
         console.log(e);
@@ -91,55 +88,38 @@ const Scanner = () => {
   };
 
   const respuestaPicadura = async () => {
-    const picaduraRecibida = {IdPicadura, Foto, Estado, IdInsecto, Probabilidades, Nombre, Recomendaciones};
+    let picaduraRecibida; /* = {IdPicadura, Foto, Estado, IdInsecto, Probabilidades, Nombre, Recomendaciones} */
     const url = API.ApiIa;
-    await axios.get(url, picaduraRecibida)
+    await axios.get(url)
     .then(
+      response => (
       picaduraRecibida = {
-        IdPicadura      : IdPicadura,
+        IdPicadura      : response.data.IdPicadura,
         Foto            : Foto,
         Estado          : Estado,
         IdInsecto       : IdInsecto,
         Probabilidades  : Probabilidades,
         Nombre          : Nombre,
         Recomendaciones : Recomendaciones
-      }
+        })
     )
+    console.log(picaduraRecibida);
     return picaduraRecibida;
+  }
+
+  const subirPicadura = async () => {
+    const url = API.ApiHistorial;
+    await axios.post(url, picaduraRecibida)
   }
 
   return (
     <SafeAreaView style={styles.container}>
       {!image && viewReady ? (
-        <Camera
-          style={styles.camera}
-          type={type}
-          flashMode={flash}
-          ref={cameraRef}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 30,
-            }}
-          >
-            <Boton
-              icon={"retweet"}
-              onPress={() =>
-                setType(
-                  type === CameraType.back ? CameraType.front : CameraType.back
-                )
-              }
-            />
-            <Boton
-              icon={"flash"}
-              color={
-                flash === Camera.Constants.FlashMode.off ? "gray" : "#f1f1f1"
-              }
-              onPress={() => {
-                setFlash(
-                  flash === Camera.Constants.FlashMode.off
+        <Camera style={styles.camera} type={type} flashMode={flash} ref={cameraRef}>
+          <View style={{flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 30,}}>
+            <Boton icon={"retweet"} onPress={() =>setType(type === CameraType.back ? CameraType.front : CameraType.back)}/>
+            <Boton icon={"flash"} color={flash === Camera.Constants.FlashMode.off ? "gray" : "#f1f1f1"}
+              onPress={() => {setFlash(flash === Camera.Constants.FlashMode.off
                     ? Camera.Constants.FlashMode.on
                     : Camera.Constants.FlashMode.off
                 );
@@ -159,11 +139,7 @@ const Scanner = () => {
               paddingHorizontal: 50,
             }}
           >
-            <Boton
-              title={"Re-take"}
-              icon="retweet"
-              onPress={() => setImage(null)}
-            />
+            <Boton title={"Re-take"} icon="retweet" onPress={() => setImage(null)}/>
             <Boton title={"Save"} icon="check" onPress={saveImage} />
             <ModalScanner value={showModal}/>
           </View>

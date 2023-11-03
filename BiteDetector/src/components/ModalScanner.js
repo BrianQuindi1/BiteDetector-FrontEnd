@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 import axios from 'axios';
 
-const ModalScanner = (picaduraRecibida) => {
+const ModalScanner = ({respuestaPicadura}) => {
  //A PICADURA LE LLEGA TODO EL OBJETO RECIBIDO
-  console.log(picaduraRecibida)
+   console.log("respuestaPicadura",respuestaPicadura)
   const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.centeredView}>
@@ -16,38 +16,36 @@ const ModalScanner = (picaduraRecibida) => {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>IdInsecto: {respuestaPicadura?.picaduraRecibida?.IdInsecto} </Text>
+              <Text style={styles.modalText}>Probabilidades:</Text>
+             <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Probabilidades} */}</Text>
 
+             <Text style={styles.modalText2}>_________</Text>
 
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Insecto: {picaduraRecibida.Nombre} </Text>
-            <Text style={styles.modalText}>IdInsecto: {picaduraRecibida.IdInsecto} </Text>
-            <Text style={styles.modalText}>Probabilidades:</Text>
-            <Text style={styles.modalText2}>{picaduraRecibida.Probabilidades}</Text>
-            
+              <Text style={styles.modalText}>Posibles Riesgos:</Text> 
+              <Text style={{color: 'green', fontSize: 20}}>Leves</Text> 
+              <Text style={styles.modalText2}>Picazón</Text>
 
-            <Text style={styles.modalText2}>_________</Text>
+              <Text style={styles.modalText2}>_________</Text>
 
-            <Text style={styles.modalText}>Posibles Riesgos:</Text> 
-            <Text style={{color: 'green', fontSize: 20}}>Leves</Text> {/* harcodeado */}
-            <Text style={styles.modalText2}>Picazón</Text>
-
-            <Text style={styles.modalText2}>_________</Text>
-
-            <Text style={styles.modalText}>Recomendaciones:</Text>
-            <Text style={styles.modalText2}>{picaduraRecibida.Recomendaciones}</Text>
+              <Text style={styles.modalText}>Recomendaciones:</Text>
+            <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Recomendaciones} */}</Text>
 
             <Text style={styles.modalText2}>_________</Text>
 
             <Text style={styles.modalText}>Estado: </Text>
-            <Text style={styles.modalText2}>{picaduraRecibida.Estado}</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Cerrar</Text>
-            </Pressable>
+            <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Estado} */}</Text>
+
+             <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
+               <Text style={styles.textStyle}>Cerrar</Text>
+             </Pressable>
+            </View>
+            
           </View>
-        </View>
+          
+        
       </Modal>
     </View>
   );
@@ -69,10 +67,10 @@ const styles = StyleSheet.create({
     padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: {
+    /* shadowOffset: {
       width: 0,
       height: 2,
-    },
+    }, */
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
@@ -92,12 +90,12 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 22,
-    marginBottom: 15,
+    marginBottom: 10,
+    marginTop: 2,
     textAlign: 'center',
   },
   modalText2: {
     fontSize: 20,
-    marginBottom: 15,
     textAlign: 'center',
   },
 });
