@@ -36,16 +36,14 @@ export default class UsuarioService {
     }; 
 
     almacenarCredenciales = async (perfil) => { 
-        //Almacena las credenciales en el asyncStorage
-        //(para leerlas al iniciar la próxima vez) 
-        // AGREGAR LO QUE FALTA
+        // Almacena las credenciales en el AsyncStorage
+        // (para leerlas al iniciar la próxima vez) 
         try {    
-            await AsyncStorage.setItem(PERFIL_KEY, perfil);  
-            console.log();
+            await AsyncStorage.setObject(PERFIL_KEY, perfil);  
         } catch(e) {    
             console.log(e);
         }
-    };  
+    };
 
     obtenerCredenciales = async () => { 
         let storedPerfil = await AsyncStorage.getObject(PERFIL_KEY);
