@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const PERFIL_KEY = "PERFIL";
+
 export default class AsyncUtils {
     static setString = async (key, value) => {
         try {

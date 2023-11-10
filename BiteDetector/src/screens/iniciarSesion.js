@@ -9,7 +9,7 @@ import Perfil from "../screens/Perfil";
 import AsyncUtils from './../AsyncUtils'
 import axios from 'axios'
 import UsuarioService from '../services/UsuarioServices';
-
+let usuarioService = new UsuarioService();
 export const IniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
   const [number, onchangeNumber] = React.useState('');
@@ -34,7 +34,7 @@ export const IniciarSesion = () => {
           console.log(objeto);
           console.log(url);
           const response = await axios.post(url, objeto)
-          console.log(response.data)
+          console.log("Response Data: ",response.data)
           console.log(response.data.Token)
 
           try{
@@ -42,6 +42,7 @@ export const IniciarSesion = () => {
               // Almacenar el objeto y el token en AsyncStorage
               await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
               await AsyncStorage.setItem('token', response.data.Token);
+              await usuarioService.almacenarCredenciales(response.data)
              /* let usuarioService = new UsuarioService();
               usuarioService.almacenarCredenciales(email, contraseña); PREGUNTAR BIEN SI ESTO SIRVE O NO*/
               // Redirigir al perfil u otra pantalla

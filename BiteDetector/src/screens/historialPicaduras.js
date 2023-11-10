@@ -31,7 +31,7 @@ const HistorialPicaduras = () => {
   
   return (
     <SafeAreaView style={styles.container}>
-      <Text>chau {historial.length}</Text>
+      
        {historial.map((hist) => (
         <CardHistorialPicaduras picadura={hist}/>
         

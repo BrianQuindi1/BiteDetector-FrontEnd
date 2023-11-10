@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const EMAIL_KEY='LOGIN_email';
 const CLAVE_KEY='LOGIN_clave';
 const NOMBRE_KEY = "LOGIN_nombre";
-
+const PERFIL_KEY = "PERFIL";
 export default class UsuarioService { 
 
     login = async(/* Mail, Password */) => { 
@@ -35,25 +35,34 @@ export default class UsuarioService {
         }
     }; 
 
-    almacenarCredenciales = async (Mail,Password, Nombre) => { 
+    almacenarCredenciales = async (perfil) => { 
         //Almacena las credenciales en el asyncStorage
         //(para leerlas al iniciar la próxima vez) 
         // AGREGAR LO QUE FALTA
         try {    
-            await AsyncStorage.setItem(EMAIL_KEY, Mail);  
-            await AsyncStorage.setItem(CLAVE_KEY, Password);
-            await AsyncStorage.setItem(NOMBRE_KEY, Nombre);
+            await AsyncStorage.setItem(PERFIL_KEY, perfil);  
+            console.log();
         } catch(e) {    
             console.log(e);
         }
     };  
 
     obtenerCredenciales = async () => { 
-        let storedEmail = await AsyncStorage.getItem(EMAIL_KEY);
-        let storedClave = await AsyncStorage.getItem(CLAVE_KEY);
-        const returnValue = {'Mail':storedEmail, 'Password':storedClave}; 
-        return returnValue; 
-    }; 
+        let storedPerfil = await AsyncStorage.getObject(PERFIL_KEY);
+        console.log(storedPerfil);
+        if (storedPerfil) {
+            const returnValue = {
+                'Mail': storedPerfil.Mail,
+                'Password': storedPerfil.Password,
+                'IdUsuario': storedPerfil.IdUsuario,
+                'Nombre': storedPerfil.Nombre
+            }; 
+            return returnValue;
+        } else {
+            return null;  // Handle the case where no profile is stored
+        }
+    };
+
     
     setString = async (key, value) => {
         try {

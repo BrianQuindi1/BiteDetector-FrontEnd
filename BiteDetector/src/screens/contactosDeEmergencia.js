@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8EC'
   },
   fuenteTitulo:{
+    marginBottom: 50,
     fontSize: 18
   },
   contactosGenerales:{

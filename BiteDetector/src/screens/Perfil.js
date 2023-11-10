@@ -1,5 +1,5 @@
-import React from "react";
-import {StyleSheet,SafeAreaView,Button,Text,View,Image} from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, SafeAreaView, Button, Text, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
 import PerfilLogo from "../../assets/iniciarSesion.png";
@@ -8,31 +8,38 @@ import AsyncUtils from "./../AsyncUtils";
 import UsuarioService from "../services/UsuarioServices";
 import axios from "axios";
 
-
 let usuarioService = new UsuarioService();
 
-const Perfil = async () => {
+const Perfil = () => {
   const [Nombre, setNombre] = useState(null);
   const [Mail, setMail] = useState(null);
   const [IdUsuario, setIdUsuario] = useState(null);
+  const [objetoUsuario, setObjetoUsuario] = useState(null);
 
   const navigation = useNavigation();
-
-  const URL = API.ApiUsuario + "login";
-let objetoUsuario;
-
-try {
-  const response = await axios.get(URL);
-  objetoUsuario = {
-    IdUsuario: response.data.IdUsuario,
-    Mail: response.data.Mail,
-    Nombre: response.data.Nombre,
-  };
-  console.log(response.data);
-  AsyncUtils.setObject("PERFIL_KEY", objetoUsuario);
-} catch (error) {
-  console.error("Error al obtener los datos del usuario:", error);
-}
+  useEffect(() => {
+    const fetchData = async () => {
+      let usuario = usuarioService.obtenerCredenciales();
+      console.log(usuario);
+      try {
+        if (usuario) {
+          const usuarioData = {
+            IdUsuario: usuario.IdUsuario,
+            Mail: usuario.Mail,
+            Nombre: usuario.Nombre,
+          };
+          console.log("Usuario data: ", usuarioData);
+          setObjetoUsuario(usuarioData);
+        } else {
+          console.log("No se encontraron datos del usuario.");
+        }
+      } catch (error) {
+        console.error("Error al obtener los datos del usuario:", error);
+      }
+    };
+  
+    fetchData();
+  }, []);
 
   const cerrarSesion = async () => {
     await usuarioService.eliminarCredenciales();
@@ -40,21 +47,17 @@ try {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#F8F8EC' }}>
       <View style={styles.acomodarFoto}>
         <Image source={PerfilLogo} style={styles.logo} />
       </View>
 
       <View style={styles.acomodarInformacion}>
-        <Text /* style={styles.acomodarInformacion} */>
-          {" "}
-          Nombre Usuario: {response.data.objetoUsuario.Nombre}
-        </Text>
-        <Text>Email: {response.data.objetoUsuario.Mail}</Text>
-        {/*DESPUES FIJARSE DE PONERLO CON LOS DATOS DEL USER*/}
+        <Text>Nombre Usuario: {objetoUsuario?.Nombre}</Text>
+        <Text>Email: {objetoUsuario?.Mail}</Text>
       </View>
 
-      <Button title="Cerrar Sesion" color="red" onPress={() => cerrarSesion} />
+      <Button title="Cerrar Sesion" color="red" onPress={cerrarSesion} />
     </SafeAreaView>
   );
 };
@@ -79,9 +82,7 @@ const styles = StyleSheet.create({
   logo: {
     alignItems: "center",
     justifyContent: "center",
-    //textAlign:'center',
     position: "absolute",
-    //marginLeft: 100,
     width: 129,
     height: 129,
   },

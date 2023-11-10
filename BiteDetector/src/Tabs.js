@@ -18,12 +18,13 @@ import Perfil from './screens/Perfil';
 const Tabs = () => {
   const Tab = createBottomTabNavigator();
   return (
-    <NavigationContainer /*style={{color: 'green'}}*/>
+    <NavigationContainer style={styles.nav}>
       <Tab.Navigator 
+        style={styles.nav}
         screenOptions={{ headerShown: false }}
         tabBarOptions={{
           style: {
-            backgroundColor: 'blue', // Cambia el color de fondo aquí
+            color: '#AEDD2B', // Cambia el color de fondo aquí
           },
         }}
       >
@@ -41,7 +42,7 @@ const Tabs = () => {
           component={ContactosDeEmergencia}
           options={{
             tabBarIcon: () => (
-              <Image source={contactosDeEmergencia} style={{ width: 30, height: 30 }} />
+              <Image source={contactosDeEmergencia} style={{ width: 30, height: 30/* , backgroundColor: '#AEDD2B' */ }} />
             )
           }}
         />
@@ -72,7 +73,8 @@ export default Tabs;
 
 const styles = StyleSheet.create({
   nav: {
-    color: '#AEDD2B'
+    flex: 1,
+    backgroundColor: '#AEDD2B'
   },
   logos: {
     color: '#066699'
