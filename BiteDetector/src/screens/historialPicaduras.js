@@ -10,24 +10,33 @@ const HistorialPicaduras = () => {
   const navigation = useNavigation();
   const [historial, setHistorial] = useState([]);
   useEffect(() => {
-  obtenerHistorial();    
+    const obtenerHistorial = async ()=>{
+      const historialAux= await axios.get(`${url}/1`);//en donde esta el 1 debería ir el id del usuario
+      console.log("el historial es ");
+      console.log(historialAux.data);   
+      setHistorial(historialAux.data);
+      console.log("el historial cuandos se setea historial: ");
+      console.log(historialAux.data);
+      console.log('cantidad:');
+      console.log(historialAux.data.length);
+     }
+
+    obtenerHistorial();    
+      return()=>{ 
+          //
+      };
   }, []);
 
   let url = API.ApiHistorial
 
-  const obtenerHistorial = async ()=>{
-   const historialAux= await axios.get(`${url}/1`);//en donde esta el 1 debería ir el id del usuario
-   console.log("el historial es ");
-   console.log(historialAux.data);   
-   setHistorial(historialAux.data);
-   console.log("el historial cuandos se setea historial: ");
-   console.log(historial[0]);
-  }
+  
   return (
-    <SafeAreaView>
-       {historial.map((hist) => {
-        <CardHistorialPicaduras picadura={hist}/>
-      }) } 
+    <SafeAreaView style={styles.container}>
+      <Text>chau {historial.length}</Text>
+       {historial.map((hist) => (
+        <Text>hola</Text>
+        
+      )) } 
       <CardHistorialPicaduras/>
     </SafeAreaView>
   )

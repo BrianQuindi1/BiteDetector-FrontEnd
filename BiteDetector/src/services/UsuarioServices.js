@@ -48,7 +48,7 @@ export default class UsuarioService {
         }
     };  
 
-    obtenerCredenciales = async() => { 
+    obtenerCredenciales = async () => { 
         let storedEmail = await AsyncStorage.getItem(EMAIL_KEY);
         let storedClave = await AsyncStorage.getItem(CLAVE_KEY);
         const returnValue = {'Mail':storedEmail, 'Password':storedClave}; 

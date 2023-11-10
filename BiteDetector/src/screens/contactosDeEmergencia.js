@@ -4,9 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import CardContacto107 from '../components/CardContacto107';
 import axios from 'axios'
 import { View } from 'react-native-web';
+import UsuarioService from '../services/UsuarioServices';
 
 const ContactosDeEmergencia = () => {
-  //const navigation = useNavigation();
+  const navigation = useNavigation();
+  const usuarioService = new UsuarioService();
    
   return (
      <SafeAreaView style={styles.container}>
