@@ -28,32 +28,35 @@ export default class UsuarioService {
     //Elimina las credenciales almacenadas al cerrar sesión 
     eliminarCredenciales = async() => { /* para cerrar sesion */
         try{
-            await AsyncStorage.removeItem(EMAIL_KEY); 
-            await AsyncStorage.removeItem(CLAVE_KEY); 
+            await AsyncStorage.removeItem(PERFIL_KEY); 
+
+
         }catch(e){
             console.log(e);
         }
     }; 
 
-    almacenarCredenciales = async (perfil) => { 
+    almacenarCredenciales = async (perfil) => {
         // Almacena las credenciales en el AsyncStorage
-        // (para leerlas al iniciar la próxima vez) 
-        try {    
-            await AsyncStorage.setObject(PERFIL_KEY, perfil);  
-        } catch(e) {    
-            console.log(e);
-        }
-    };
+        // (para leerlas al iniciar la próxima vez)
 
+        try {
+          await this.setObject(PERFIL_KEY, perfil); // Use `this.setObject` instead of `AsyncStorage.setObject`
+        } catch (e) {
+          console.log(e);
+        }
+      };
     obtenerCredenciales = async () => { 
-        let storedPerfil = await AsyncStorage.getObject(PERFIL_KEY);
-        console.log(storedPerfil);
+
+        let storedPerfil = await this.getObject(PERFIL_KEY);
+
+
         if (storedPerfil) {
             const returnValue = {
-                'Mail': storedPerfil.Mail,
-                'Password': storedPerfil.Password,
-                'IdUsuario': storedPerfil.IdUsuario,
-                'Nombre': storedPerfil.Nombre
+                Mail: storedPerfil.Mail,
+                Password: storedPerfil.Password,
+                IdUsuario: storedPerfil.IdUsuario,
+                Nombre: storedPerfil.Nombre
             }; 
             return returnValue;
         } else {

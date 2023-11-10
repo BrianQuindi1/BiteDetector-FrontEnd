@@ -8,7 +8,7 @@ import AsyncUtils from "./../AsyncUtils";
 import UsuarioService from "../services/UsuarioServices";
 import axios from "axios";
 
-let usuarioService = new UsuarioService();
+
 
 const Perfil = () => {
   const [Nombre, setNombre] = useState(null);
@@ -16,10 +16,13 @@ const Perfil = () => {
   const [IdUsuario, setIdUsuario] = useState(null);
   const [objetoUsuario, setObjetoUsuario] = useState(null);
 
+  let usuarioService = new UsuarioService();
   const navigation = useNavigation();
   useEffect(() => {
     const fetchData = async () => {
-      let usuario = usuarioService.obtenerCredenciales();
+
+      let usuario = await usuarioService.obtenerCredenciales();
+
       console.log(usuario);
       try {
         if (usuario) {
@@ -28,7 +31,7 @@ const Perfil = () => {
             Mail: usuario.Mail,
             Nombre: usuario.Nombre,
           };
-          console.log("Usuario data: ", usuarioData);
+
           setObjetoUsuario(usuarioData);
         } else {
           console.log("No se encontraron datos del usuario.");

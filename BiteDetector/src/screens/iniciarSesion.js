@@ -34,17 +34,20 @@ export const IniciarSesion = () => {
           console.log(objeto);
           console.log(url);
           const response = await axios.post(url, objeto)
-          console.log("Response Data: ",response.data)
+
           console.log(response.data.Token)
 
           try{
             if (response.data.Token) {
+
               // Almacenar el objeto y el token en AsyncStorage
               await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
+
               await AsyncStorage.setItem('token', response.data.Token);
-              await usuarioService.almacenarCredenciales(response.data)
-             /* let usuarioService = new UsuarioService();
-              usuarioService.almacenarCredenciales(email, contraseña); PREGUNTAR BIEN SI ESTO SIRVE O NO*/
+      
+              await usuarioService.almacenarCredenciales(response.data);
+           
+
               // Redirigir al perfil u otra pantalla
               navigation.navigate('Perfil');
             } else {
