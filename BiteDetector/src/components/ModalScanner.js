@@ -18,19 +18,19 @@ const ModalScanner = ( {respuestaBack} ) => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>IdInsecto: {respuestaBack?.IdPicadura} </Text>
+            <Text style={styles.modalText}>Nombre: {respuestaBack?.Nombre} </Text>
             <Text style={styles.modalText}>Probabilidades:</Text>
             <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Probabilidades} */}</Text>
 
             <Text style={styles.modalText2}>_________</Text>
 
             <Text style={styles.modalText}>Posibles Riesgos:</Text>
-            <Text style={{ color: 'green', fontSize: 20 }}>Leves</Text>
+{/*             <Text style={{ color: 'green', fontSize: 16  }}>Leves</Text> */}
             <Text style={styles.modalText2}>{respuestaBack?.SintomasLeves}</Text>
 
             <Text style={styles.modalText2}>_________</Text>
 
-            <Text style={styles.modalText}>Recomendaciones: {respuestaBack?.Estado}</Text>
+            <Text style={styles.modalText}>Recomendaciones: {respuestaBack?.recomendaciones}</Text>
             <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Recomendaciones} */}</Text>
 
             <Text style={styles.modalText2}>_________</Text>
@@ -89,13 +89,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    fontSize: 22,
+    fontSize: 16,
     marginBottom: 10,
     marginTop: 2,
     textAlign: 'center',
   },
   modalText2: {
-    fontSize: 20,
+    fontSize: 15,
     textAlign: 'center',
   },
 });

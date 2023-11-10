@@ -17,7 +17,7 @@ import API from "../API";
 import SplashScreen from "./SplashScreen";
 import axios from "axios";
 import ModalScanner from "../components/ModalScanner";
-
+import UsuarioService from "../services/UsuarioServices";
 const Scanner = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [image, setImage] = useState(null);
@@ -76,7 +76,7 @@ const Scanner = () => {
 
           /* console.log("respuestaBack: ",respuestaBack) */
         });
-        let perfil = AsyncUtils.getObject("PERFIL_KEY");
+        let perfil = await UsuarioService.obtenerCredenciales();
         if (perfil != null) {
           const response2 = await axios.post(URL, hist).then((response2) => {
             nuevoHist = {
@@ -85,7 +85,7 @@ const Scanner = () => {
             };
           });
         }
-          console.log(nuevoHist);
+          console.log("NEUVO HISTORIAL",nuevoHist);
         saveImage(image);
       } catch (e) {
         console.log(e);
