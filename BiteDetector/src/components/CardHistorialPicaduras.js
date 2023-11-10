@@ -3,11 +3,12 @@ import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-n
 import ModalHistorial from "./ModalHistorial.js"
 
 
-const CardHistorialPicaduras = (picadura) => {
+const CardHistorialPicaduras = ({picadura}) => {
   const [showModal, setShowModal] = useState(false);
   const [modalVisible, setModalVisible] = useState(true);
   const {Nombre, Probabilidades, Foto, Recomendaciones} =picadura
-
+  console.log("la picadura que le llega a la card:");
+  console.log(picadura);
   const mostrarModal = () =>{
     setShowModal(true);
 

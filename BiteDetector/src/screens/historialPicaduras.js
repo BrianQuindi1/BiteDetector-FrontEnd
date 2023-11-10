@@ -15,8 +15,7 @@ const HistorialPicaduras = () => {
       console.log("el historial es ");
       console.log(historialAux.data);   
       setHistorial(historialAux.data);
-      console.log("el historial cuandos se setea historial: ");
-      console.log(historialAux.data);
+      
       console.log('cantidad:');
       console.log(historialAux.data.length);
      }
@@ -34,7 +33,7 @@ const HistorialPicaduras = () => {
     <SafeAreaView style={styles.container}>
       <Text>chau {historial.length}</Text>
        {historial.map((hist) => (
-        <Text>hola</Text>
+        <CardHistorialPicaduras picadura={hist}/>
         
       )) } 
       <CardHistorialPicaduras/>
