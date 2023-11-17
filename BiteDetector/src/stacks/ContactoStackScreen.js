@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ContactosDeEmergencia from '../screens/contactosDeEmergencia.js';
 import FormAgregarContacto from '../screens/FormAgregarContacto.js';
 
-const HomeStackScreen = () => {
+const ContactoStackScreen = () => {
   const HomeStack = createNativeStackNavigator();
   return (
     <HomeStack.Navigator>
@@ -14,4 +14,4 @@ const HomeStackScreen = () => {
   );
 };
 
-export default HomeStackScreen;
+export default ContactoStackScreen;

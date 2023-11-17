@@ -9,7 +9,9 @@ import Perfil from "../screens/Perfil";
 import AsyncUtils from './../AsyncUtils'
 import axios from 'axios'
 import UsuarioService from '../services/UsuarioServices';
+
 let usuarioService = new UsuarioService();
+
 export const IniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
   const [number, onchangeNumber] = React.useState('');
@@ -35,7 +37,7 @@ export const IniciarSesion = () => {
           console.log(url);
           const response = await axios.post(url, objeto)
 
-          console.log(response.data.Token)
+          console.log(response.data)
 
           try{
             if (response.data.Token) {

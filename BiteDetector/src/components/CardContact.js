@@ -2,20 +2,18 @@ import React from 'react'
 import { View, Text, StyleSheet, Image, Linking, Pressable} from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native';
-import ambulancia from '../../assets/ambulancia.png'
 
 
-const CardContacto107 = () => {
+const CardContact = ({contacto}) => {
   const llamarNumero = () => {
-    const phoneNumber = 107;
-    Linking.openURL(`tel:${phoneNumber}`)
+    Linking.openURL(`tel:${contacto.Numero}`)
   }
     return (
         <SafeAreaView style={styles.card}>
           <View style={styles.cardContent}>
-          <Text style={styles.title}>Ambulancia</Text>
+          <Text style={styles.title}>{contacto.Nombre}</Text>
           <Pressable onPress={() => llamarNumero()} style={styles.boton}>
-              <Text>Llamar al 107</Text>
+              <Text>Llamar</Text>
             </Pressable> 
           </View>
         </SafeAreaView>
@@ -71,4 +69,4 @@ const CardContacto107 = () => {
       });
       
 
-export default CardContacto107;
+export default CardContact;

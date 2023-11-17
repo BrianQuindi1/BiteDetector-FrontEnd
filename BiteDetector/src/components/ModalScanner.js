@@ -20,7 +20,7 @@ const ModalScanner = ( {respuestaBack} ) => {
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Nombre: {respuestaBack?.Nombre} </Text>
             <Text style={styles.modalText}>Probabilidades:</Text>
-            <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Probabilidades} */}</Text>
+            <Text style={styles.modalText2}>{respuestaBack?.Probabilidad}</Text>
 
             <Text style={styles.modalText2}>_________</Text>
 
@@ -30,7 +30,7 @@ const ModalScanner = ( {respuestaBack} ) => {
 
             <Text style={styles.modalText2}>_________</Text>
 
-            <Text style={styles.modalText}>Recomendaciones: {respuestaBack?.recomendaciones}</Text>
+            <Text style={styles.modalText}>Recomendaciones: {respuestaBack?.Recomendaciones}</Text>
             <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Recomendaciones} */}</Text>
 
             <Text style={styles.modalText2}>_________</Text>

@@ -14,12 +14,12 @@ const Perfil = async () => {
   const [Nombre, setNombre] = useState(null);
   const [Mail, setMail] = useState(null);
   const [IdUsuario, setIdUsuario] = useState(null);
-  const [objetoUsuario, setObjetoUsuario] = useState(null);
+  const [objetoUsuario, setObjetoUsuario] = useState({});
 
   let usuarioService = new UsuarioService();
   const navigation = useNavigation();
     
-      let usuario = await usuarioService.obtenerCredenciales(storedUsuario);
+      let usuario = await usuarioService.obtenerCredenciales();
       console.log(usuario);
       try {
         if (usuario) {
@@ -28,8 +28,10 @@ const Perfil = async () => {
             Mail: usuario.Mail,
             Nombre: usuario.Nombre,
           };
+          
 
           setObjetoUsuario(usuarioData);
+          
         } else {
           console.log("No se encontraron datos del usuario.");
         }
@@ -37,7 +39,7 @@ const Perfil = async () => {
         console.error("Error al obtener los datos del usuario:", error);
       }
     
-
+      console.log("usuarioData",objetoUsuario.Nombre);
   const cerrarSesion = async () => {
     await usuarioService.eliminarCredenciales();
     navigation.navigate("Iniciar Sesion");
@@ -45,16 +47,16 @@ const Perfil = async () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F8F8EC' }}>
-      <View style={styles.acomodarFoto}>
+      {/* <View style={styles.acomodarFoto}>
         <Image source={PerfilLogo} style={styles.logo} />
       </View>
 
       <View style={styles.acomodarInformacion}>
-        <Text>Nombre Usuario: {objetoUsuario?.Nombre}</Text>
-        <Text>Email: {objetoUsuario?.Mail}</Text>
-      </View>
+  <Text>Nombre Usuario: {objetoUsuario?.Nombre || ''}</Text>
+  <Text>Email: {objetoUsuario?.Mail || ''}</Text>
+</View>
 
-      <Button title="Cerrar Sesion" color="red" onPress={cerrarSesion} />
+      <Button title="Cerrar Sesion" color="red" onPress={cerrarSesion} /> */}
     </SafeAreaView>
   );
 };
