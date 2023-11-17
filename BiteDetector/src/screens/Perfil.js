@@ -47,7 +47,7 @@ const Perfil = async () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F8F8EC' }}>
-      {/* <View style={styles.acomodarFoto}>
+      <View style={styles.acomodarFoto}>
         <Image source={PerfilLogo} style={styles.logo} />
       </View>
 
@@ -56,7 +56,7 @@ const Perfil = async () => {
   <Text>Email: {objetoUsuario?.Mail || ''}</Text>
 </View>
 
-      <Button title="Cerrar Sesion" color="red" onPress={cerrarSesion} /> */}
+      <Button title="Cerrar Sesion" color="red" onPress={cerrarSesion} />
     </SafeAreaView>
   );
 };
