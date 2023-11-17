@@ -13,6 +13,7 @@ import historialPicaduras from '../assets/historialPicaduras.png';
 import scanner from '../assets/scanner.png';
 import contactosDeEmergencia from '../assets/contactosDeEmergencia.png';
 import Perfil from './screens/Perfil';
+import ContactoStackScreen from "./stacks/ContactoStackScreen";
 
 
 const Tabs = () => {
@@ -39,7 +40,7 @@ const Tabs = () => {
         />
         <Tab.Screen 
           name="Contactos" 
-          component={ContactosDeEmergencia}
+          component={ContactoStackScreen}
           options={{
             tabBarIcon: () => (
               <Image source={contactosDeEmergencia} style={{ width: 30, height: 30/* , backgroundColor: '#AEDD2B' */ }} />

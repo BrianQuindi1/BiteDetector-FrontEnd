@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Text, SafeAreaView, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CardContacto107 from '../components/CardContacto107';
@@ -7,8 +7,14 @@ import { View } from 'react-native-web';
 import UsuarioService from '../services/UsuarioServices';
 import agregarContacto from '../../assets/agregarContacto.png';
 import FormAgregarContacto from './FormAgregarContacto';
+import API from '../API';
 
 const ContactosDeEmergencia = () => {
+  useEffect(() => {
+  let url = API.ApiContacto + IdUsuario; //ver como traerse el IdUsuario
+  
+
+  }, []);
   const navigation = useNavigation();
   const usuarioService = new UsuarioService();
    

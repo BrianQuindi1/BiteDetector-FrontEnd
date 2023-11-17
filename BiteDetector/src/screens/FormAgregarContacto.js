@@ -5,8 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 
 const FormAgregarContacto = () => {
     const navigation = useNavigation();
- // const [text, onchangeText] = React.useState('Useless text');
-  //const [number, onchangeNumber] = React.useState('');
     const [nombre, setNombre] = useState("");
     const [numero, setNumero] = useState(null);
 
@@ -17,25 +15,17 @@ const FormAgregarContacto = () => {
         }
         let url = API.ApiContacto + "crearContacto";
         console.log(url);
-        console.log(Usuario);
+        console.log(contactoEmergencia);
         const response = await axios.post( url, contactoEmergencia)
-        
-  /*      .then(
-            usuarioService.setObject("UsuarioIniciadoSesion", Usuario)
-            .then(usuarioService.almacenarCredenciales(Usuario.Mail, Usuario.Password, Usuario.Nombre))
-            .then(navigation.navigate("Perfil"))
-            ) */
-
-        alert("Las contraseñas no son iguales, por favor confirme de nuevo la contraseña.")
         console.log("Contacto1", contactoEmergencia);
         console.log(response.data);
+        navigation.navigate("contactosDeEmergencia")
     }
   return (
     <Formik initialValues={{
         nombre:'',
         numero:''
-      }}
-      >
+      }}>
         <SafeAreaView style={styles.container}>
           <View style={styles.centrar}> 
             <Image 
@@ -46,7 +36,7 @@ const FormAgregarContacto = () => {
           <TextInput 
             style={styles.inputText1}
             onChangeText={setNombre}
-            placeholder="Ingrese su nombre de usuario..."
+            placeholder="Ingrese el nombre del contacto..."
             value={nombre}
             name="nombreUsuario"
             returnKeyType='next'
@@ -55,7 +45,7 @@ const FormAgregarContacto = () => {
           <TextInput 
             style={styles.inputText2}
             onChangeText={setNumero}
-            placeholder="Ingrese su mail..."
+            placeholder="Ingrese el numero de telefono..."
             value={numero}
             name="number"
             keyboardType= "numeric"
@@ -63,7 +53,7 @@ const FormAgregarContacto = () => {
           />
   
             <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-              <Text style={styles.letraBoton}>Confirmar </Text>
+              <Text style={styles.letraBoton}>Confirmar</Text>
             </TouchableOpacity>
         </SafeAreaView>
       </Formik>

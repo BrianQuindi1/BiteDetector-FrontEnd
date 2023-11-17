@@ -23,7 +23,18 @@ const Scanner = () => {
   const [haveToRealod, setHaveToRealod] = useState(false);
   const [viewReady, setViewReady] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [respuestaBack, setRespuestaBack] = useState(null);
+  const [respuestaBack, setRespuestaBack] = useState({
+    IdPicadura: 0,
+    Estado: '',
+    Probabilidad: 0,
+    Nombre: '',
+    Recomendaciones: {
+      SintomasGraves: '',
+      SintomasLeves: '',
+      Recomendaciones: '',
+      MasInfo: '',
+    },
+  });
   const URL = API.ApiHistorial + "Agregar";
   useEffect(() => {
     (async () => {
@@ -69,12 +80,12 @@ const Scanner = () => {
           console.log("picaduraRecibida");
           console.log(picaduraRecibida);
           //console.log("B322b",response.data.picaduraRecibida)
-          setRespuestaBack(picaduraRecibida);
+           setRespuestaBack(picaduraRecibida);
 
-          console.log("respuestaBack: ",respuestaBack) 
+
         console.log("FINALIZÓ");
         });
-        let perfil = await UsuarioService.obtenerCredenciales();
+        /*let perfil = await UsuarioService.obtenerCredenciales();
         if (perfil != null) {
           const response2 = await axios.post(URL, hist).then((response2) => {
             nuevoHist = {
@@ -83,14 +94,17 @@ const Scanner = () => {
             };
           });
         }
-          console.log("NEUVO HISTORIAL",nuevoHist);
-        saveImage(image);
+          console.log("NEUVO HISTORIAL",nuevoHist);*/
+         saveImage(image);
       } catch (e) {
         console.log(e);
         console.error("Error back", e);
       }
     }
   };
+  useEffect(() => {
+    console.log("respuestaBack: ", respuestaBack);
+  }, [respuestaBack]);
 
   const saveImage = async (image) => {
     if (image) {
