@@ -40,37 +40,10 @@ const Registrarse = () => {
       const response = await axios.post( url, Usuario)
       
       .then(
-          usuarioService.setObject("UsuarioIniciadoSesion", Usuario)
-          .then(usuarioService.almacenarCredenciales(Usuario.Mail, Usuario.Password, Usuario.Nombre))
-          .then(navigation.navigate("Perfil"))
-
-
-
-         /*  const verificarInicioSesion = async () => { /* ver bien de modificar esta funcion y ver si no hay q ponerlo en setItem 
-            try {
-              // Comprobar si el usuario ha iniciado sesión en AsyncStorage
-              //const jsonValue = JSON.stringify(Usuario);
-              //const usuarioIniciadoSesion = await AsyncStorage.setItem('objetoUsuario', jsonValue); //ver bien que es y como hacer "usuarioiniciadosesion"
-              const verificacion = false;
-              AsyncUtils.setObject('objetoUsuario', Usuario);
-              if(AsyncUtils.setObject('objetoUsuario', Usuario))
-              {
-                verificacion = true;
-              }
-              
-      
-              if (verificacion == true) {
-                // El usuario ha iniciado sesión, redirigir a la vista de perfil
-                navigation.navigate("Perfil"); // Ajusta el nombre de la pantalla de perfil según tu configuración de navegación
-              }
-            } catch (error) {
-              console.error('Error al verificar el inicio de sesión:', error);
-            }
-          };
-      
-          verificarInicioSesion(); */
-       
-      )
+            usuarioService.setObject("UsuarioIniciadoSesion", Usuario)
+            .then(usuarioService.almacenarCredenciales(Usuario.Mail, Usuario.Password, Usuario.Nombre))
+            .then(navigation.navigate("Perfil"))
+          )
       }
       
       else
@@ -111,6 +84,7 @@ const Registrarse = () => {
           placeholder="Ingrese su nombre de usuario..."
           value={nombre}
           name="nombreUsuario"
+          returnKeyType='next'
         />
 
         <TextInput 
@@ -120,7 +94,7 @@ const Registrarse = () => {
           value={email}
           name="email"
           keyboardType= "email-address"
-          
+          returnKeyType='next'          
         />
 
         <TextInput 
@@ -130,6 +104,7 @@ const Registrarse = () => {
           value={contraseña}
           secureTextEntry={true}          
           name="contraseña"
+          returnKeyType='next'
         />
 
         <TextInput 
@@ -139,6 +114,7 @@ const Registrarse = () => {
           value={confirmarContraseña}
           secureTextEntry={true}          
           name="confirmarContraseña"
+          returnKeyType='done'
         />
 
           <TouchableOpacity style={styles.boton} onPress={handleSubmit}>

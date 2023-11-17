@@ -13,8 +13,8 @@ let usuarioService = new UsuarioService();
 export const IniciarSesion = () => {
   const [text, onchangeText] = React.useState('Useless text');
   const [number, onchangeNumber] = React.useState('');
-  const [email, setEmail] = useState("manolisguido@gmail.com");
-  const [contraseña, setContraseña] = useState("YummY");
+  const [email, setEmail] = useState("");
+  const [contraseña, setContraseña] = useState("");
   const [IdUsuario, setIdUsuario] = useState(0);
   const navigation = useNavigation();
 
@@ -44,7 +44,8 @@ export const IniciarSesion = () => {
               await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
 
               await AsyncStorage.setItem('token', response.data.Token);
-      
+
+              
               await usuarioService.almacenarCredenciales(response.data);
            
 

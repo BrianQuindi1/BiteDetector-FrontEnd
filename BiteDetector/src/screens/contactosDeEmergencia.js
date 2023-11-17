@@ -6,6 +6,7 @@ import axios from 'axios'
 import { View } from 'react-native-web';
 import UsuarioService from '../services/UsuarioServices';
 import agregarContacto from '../../assets/agregarContacto.png';
+import FormAgregarContacto from './FormAgregarContacto';
 
 const ContactosDeEmergencia = () => {
   const navigation = useNavigation();
@@ -15,8 +16,9 @@ const ContactosDeEmergencia = () => {
      <SafeAreaView style={styles.container}>
       <Text style={styles.fuenteTitulo}>Contactos generales</Text>
        <CardContacto107 style={styles.contactosGenerales}/>
-       <TouchableOpacity  style={styles.acomodarBoton}>
-              <Image source={agregarContacto} style={styles.agregarContactos}></Image>
+       <TouchableOpacity  style={styles.acomodarBoton} onPress={navigation.navigate("FormAgregarContacto")} >
+              <Image source={agregarContacto} style={styles.agregarContactos}>
+              </Image>
             </TouchableOpacity>
     </SafeAreaView> 
   )

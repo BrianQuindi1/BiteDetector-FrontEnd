@@ -1,13 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet,Text,View,Image,TouchableOpacity,SafeAreaView,} from "react-native";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import Boton from "../components/Boton";
@@ -18,6 +11,7 @@ import SplashScreen from "./SplashScreen";
 import axios from "axios";
 import ModalScanner from "../components/ModalScanner";
 import UsuarioService from "../services/UsuarioServices";
+
 const Scanner = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [image, setImage] = useState(null);
@@ -34,7 +28,7 @@ const Scanner = () => {
   useEffect(() => {
     (async () => {
       setViewReady(false);
-      MediaLibrary.requestPermissionsAsync();
+      MediaLibrary.requestPermissionsAsync()      
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
       setViewReady(true);
@@ -59,22 +53,26 @@ const Scanner = () => {
         let url = API.ApiIa;
         setImage(data.uri);
         const response = await axios.post(url, objFoto).then((response) => {
-          picaduraRecibida = {
-            IdPicadura: response.data.IdPicadura,
-            Estado: response.data.Estado,
-            Probabilidad: response.data.Probabilidad,
-            Nombre: response.data.Nombre,
-            SintomasLeves: response.data.Recomendaciones.SintomasLeves,
-            SintomasGraves: response.data.Recomendaciones.SintomasGraves,
-            Recomendaciones: response.data.Recomendaciones.Recomendaciones,
-            MasInfo: response.data.Recomendaciones.MasInfo,
+          const picaduraRecibida = {
+            IdPicadura: response.data.IdPicadura !== undefined ? response.data.IdPicadura : 0,
+            Estado: response.data.Estado || '',
+            Probabilidad: response.data.Probabilidad !== undefined ? response.data.Probabilidad : 0,
+            Nombre: response.data.Nombre || 'NINGUNO', // Example default value
+            Recomendaciones: {
+              SintomasGraves: response.data.Recomendaciones?.SintomasGraves || 'No symptoms',
+              SintomasLeves: response.data.Recomendaciones?.SintomasLeves || 'No symptoms',
+              Recomendaciones: response.data.Recomendaciones?.Recomendaciones || 'No recommendations',
+              MasInfo: response.data.Recomendaciones?.MasInfo || 'No additional information',
+            },
+            // Add other properties and handle their default values similarly
           };
           console.log("picaduraRecibida");
-          console.log(response.data);
+          console.log(picaduraRecibida);
           //console.log("B322b",response.data.picaduraRecibida)
           setRespuestaBack(picaduraRecibida);
 
-          /* console.log("respuestaBack: ",respuestaBack) */
+          console.log("respuestaBack: ",respuestaBack) 
+        console.log("FINALIZÓ");
         });
         let perfil = await UsuarioService.obtenerCredenciales();
         if (perfil != null) {

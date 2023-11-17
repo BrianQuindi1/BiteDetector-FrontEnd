@@ -10,7 +10,7 @@ import axios from "axios";
 
 
 
-const Perfil = () => {
+const Perfil = async () => {
   const [Nombre, setNombre] = useState(null);
   const [Mail, setMail] = useState(null);
   const [IdUsuario, setIdUsuario] = useState(null);
@@ -18,11 +18,8 @@ const Perfil = () => {
 
   let usuarioService = new UsuarioService();
   const navigation = useNavigation();
-  useEffect(() => {
-    const fetchData = async () => {
-
-      let usuario = await usuarioService.obtenerCredenciales();
-
+    
+      let usuario = await usuarioService.obtenerCredenciales(storedUsuario);
       console.log(usuario);
       try {
         if (usuario) {
@@ -39,10 +36,7 @@ const Perfil = () => {
       } catch (error) {
         console.error("Error al obtener los datos del usuario:", error);
       }
-    };
-  
-    fetchData();
-  }, []);
+    
 
   const cerrarSesion = async () => {
     await usuarioService.eliminarCredenciales();

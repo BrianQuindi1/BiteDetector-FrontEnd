@@ -4,7 +4,6 @@ import React, { useEffect } from 'react'
 import Logo from "../../assets/Logo.png" 
 
 const SplashScreen = ({navigation}) => {
-  //let usuarioService = new UsuarioService();
 
  /* const verificarInicioSesion = async() => {
     if(await usuarioService.automaticlogin()){
@@ -13,6 +12,10 @@ const SplashScreen = ({navigation}) => {
       navigation.navigate("Login");
     }
   }*/
+
+  const verificarLlegada = async () => {
+    await axios.post(url, objFoto)
+  }
 
 
   useEffect(()=> { 
