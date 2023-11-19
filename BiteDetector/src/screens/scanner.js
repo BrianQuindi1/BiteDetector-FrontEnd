@@ -6,7 +6,6 @@ import * as MediaLibrary from "expo-media-library";
 import Boton from "../components/Boton";
 import Lupa from "../../assets/Lupa.png";
 import API from "../API";
-import SplashScreen from "./SplashScreen";
 import axios from "axios";
 import ModalScanner from "../components/ModalScanner";
 import AsyncUtils from "../AsyncUtils";
@@ -17,12 +16,17 @@ const Scanner = () => {
   const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
-  const [cameraKey, setCameraKey] = useState(0); // Increment this to refresh the camera
   const cameraRef = useRef(null);
   const [capturedImage, setCapturedImage] = useState(null);
   const [viewReady, setViewReady] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [respuestaBack, setRespuestaBack] = useState(null);
+  const [cameraKey, setCameraKey] = useState(0);
+
+  useEffect(() => {
+    // Automatically change cameraKey when the component mounts
+    setCameraKey((prevKey) => prevKey + 1);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -32,45 +36,37 @@ const Scanner = () => {
       setHasCameraPermission(cameraStatus.status === "granted");
       setViewReady(true);
     })();
-  }, []);
-
-  useEffect(() => {
-    // Update the camera key to force remount when entering the component
-    setCameraKey((prevKey) => prevKey + 1);
-  }, []);
-
-  if (!hasCameraPermission || !viewReady) {
-    return <Text>Camera is not ready.</Text>;
-  }
+  }, [cameraKey]);
 
   const takePicture = async () => {
-    if (cameraRef && cameraRef.current) {
+    if (cameraRef) {
       try {
         const options = { skipProcessing: true, base64: true };
         const data = await cameraRef.current.takePictureAsync(options);
         if (!data.uri) {
-          throw new Error("Failed to capture an image.");
+          throw new Error('Failed to capture an image.');
         }
         const objFoto = {
-          Foto: data.base64,
+          Foto: data.base64
         };
         let url = API.ApiIa;
         setImage(data.uri);
-        const response = await axios.post(url, objFoto).then((response) => {
-          picaduraRecibida = {
-            IdPicadura: response.data.IdPicadura || 0,
-            Estado: response.data.Estado,
-            Probabilidad: response.data.Probabilidad,
-            Nombre: response.data.Nombre,
-            SintomasLeves: response.data.Recomendaciones.SintomasLeves,
-            SintomasGraves: response.data.Recomendaciones.SintomasGraves,
-            Recomendaciones: response.data.Recomendaciones?.Recomendaciones || "No recommendations",
-            MasInfo: response.data.Recomendaciones?.MasInfo || "No additional information",
-          };
-          console.log("picaduraRecibida");
-          console.log(response.data);
-          setRespuestaBack(picaduraRecibida);
-        });
+        const response = await axios.post(url, objFoto)
+          .then((response) => {
+            picaduraRecibida = {
+              IdPicadura: response.data.IdPicadura || 0,
+              Estado: response.data.Estado,
+              Probabilidad: response.data.Probabilidad,
+              Nombre: response.data.Nombre,
+              SintomasLeves: response.data.Recomendaciones.SintomasLeves,
+              SintomasGraves: response.data.Recomendaciones.SintomasGraves,
+              Recomendaciones: response.data.Recomendaciones?.Recomendaciones || 'No recommendations',
+              MasInfo: response.data.Recomendaciones?.MasInfo || 'No additional information',
+            };
+            console.log('picaduraRecibida');
+            console.log(response.data);
+            setRespuestaBack(picaduraRecibida);
+          });
         const perfil = AsyncUtils.getObject("PERFIL_KEY");
 
         if (perfil != null) {
@@ -84,7 +80,6 @@ const Scanner = () => {
           console.log("Nuevo Historial:", response2.data);
         }
 
-        // Continue with the rest of your code
         saveImage(image);
       } catch (e) {
         console.log(e);
@@ -98,7 +93,7 @@ const Scanner = () => {
       try {
         console.log("HOLA");
         await MediaLibrary.createAssetAsync(image);
-        alert("Picture save!");
+        alert("Picture saved!");
         setImage(null);
       } catch (e) {
         console.log(e);
@@ -108,28 +103,35 @@ const Scanner = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {viewReady && (
+      {!image && viewReady ? (
         <Camera key={cameraKey} style={styles.camera} type={type} flashMode={flash} ref={cameraRef}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 30 }}>
             <Boton icon={"retweet"} onPress={() => setType(type === CameraType.back ? CameraType.front : CameraType.back)} />
-            <Boton
-              icon={"flash"}
-              color={flash === Camera.Constants.FlashMode.off ? "gray" : "#f1f1f1"}
+            <Boton icon={"flash"} color={flash === Camera.Constants.FlashMode.off ? "gray" : "#f1f1f1"}
               onPress={() => {
-                setFlash(
-                  flash === Camera.Constants.FlashMode.off ? Camera.Constants.FlashMode.on : Camera.Constants.FlashMode.off
+                setFlash(flash === Camera.Constants.FlashMode.off
+                  ? Camera.Constants.FlashMode.on
+                  : Camera.Constants.FlashMode.off
                 );
               }}
             />
           </View>
         </Camera>
+      ) : (
+        <Image source={{ uri: image }} style={styles.camera} />
       )}
       <View>
-        {viewReady && (
+        {image ? (
           <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 50 }}>
             <Boton title={"Re-take"} icon="retweet" onPress={() => setImage(null)} />
             <Boton title={"Save"} icon="check" onPress={saveImage} />
             <ModalScanner value={showModal} respuestaBack={respuestaBack} />
+          </View>
+        ) : (
+          <View style={styles.container}>
+            <TouchableOpacity onPress={takePicture} style={styles.botonScanner}>
+              <Image source={Lupa} style={styles.lupa}></Image>
+            </TouchableOpacity>
           </View>
         )}
       </View>
