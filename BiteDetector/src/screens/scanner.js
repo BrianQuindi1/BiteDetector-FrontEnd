@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext} from "react";
 import { useFocusEffect } from '@react-navigation/native';
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView } from "react-native";
@@ -10,6 +10,7 @@ import API from "../API";
 import axios from "axios";
 import ModalScanner from "../components/ModalScanner";
 import AsyncUtils from "../AsyncUtils";
+import { HistorialContext } from "../services/HistorialContext";
 const URL = API.ApiHistorial + "Agregar";
 
 const Scanner = () => {
@@ -22,6 +23,10 @@ const Scanner = () => {
   const [viewReady, setViewReady] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [respuestaBack, setRespuestaBack] = useState(null);
+  const {actualizarHistorial, setActualizarHistorial} = useContext(HistorialContext);
+
+ //const [actualizarHistorial, setActualizarHistorial] = useState(null);
+
  /*  const [cameraKey, setCameraKey] = useState(0);
 
   useEffect(() => {

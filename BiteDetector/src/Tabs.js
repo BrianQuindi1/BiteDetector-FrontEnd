@@ -14,11 +14,12 @@ import scanner from '../assets/scanner.png';
 import contactosDeEmergencia from '../assets/contactosDeEmergencia.png';
 import Perfil from './screens/Perfil';
 import ContactoStackScreen from "./stacks/ContactoStackScreen";
-
+import { HistorialProvider } from "./services/HistorialContext.js";
 
 const Tabs = () => {
   const Tab = createBottomTabNavigator();
   return (
+    <HistorialProvider>
     <NavigationContainer style={styles.nav}>
       <Tab.Navigator 
         style={styles.nav}
@@ -67,6 +68,7 @@ const Tabs = () => {
         />
       </Tab.Navigator>
     </NavigationContainer>
+    </HistorialProvider>
   );
 };
 

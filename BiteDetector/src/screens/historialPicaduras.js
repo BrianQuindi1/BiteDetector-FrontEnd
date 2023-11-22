@@ -18,7 +18,7 @@ const HistorialPicaduras = () => {
         let perfil = await usuarioService.obtenerCredenciales();
         let id = perfil.IdUsuario;
         console.log(id);
-        const historialAux = await axios.get(`${url}/${id}`);
+        const historialAux = await axios.get(`${url}${id}`);
         console.log("el historial es ");
         console.log(historialAux.data);
         setHistorial(historialAux.data);
