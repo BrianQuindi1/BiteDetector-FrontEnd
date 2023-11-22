@@ -43,13 +43,8 @@ export const IniciarSesion = () => {
 
           // Almacenar el objeto y el token en AsyncStorage
           await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
-
           await AsyncStorage.setItem('token', response.data.Token);
-
-
           await usuarioService.almacenarCredenciales(response.data);
-
-          // Redirigir al perfil u otra pantalla
           navigation.navigate('Perfil');
         } else {
           alert("El email o contraseña son inválidos");

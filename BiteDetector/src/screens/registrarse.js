@@ -9,6 +9,7 @@ import axios from 'axios'
 import AsyncUtils from './../AsyncUtils'
 import { useNavigation } from '@react-navigation/native';
 import UsuarioService from '../services/UsuarioServices';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //impoortar perfil
 
@@ -36,16 +37,21 @@ const Registrarse = () => {
         }
       let url = API.ApiUsuario + "CrearUsuario";
       console.log(url);
-      console.log(Usuario);
       const response = await axios.post( url, Usuario)
       
-      .then(
-            usuarioService.setObject("UsuarioIniciadoSesion", Usuario)
-            .then(usuarioService.almacenarCredenciales(Usuario.Mail, Usuario.Password, Usuario.Nombre))
-            .then(navigation.navigate("Perfil"))
-          )
+      try {
+        await usuarioService.almacenarCredenciales(Usuario);
+        AsyncStorage.setObject("UsuarioIniciadoSesion", Usuario)
+       // await usuarioService.almacenarCredenciales(Usuario);
+        //usuarioService.almacenarCredenciales(Usuario.Mail, Usuario.Password, Usuario.Nombre)
+       // await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
+        await AsyncStorage.setItem('token', response.data.Token);
+        //await usuarioService.almacenarCredenciales(Usuario);
+          navigation.navigate('Perfil');
+      } catch (e) {
+        console.log(e);
       }
-      
+    }
       else
       {
         alert("Las contraseñas no son iguales, por favor confirme de nuevo la contraseña.")
