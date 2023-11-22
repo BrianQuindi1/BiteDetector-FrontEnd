@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView } from "react-native";
 import { Camera, CameraType } from "expo-camera";
@@ -13,30 +14,33 @@ const URL = API.ApiHistorial + "Agregar";
 
 const Scanner = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null); 
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const cameraRef = useRef(null);
-  const [capturedImage, setCapturedImage] = useState(null);
+ // const [capturedImage, setCapturedImage] = useState(null);
   const [viewReady, setViewReady] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [respuestaBack, setRespuestaBack] = useState(null);
-  const [cameraKey, setCameraKey] = useState(0);
+ /*  const [cameraKey, setCameraKey] = useState(0);
 
   useEffect(() => {
     // Automatically change cameraKey when the component mounts
     setCameraKey((prevKey) => prevKey + 1);
   }, []);
-
-  useEffect(() => {
-    (async () => {
-      setViewReady(false);
-      MediaLibrary.requestPermissionsAsync();
-      const cameraStatus = await Camera.requestCameraPermissionsAsync();
-      setHasCameraPermission(cameraStatus.status === "granted");
-      setViewReady(true);
-    })();
-  }, [cameraKey]);
+ */
+  useFocusEffect(
+    React.useCallback(() => {
+      // Your camera initialization code here
+      (async () => {
+        setViewReady(false);
+        MediaLibrary.requestPermissionsAsync();
+        const cameraStatus = await Camera.requestCameraPermissionsAsync();
+        setHasCameraPermission(cameraStatus.status === "granted");
+        setViewReady(true);
+      })();
+    }, []) // The empty dependency array means this effect will only run once when the component mounts
+  );
 
   const takePicture = async () => {
     if (cameraRef) {
@@ -104,7 +108,7 @@ const Scanner = () => {
   return (
     <SafeAreaView style={styles.container}>
       {!image && viewReady ? (
-        <Camera key={cameraKey} style={styles.camera} type={type} flashMode={flash} ref={cameraRef}>
+        <Camera style={styles.camera} type={type} flashMode={flash} ref={cameraRef}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 30 }}>
             <Boton icon={"retweet"} onPress={() => setType(type === CameraType.back ? CameraType.front : CameraType.back)} />
             <Boton icon={"flash"} color={flash === Camera.Constants.FlashMode.off ? "gray" : "#f1f1f1"}
