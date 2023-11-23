@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";respuestaPicadura
 import { Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
