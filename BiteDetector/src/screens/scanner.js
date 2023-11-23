@@ -79,13 +79,13 @@ const Scanner = () => {
         const perfil = AsyncUtils.getObject("PERFIL_KEY");
 
         if (perfil != null) {
+          console.log("estoy enviando la picadura al back para que la guarde");
           const nuevoHist = {
             IdPicadura: picaduraRecibida.IdPicadura,
             IdUsuario: perfil.IdUsuario,
           };
 
           const response2 = await axios.post(URL, nuevoHist);
-
           console.log("Nuevo Historial:", response2.data);
         }
 
