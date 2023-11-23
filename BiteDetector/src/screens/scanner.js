@@ -11,6 +11,8 @@ import axios from "axios";
 import ModalScanner from "../components/ModalScanner";
 import AsyncUtils from "../AsyncUtils";
 import { HistorialContext } from "../services/HistorialContext";
+import UsuarioService from "../services/UsuarioServices";
+const usuarioService=new UsuarioService()
 const URL = API.ApiHistorial + "Agregar";
 
 const Scanner = () => {
@@ -76,7 +78,7 @@ const Scanner = () => {
             console.log(response.data);
             setRespuestaBack(picaduraRecibida);
           });
-        const perfil = AsyncUtils.getObject("PERFIL"); //cambia la key que manda para que sea igual a la que usa para guardar. Si no funciona cambiarlo a let perfil = UsuarioService.obtenerCredenciales();
+        const perfil = await usuarioService.obtenerCredenciales(); //cambia la key que manda para que sea igual a la que usa para guardar. Si no funciona cambiarlo a let perfil = UsuarioService.obtenerCredenciales();
 
         if (perfil != null) {
           console.log("estoy enviando la picadura al back para que la guarde");
@@ -84,7 +86,7 @@ const Scanner = () => {
             IdPicadura: picaduraRecibida.IdPicadura,
             IdUsuario: perfil.IdUsuario,
           };
-
+        console.log(perfil.IdUsuario);
           const response2 = await axios.post(URL, nuevoHist);
           console.log("Nuevo Historial:", response2.data);
         }

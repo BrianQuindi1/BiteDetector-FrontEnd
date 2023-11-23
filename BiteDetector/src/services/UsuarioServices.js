@@ -32,18 +32,15 @@ export default class UsuarioService {
   };
 
   almacenarCredenciales = async (perfil) => {
-    // Almacena las credenciales en el AsyncStorage
-    // (para leerlas al iniciar la próxima vez)
     try {
-      await this.setObject(PERFIL_KEY, perfil); // Use `this.setObject` instead of `AsyncStorage.setObject`
+      await this.setObject(PERFIL_KEY, perfil);
+      console.log("Perfil almacenado:", perfil);
     } catch (e) {
-      console.log(e);
+      console.error("Error al almacenar perfil:", e);
     }
   };
-
   obtenerCredenciales = async () => {
     let storedPerfil = await this.getObject(PERFIL_KEY);
-
     if (storedPerfil) {
       const returnValue = {
         Mail: storedPerfil.Mail,

@@ -115,17 +115,18 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   acomodarFoto: {
-    marginTop: 80,
-    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 160
   },
   acomodarInformacion: {
     marginTop: 260,
   },
-  logo: {
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    width: 129,
-    height: 129,
+  logo:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    width: 179,
+    height: 179,
   },
 });

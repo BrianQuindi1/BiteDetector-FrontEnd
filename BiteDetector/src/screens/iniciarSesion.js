@@ -34,7 +34,7 @@ export const IniciarSesion = () => {
       let url = API.ApiUsuario + "login";
       console.log(objeto);
       console.log(url);
-      const response = await axios.post(url, objeto)
+      const response = await axios.post(url, objeto);
 
 
 
@@ -44,6 +44,7 @@ export const IniciarSesion = () => {
           // Almacenar el objeto y el token en AsyncStorage
           await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
           await AsyncStorage.setItem('token', response.data.Token);
+          console.log("deberia guardar:", response.data);
           await usuarioService.almacenarCredenciales(response.data);
           navigation.navigate('Perfil');
         } else {

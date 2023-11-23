@@ -18,34 +18,35 @@ const ModalScanner = ( {respuestaBack} ) => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Nombre: {respuestaBack?.Nombre} </Text>
+            <Text style={styles.modalText}>Nombre: </Text>
+            <Text style={styles.modalText3}>{respuestaBack?.Nombre}</Text>
+
             <Text style={styles.modalText}>Probabilidades:</Text>
             <Text style={styles.modalText2}>{respuestaBack?.Probabilidad}</Text>
 
-            <Text style={styles.modalText2}>_________</Text>
+            <Text style={styles.modalText2}>__________________</Text>
 
             <Text style={styles.modalText}>Posibles Riesgos:</Text>
 {/*             <Text style={{ color: 'green', fontSize: 16  }}>Leves</Text> */}
             <Text style={styles.modalText2}>{respuestaBack?.SintomasLeves}</Text>
 
-            <Text style={styles.modalText2}>_________</Text>
+            <Text style={styles.modalText2}>__________________</Text>
 
-            <Text style={styles.modalText}>Recomendaciones: {respuestaBack?.Recomendaciones}</Text>
+            <Text style={styles.modalText}>Recomendaciones: </Text>
+            <Text style={styles.modalText2}>{respuestaBack?.Recomendaciones}</Text>
+
             <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Recomendaciones} */}</Text>
 
-            <Text style={styles.modalText2}>_________</Text>
+            <Text style={styles.modalText2}>__________________</Text>
 
-            <Text style={styles.modalText}>Estado: {respuestaBack?.Estado}</Text>
-            <Text style={styles.modalText2}>{/* {respuestaPicadura.picaduraRecibida.Estado} */}</Text>
+            <Text style={styles.modalText}>Estado: </Text>
+            <Text style={styles.modalText3}>{respuestaBack?.Estado}</Text>
 
             <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
               <Text style={styles.textStyle}>Cerrar</Text>
             </Pressable>
           </View>
-
         </View>
-
-
       </Modal>
     </View>
   );
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     width: 300,
-    height: 550,
+    height: 600,
     padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
@@ -95,7 +96,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText2: {
-    fontSize: 15,
+    fontSize: 11,
+    textAlign: 'center',
+  },
+  modalText3: {
+    fontSize: 13,
     textAlign: 'center',
   },
 });

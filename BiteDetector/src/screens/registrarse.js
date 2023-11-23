@@ -28,26 +28,31 @@ const Registrarse = () => {
   let usuarioService = new UsuarioService(); 
  
  const handleSubmit = async () => {
-      let Usuario;
+      let Usuario = {};
       if(contraseña === confirmarContraseña){
         Usuario = {
             Nombre: nombre,
             Mail: email,
             Password: contraseña
         }
-      let url = API.ApiUsuario + "CrearUsuario";
+      let url = API.ApiUsuario + "crearUsuario";
       console.log(url);
       const response = await axios.post( url, Usuario)
-      
+      console.log("response:", response.data)
       try {
-        await usuarioService.almacenarCredenciales(Usuario);
-        AsyncStorage.setObject("UsuarioIniciadoSesion", Usuario)
+        if(response.data)
+        {
+          await AsyncStorage.setItem('usuarioRegistrado', 'true');
+          await AsyncStorage.setItem('token', response.data.Token);
+          await usuarioService.almacenarCredenciales(response.data);
+          AsyncStorage.setObject("usuarioRegistrado", response.data)
+          navigation.navigate('Perfil');
+        }
+        
        // await usuarioService.almacenarCredenciales(Usuario);
         //usuarioService.almacenarCredenciales(Usuario.Mail, Usuario.Password, Usuario.Nombre)
-       // await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
-        await AsyncStorage.setItem('token', response.data.Token);
+       // await AsyncStorage.setItem('usuarioIniciadoSesion', 'true')
         //await usuarioService.almacenarCredenciales(Usuario);
-          navigation.navigate('Perfil');
       } catch (e) {
         console.log(e);
       }
