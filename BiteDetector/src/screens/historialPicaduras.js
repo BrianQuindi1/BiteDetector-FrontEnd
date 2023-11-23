@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import CardHistorialPicaduras from "../components/CardHistorialPicaduras";
 import API from "../API";
 import UsuarioService from "../services/UsuarioServices";
+import { HistorialContext } from "../services/HistorialContext";
 
 const HistorialPicaduras = () => {
   let usuarioService = new UsuarioService();
   const navigation = useNavigation();
   const [historial, setHistorial] = useState([]);
-
+  const { actualizarHistorial } = useContext(HistorialContext);
   let url = API.ApiHistorial;
   useEffect(() => {
     const fetchData = async () => {
@@ -28,23 +29,24 @@ const HistorialPicaduras = () => {
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
-    };
+    }
 
     fetchData();
     return () => {
       //
     };
-  }, []);
+  }, [actualizarHistorial]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.ScrollView}>
+
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
         {historial.map((hist) => (
-          <CardHistorialPicaduras picadura={hist} />
+          <CardHistorialPicaduras key={hist.id} picadura={hist} />
         ))}
         <CardHistorialPicaduras />
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 

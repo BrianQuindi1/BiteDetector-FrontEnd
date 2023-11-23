@@ -89,6 +89,7 @@ const Scanner = () => {
         console.log(perfil.IdUsuario);
           const response2 = await axios.post(URL, nuevoHist);
           console.log("Nuevo Historial:", response2.data);
+          setActualizarHistorial(actualizarHistorial+1);
         }
 
         saveImage(image);

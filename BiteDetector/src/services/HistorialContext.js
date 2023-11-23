@@ -12,4 +12,4 @@ export const HistorialContext = createContext();
   );
 };
 
-export {HistorialProvider };  
+export {HistorialProvider};  

@@ -54,29 +54,6 @@ export const IniciarSesion = () => {
       catch (e) {
         console.log(e);
       }
-      /*  try{
-       if (response.data.Token) {
-         // Almacenar el objeto y el token en AsyncStorage
-         let usuarioService = new UsuarioService();
-         let inicio = await usuarioService.almacenarCredenciales(response.data.Mail, response.data.Password, response.data.Nombre)
-         inicio = await AsyncStorage.setItem('usuarioIniciadoSesion', 'true');
-         await AsyncStorage.setItem('token', response.data.Token);
-        {/* let usuarioService = new UsuarioService();
-       usuarioService.almacenarCredenciales(email, contraseña); PREGUNTAR BIEN SI ESTO SIRVE O NO 
-         // Redirigir al perfil u otra pantalla
-         navigation.navigate('Perfil');
-       } else {
-         alert("El email o contraseña son inválidos");
-       }
-     }
-     catch (e) {
-       console.log(e);
-     } */
-
-
-
-
-
     }
   }
 

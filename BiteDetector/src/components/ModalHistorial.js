@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View, Image} from 'react-native';
-import FotoPicadura from "../../assets/picadura.jpg"
+import React, { useState } from 'react';
+import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from 'react-native';
 
-const ModalHistorial = (foto) => {
-  const [modalVisible, setModalVisible] = useState(true);
+const ModalHistorial = ({ foto, value, setShowModal }) => {
+  const [modalVisible, setModalVisible] = useState(value);
+
+  const closeModal = () => {
+    setShowModal(false);
+    setModalVisible(false);
+  };
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -12,14 +17,14 @@ const ModalHistorial = (foto) => {
         visible={modalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
+          closeModal();
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Image src={foto}/>
+          <Image source={{ uri: `data:image/jpeg;base64,${foto}` }} style={{ width: 200, height: 200 }} />
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={closeModal}>
               <Text style={styles.textStyle}>Cerrar</Text>
             </Pressable>
           </View>
@@ -58,9 +63,6 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
   },
-  /*buttonOpen: {
-    backgroundColor: '#F194FF',
-  },*/
   buttonClose: {
     backgroundColor: '#2196F3',
   },
