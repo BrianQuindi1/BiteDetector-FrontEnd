@@ -76,7 +76,7 @@ const Scanner = () => {
             console.log(response.data);
             setRespuestaBack(picaduraRecibida);
           });
-        const perfil = AsyncUtils.getObject("PERFIL_KEY");
+        const perfil = AsyncUtils.getObject("PERFIL"); //cambia la key que manda para que sea igual a la que usa para guardar. Si no funciona cambiarlo a let perfil = UsuarioService.obtenerCredenciales();
 
         if (perfil != null) {
           console.log("estoy enviando la picadura al back para que la guarde");
